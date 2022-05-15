@@ -117,7 +117,7 @@ export const mockGuitars = [{
   description: 'Вариант для настоящих профессионалов. Двенадцатиструнный инструмент оснащён карбоновыми струнами и корпусом из массива ели.',
   previewImg: 'img/content/catalog-product-1.jpg',
   stringCount: 7,
-  rating: 4,
+  rating: 1,
   price: 17500,
 },
 {
@@ -126,9 +126,9 @@ export const mockGuitars = [{
   vendorCode: 'SO757575',
   type: 'electric',
   description: 'Вариант для настоящих профессионалов. Двенадцатиструнный инструмент оснащён карбоновыми струнами и корпусом из массива ели.',
-  previewImg: 'img/content/catalog-product-1.jpg',
+  previewImg: 'img/content/catalog-product-3.jpg',
   stringCount: 7,
-  rating: 4,
+  rating: 3,
   price: 17500,
 },
 {
@@ -137,9 +137,9 @@ export const mockGuitars = [{
   vendorCode: 'SO757575',
   type: 'electric',
   description: 'Вариант для настоящих профессионалов. Двенадцатиструнный инструмент оснащён карбоновыми струнами и корпусом из массива ели.',
-  previewImg: 'img/content/catalog-product-1.jpg',
+  previewImg: 'img/content/catalog-product-2.jpg',
   stringCount: 7,
-  rating: 4,
+  rating: 5,
   price: 17500,
 },
 ];

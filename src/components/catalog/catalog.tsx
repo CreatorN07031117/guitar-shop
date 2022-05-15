@@ -5,16 +5,16 @@ import CatalogFilter from './components/catalog-filter/catalog-filter';
 import CatalogSort from './components/catalog-sort/catalog-sort';
 import GuitarCard from './components/guitar-card/gutar-card';
 import Pagination from './components/pagination/pagination';
-import { CARDS_PER_PAGE } from '../../const';
-import { AppRoute } from '../../const';
+import { useAppSelector } from '../../hooks/hooks';
+import { CARDS_PER_PAGE, AppRoute  } from '../../const';
 import { mockGuitars } from '../../mock/mock';
 
 
 function Catalog(): JSX.Element {
 
-  const guitars = mockGuitars.slice(0, CARDS_PER_PAGE);
+  const { guitars, currentPage } = useAppSelector(({CATALOG}) => CATALOG);
 
-  const cartList = [2, 5];
+  const guitarsOnPage = mockGuitars.slice(CARDS_PER_PAGE*(currentPage-1), CARDS_PER_PAGE*currentPage);
 
   return (
     <div className="wrapper">
@@ -35,7 +35,7 @@ function Catalog(): JSX.Element {
             <CatalogSort />
             <div className="cards catalog__cards">
               {
-                guitars.map((item) => <GuitarCard key={item.id} guitar={item} cartList={cartList} />)
+                guitarsOnPage.map((item) => <GuitarCard key={item.id} guitar={item} />)
               }
             </div>
             <Pagination />

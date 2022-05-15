@@ -1,17 +1,20 @@
 import { Link } from 'react-router-dom';
 import { Guitar } from '../../../../types/data-types';
 import { RATING_STARS } from '../../../../const';
+import { useAppSelector, useAppDispatch } from '../../../../hooks/hooks';
+import { setOrderList, getOrderList } from '../../../../store/cart-process/cart-process';
 
 type GuitarCardProps = {
   guitar: Guitar;
-  cartList: number[];
 }
 
-function GuitarCard ({guitar, cartList}:GuitarCardProps): JSX.Element {
+function GuitarCard ({guitar}:GuitarCardProps): JSX.Element {
+  const dispatch = useAppDispatch();
+  const { orderList } = useAppSelector(({CART}) => CART);
 
   const retinaPreviewImg = guitar.previewImg.slice(0, -4).concat('@2x.jpg 2x');
 
-  const inCart = cartList.includes(guitar.id);
+  const inCart = orderList.includes(guitar.id);
 
   const rating = [];
 
@@ -21,13 +24,21 @@ function GuitarCard ({guitar, cartList}:GuitarCardProps): JSX.Element {
       rating.push('#icon-star');}
   }
 
+
+
+  const handleClick = (item: number) => {
+    dispatch(setOrderList(item));
+    dispatch(getOrderList());
+  };
+
+
   return (
     <div className="product-card">
       <img src={guitar.previewImg} srcSet={retinaPreviewImg} width="75" height="190" alt={guitar.name} />
       <div className="product-card__info">
         <div className="rate product-card__rate">
-          {rating.map((item) => (
-            <svg key="item" width="12" height="11" aria-hidden="true">
+          {rating.map((item, index) => (
+            <svg key={item.concat(index.toString())} width="12" height="11" aria-hidden="true">
               <use xlinkHref={item}> </use>
             </svg> ))}
           <p className="visually-hidden">Рейтинг: {}</p>
@@ -41,7 +52,14 @@ function GuitarCard ({guitar, cartList}:GuitarCardProps): JSX.Element {
         <Link to={`/guitars/${guitar.id}`} className="button button--mini">Подробнее</Link>
         {inCart?
           <span className="button button--red-border button--mini button--in-cart" >В Корзине</span> :
-          <span className="button button--red button--mini button--add-to-cart">Купить</span>}
+          <span
+            className="button button--red button--mini button--add-to-cart"
+            onClick={(evt) => {
+              evt.preventDefault();
+              handleClick(guitar.id);
+            }}
+          >Купить
+          </span>}
       </div>
     </div>
   );
