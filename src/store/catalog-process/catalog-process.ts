@@ -25,10 +25,13 @@ export const catalogProcess = createSlice({
     getCurrantPage: (state, action) => {
       state.currentPage = action.payload;
     },
-    getPages: (state, action) =>{
+    setPages: (state, action) => {
       state.pages = action.payload;
+    },
+    getPages: (state) => {
+      ({pages: state.pages} = state);
     },
   },
 });
 
-export const { getGuitars, loadGuitars, getCurrantPage, getPages } = catalogProcess.actions;
+export const { getGuitars, loadGuitars, getCurrantPage, getPages, setPages } = catalogProcess.actions;

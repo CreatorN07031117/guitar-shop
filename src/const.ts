@@ -32,3 +32,9 @@ export const enum HTTPCode {
   Unauthorized = 401,
   NotFound= 404,
 }
+
+export const enum GuitarType {
+  Ukulele = 'Укулеле',
+  Electric = 'Электрогитара',
+  Acoustic = 'Акустическая',
+}

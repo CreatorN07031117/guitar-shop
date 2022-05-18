@@ -5,8 +5,10 @@ import { Provider } from 'react-redux';
 import { store } from './store/store';
 import HistoryRouter from './components/history-router';
 import browserHistory from './services/browser-history';
+import { fetchGuitarsActions } from './store/api-actions';
 import App from './components/app/app';
 
+store.dispatch(fetchGuitarsActions());
 
 ReactDOM.render(
   <React.StrictMode>

@@ -1,21 +1,22 @@
 import { Link } from 'react-router-dom';
-import { Guitar } from '../../../../types/data-types';
-import { RATING_STARS } from '../../../../const';
 import { useAppSelector, useAppDispatch } from '../../../../hooks/hooks';
 import { setOrderList, getOrderList } from '../../../../store/cart-process/cart-process';
+import { getRetinaImg } from '../../../../utils';
+import { RATING_STARS } from '../../../../const';
+import { Guitar } from '../../../../types/data-types';
+
 
 type GuitarCardProps = {
   guitar: Guitar;
+  onGuitarId: (id: number | null) => void;
 }
 
-function GuitarCard ({guitar}:GuitarCardProps): JSX.Element {
+function GuitarCard ({guitar, onGuitarId}:GuitarCardProps): JSX.Element {
   const dispatch = useAppDispatch();
   const { orderList } = useAppSelector(({CART}) => CART);
 
-  const retinaPreviewImg = guitar.previewImg.slice(0, -4).concat('@2x.jpg 2x');
-
+  const retinaPreviewImg = getRetinaImg(guitar.previewImg);
   const inCart = orderList.includes(guitar.id);
-
   const rating = [];
 
   for(let i = 0; i < RATING_STARS; i=i+1){
@@ -24,13 +25,10 @@ function GuitarCard ({guitar}:GuitarCardProps): JSX.Element {
       rating.push('#icon-star');}
   }
 
-
-
-  const handleClick = (item: number) => {
+  const handleClick = (item) => {
     dispatch(setOrderList(item));
     dispatch(getOrderList());
   };
-
 
   return (
     <div className="product-card">
@@ -54,9 +52,8 @@ function GuitarCard ({guitar}:GuitarCardProps): JSX.Element {
           <span className="button button--red-border button--mini button--in-cart" >В Корзине</span> :
           <span
             className="button button--red button--mini button--add-to-cart"
-            onClick={(evt) => {
-              evt.preventDefault();
-              handleClick(guitar.id);
+            onClick={() => {
+              onGuitarId(guitar.id);
             }}
           >Купить
           </span>}
