@@ -1,9 +1,15 @@
 import { Link } from 'react-router-dom';
+import { AppRoute } from '../../const';
+import { useAppSelector } from '../../hooks/hooks';
 
 function Header(): JSX.Element {
+
+  const { orderList } = useAppSelector(({CART}) => CART);
+
   return (
     <header className="header" id="header">
-      <div className="container header__wrapper"><a className="header__logo logo"><img className="logo__img" width="70" height="70" src="./img/svg/logo.svg" alt="Логотип" /></a>
+      <div className="container header__wrapper">
+        <Link to={AppRoute.Index} className="header__logo logo"><img className="logo__img" width="70" height="70" src="/img/svg/logo.svg" alt="Логотип" /></Link>
         <nav className="main-nav">
           <ul className="main-nav__list">
             <li>
@@ -44,7 +50,8 @@ function Header(): JSX.Element {
         <Link className="header__cart-link" to="#" aria-label="Корзина">
           <svg className="header__cart-icon" width="14" height="14" aria-hidden="true">
             <use xlinkHref="#icon-basket"></use>
-          </svg><span className="visually-hidden">Перейти в корзину</span><span className="header__cart-count">2</span>
+          </svg><span className="visually-hidden">Перейти в корзину</span>
+          {orderList.length>0 && <span className="header__cart-count">{orderList.length}</span>}
         </Link>
       </div>
     </header>

@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, Navigate } from 'react-router-dom';
 import Catalog from '../catalog/catalog';
 import GuitarPage from '../guitar-page/gutar-page';
 import { AppRoute } from '../../const';
@@ -10,8 +10,10 @@ function App(): JSX.Element {
       <Route path={AppRoute.Index}>
         <Route index element={<Catalog />} />
         <Route path='/:id' element={<Catalog />} />
+        <Route path='/1' element={<Navigate to={AppRoute.Index} />} />
+        <Route path={AppRoute.Catalog} element={<Navigate to={AppRoute.Index} />} />
+        <Route path={AppRoute.Guitar} element={<GuitarPage />} />
       </Route>
-      <Route path={AppRoute.Guitar} element={<GuitarPage />} />
     </Routes>
   );
 }

@@ -1,10 +1,15 @@
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { getCurrantPage } from '../../../../store/catalog-process/catalog-process';
 import { useAppSelector, useAppDispatch } from '../../../../hooks/hooks';
 
-
 function Pagination(): JSX.Element {
   const dispatch = useAppDispatch();
+  const params = useParams();
+
+  if(params.id){
+    dispatch(getCurrantPage(Number(params.id)));
+  }
+
   const { pages, currentPage } = useAppSelector(({CATALOG}) => CATALOG);
 
   const pageNumbers = [];
@@ -20,6 +25,10 @@ function Pagination(): JSX.Element {
   return (
     <div className="pagination page-content__pagination">
       <ul className="pagination__list">
+        {currentPage > 1 &&
+        <li className="pagination__page pagination__page--prev" id="prev">
+          <Link to={`/${currentPage -1}`} className="link pagination__page-link">Назад</Link>
+        </li>}
         {pageNumbers.map((item) => (
           <li className={`pagination__page ${item === currentPage && 'pagination__page--active'}`} key={item}
             onClick = {(evt) => {

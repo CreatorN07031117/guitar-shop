@@ -16,8 +16,6 @@ export const errorHandle = (error: ErrorType): void => {
       case HTTPCode.BadRequest:
         toast.info(response.data.error);
         break;
-      case HTTPCode.Unauthorized:
-        throw error;
       case HTTPCode.NotFound:
         toast.info(response.data.error);
         break;

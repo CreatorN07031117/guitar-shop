@@ -1,8 +1,6 @@
 import { Link } from 'react-router-dom';
-import { useAppSelector, useAppDispatch } from '../../../../hooks/hooks';
-import { setOrderList, getOrderList } from '../../../../store/cart-process/cart-process';
-import { getRetinaImg } from '../../../../utils';
-import { RATING_STARS } from '../../../../const';
+import { useAppSelector } from '../../../../hooks/hooks';
+import { getRetinaImg, getRatingStars } from '../../../../utils';
 import { Guitar } from '../../../../types/data-types';
 
 
@@ -12,23 +10,13 @@ type GuitarCardProps = {
 }
 
 function GuitarCard ({guitar, onGuitarId}:GuitarCardProps): JSX.Element {
-  const dispatch = useAppDispatch();
+
   const { orderList } = useAppSelector(({CART}) => CART);
 
   const retinaPreviewImg = getRetinaImg(guitar.previewImg);
   const inCart = orderList.includes(guitar.id);
-  const rating = [];
 
-  for(let i = 0; i < RATING_STARS; i=i+1){
-    if(i < guitar.rating){
-      rating.push('#icon-full-star');} else {
-      rating.push('#icon-star');}
-  }
-
-  const handleClick = (item) => {
-    dispatch(setOrderList(item));
-    dispatch(getOrderList());
-  };
+  const rating = getRatingStars(guitar.rating);
 
   return (
     <div className="product-card">
@@ -40,10 +28,10 @@ function GuitarCard ({guitar, onGuitarId}:GuitarCardProps): JSX.Element {
               <use xlinkHref={item}> </use>
             </svg> ))}
           <p className="visually-hidden">Рейтинг: {}</p>
-          <p className="rate__count"><span className="visually-hidden">Всего оценок:</span>{guitar.stringCount}</p>
+          <p className="rate__count"><span className="visually-hidden">Всего оценок:</span>{guitar.comments?.length}</p>
         </div>
         <p className="product-card__title">{guitar.name}</p>
-        <p className="product-card__price"><span className="visually-hidden">Цена:</span>{guitar.price}
+        <p className="product-card__price"><span className="visually-hidden">Цена:</span>{guitar.price.toLocaleString()} ₽
         </p>
       </div>
       <div className="product-card__buttons">

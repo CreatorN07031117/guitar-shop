@@ -2,7 +2,7 @@ export const CARDS_PER_PAGE = 9;
 
 export const enum AppRoute {
   Index = '/',
-  Catalog = '/contacts',
+  Catalog = '/catalog',
   Guitar = '/guitars/:id',
   NotFound = '*'
 }
@@ -29,7 +29,6 @@ export const enum APIRoute {
 
 export const enum HTTPCode {
   BadRequest = 400,
-  Unauthorized = 401,
   NotFound= 404,
 }
 
@@ -38,3 +37,5 @@ export const enum GuitarType {
   Electric = 'Электрогитара',
   Acoustic = 'Акустическая',
 }
+
+export const COMMENTS_ON_PAGE = 3;

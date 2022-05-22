@@ -8,6 +8,7 @@ export type Guitar = {
     stringCount: number;
     rating: number;
     price: number;
+    comments?: Comments
 }
 
 export type Guitars = Guitar []
@@ -19,8 +20,17 @@ export type Comment = {
     disadvantage: string;
     comment: string;
     rating: number;
-    createAt: string;
+    createAt: string | Date;
     guitarId: number;
 }
 
 export type Comments = Comment []
+
+export type NewComment = {
+    guitarId: number,
+    userName: string,
+    advantage: string,
+    disadvantage: string,
+    comment: string,
+    rating: number,
+}
