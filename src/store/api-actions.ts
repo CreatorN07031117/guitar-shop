@@ -21,7 +21,7 @@ createAsyncThunk <void, undefined, {
       const {data} = await api.get<Guitars>(`${APIRoute.Guitars}?_embed=comments`);
       dispatch(loadGuitars(data));
     } catch (error) {
-      errorHandle(error);
+      dispatch(redirectToRoute('*'));
     }
   },
 );
@@ -38,7 +38,7 @@ createAsyncThunk <void, string, {
       const {data} = await api.get<Guitar>(`${APIRoute.Guitar}${id}`);
       dispatch(loadGuitar(data));
     } catch (error) {
-      errorHandle(error);
+      dispatch(redirectToRoute('/*'));
     }
   },
 );
