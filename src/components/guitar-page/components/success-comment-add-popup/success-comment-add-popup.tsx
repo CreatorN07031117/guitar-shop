@@ -5,6 +5,10 @@ type SuccessCommentAddPopupProps = {
 }
 
 function SuccessCommentAddPopup ({onSuccessComment}: SuccessCommentAddPopupProps): JSX.Element {
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    return () => {document.body.style.overflow = 'unset';};
+  }, []);
 
   const clickOnEsc = useCallback((evt) => {
     if(evt.keyCode === 27){

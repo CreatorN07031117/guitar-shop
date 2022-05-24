@@ -28,9 +28,13 @@ function GuitarPage (): JSX.Element {
     store.dispatch(fetchCommentsActions(params.id as string));
   });
 
-  const { guitar, isDataLoaded } = useAppSelector(({PRODUCT}) => PRODUCT);
+  const { guitar } = useAppSelector(({PRODUCT}) => PRODUCT);
   const rating = getRatingStars(guitar.rating);
 
+  let retinaImg;
+  if(guitar.previewImg){
+    retinaImg = getRetinaImg(guitar.previewImg);
+  }
 
   const getGuitarType = (type:string) => {
     if(type === 'electric'){
@@ -62,7 +66,7 @@ function GuitarPage (): JSX.Element {
             </li>
           </ul>
           <div className="product-container">
-            <img className="product-container__img" src={`../${guitar.previewImg}`} srcSet={`../${guitar.previewImg}`} width="90" height="235" alt="" />
+            <img className="product-container__img" src={`../${guitar.previewImg}`} srcSet={`../${retinaImg}`} width="90" height="235" alt="" />
             <div className="product-container__info-wrapper">
               <h2 className="product-container__title title title--big title--uppercase">{guitar.name}</h2>
               <div className="rate product-container__rating">
@@ -75,14 +79,14 @@ function GuitarPage (): JSX.Element {
               <div className="tabs">
                 <span className={`button button--medium tabs__button ${activeTab==='description' && 'button--black-border'}`}
                   onClick={() => {
-                    setActiveTab('description');
+                    setActiveTab((prevActiveTab) => (prevActiveTab = 'characteristics'));
                   }}
                 >
                     Характеристики
                 </span>
                 <span className={`button button--medium tabs__button ${activeTab==='characteristics' && 'button--black-border'}`}
                   onClick={() => {
-                    setActiveTab('characteristics');
+                    setActiveTab((prevActiveTab) => (prevActiveTab = 'description'));
                   }}
                 >
                   Описание

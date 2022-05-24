@@ -44,6 +44,11 @@ function NewCommentPopup ({id, onNewComment, onSuccessComment}:NewCommentPopupPr
     dispatch(AddCommentAction(newCommentItem));
   };
 
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    return () => {document.body.style.overflow = 'unset';};
+  }, []);
+
   const clickOnEsc = useCallback((evt) => {
     if(evt.keyCode === 27){
       onNewComment(false); }

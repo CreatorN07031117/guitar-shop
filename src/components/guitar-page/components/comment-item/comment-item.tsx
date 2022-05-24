@@ -1,3 +1,5 @@
+import dayjs from 'dayjs';
+import 'dayjs/locale/ru';
 import { Comment } from '../../../../types/data-types';
 import { getRatingStars } from '../../../../utils';
 
@@ -6,13 +8,14 @@ type CommentItemProps = {
 }
 
 function CommentItem ( {comment}: CommentItemProps): JSX.Element {
-
+  dayjs.locale('ru');
   const rating = getRatingStars(comment.rating);
+  const date = dayjs(comment.createAt).format('D MMMM YYYY');
 
   return (
     <div className="review">
       <div className="review__wrapper">
-        <h4 className="review__title review__title--author title title--lesser">{comment.userName}</h4><span className="review__date">{comment.createAt}</span>
+        <h4 className="review__title review__title--author title title--lesser">{comment.userName}</h4><span className="review__date">{date}</span>
       </div>
       <div className="rate review__rating-panel">
         {rating.map((item, index) => (

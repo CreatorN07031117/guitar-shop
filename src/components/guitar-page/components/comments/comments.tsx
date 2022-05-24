@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useAppSelector } from '../../../../hooks/hooks';
 import { COMMENTS_ON_PAGE } from '../../../../const';
-import { Comments } from '../../../../types/data-types';
 import CommentItem from '../comment-item/comment-item';
 import NewCommentPopup from '../new-comment-popup/new-comment-popup';
 import SuccessCommentAddPopup from '../success-comment-add-popup/success-comment-add-popup';
@@ -9,6 +8,7 @@ import SuccessCommentAddPopup from '../success-comment-add-popup/success-comment
 function CommentsList (): JSX.Element {
 
   const { comments, guitar } = useAppSelector(({PRODUCT}) => PRODUCT);
+
   const [showComments, setShowComments] = useState ({
     list: comments.slice(0, COMMENTS_ON_PAGE),
     counter: COMMENTS_ON_PAGE,
@@ -16,7 +16,6 @@ function CommentsList (): JSX.Element {
   const allComments = comments.length;
   const [newComment, setNewComment] = useState <boolean> (false);
   const [successAddComment, setSuccessAddComment] = useState <boolean> (false);
-
 
   return (
     <>
@@ -37,6 +36,7 @@ function CommentsList (): JSX.Element {
           className="button button--medium reviews__more-button"
           onClick={(evt) => {
             evt.preventDefault();
+
             setShowComments({
               list: comments.slice(0, showComments.counter+ COMMENTS_ON_PAGE),
               counter: showComments.counter +  COMMENTS_ON_PAGE,
@@ -50,7 +50,8 @@ function CommentsList (): JSX.Element {
       {newComment && <NewCommentPopup
         id={guitar.id as number}
         onNewComment={(value:boolean) => setNewComment(value)}
-        onSuccessComment={(value:boolean) => setSuccessAddComment(value)} />}
+        onSuccessComment={(value:boolean) => setSuccessAddComment(value)}
+       />}
       {successAddComment && <SuccessCommentAddPopup onSuccessComment={(value:boolean) => setSuccessAddComment(value)}/>}
     </>
   );

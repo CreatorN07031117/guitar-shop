@@ -35,7 +35,9 @@ function CartAddPopup ({guitar, onGuitarId, onAddSuccess}:CartAddPopupProps) : J
   const clickOnEsc = useCallback((evt) => {
     if(evt.keyCode === 27){
       onGuitarId(null); }
-  },[]);
+  },[onGuitarId]);
+
+
 
   useEffect(() => {
     document.addEventListener('keydown', clickOnEsc);
@@ -45,7 +47,7 @@ function CartAddPopup ({guitar, onGuitarId, onAddSuccess}:CartAddPopupProps) : J
     if(evt.target.className === 'modal__overlay'){
       onGuitarId(null);
     }
-  },[]);
+  },[onGuitarId]);
 
   useEffect(() => {
     document.addEventListener('click', clickOnOverlay);
