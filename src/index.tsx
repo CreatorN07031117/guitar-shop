@@ -7,13 +7,15 @@ import HistoryRouter from './components/history-router';
 import browserHistory from './services/browser-history';
 import { fetchGuitarsActions } from './store/api-actions';
 import App from './components/app/app';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 store.dispatch(fetchGuitarsActions());
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store = {store}>
-      <ToastContainer />
+      <ToastContainer theme={'dark'} />
       <HistoryRouter history={browserHistory}>
         <App />
       </HistoryRouter>

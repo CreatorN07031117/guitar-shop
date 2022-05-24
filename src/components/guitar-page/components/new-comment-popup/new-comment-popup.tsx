@@ -1,4 +1,4 @@
-import { useState, ChangeEvent, useRef } from 'react';
+import { useState, ChangeEvent, useRef, useCallback, useEffect } from 'react';
 import { useAppDispatch } from '../../../../hooks/hooks';
 import { AddCommentAction } from '../../../../store/api-actions';
 import { NewComment } from '../../../../types/data-types';
@@ -43,6 +43,25 @@ function NewCommentPopup ({id, onNewComment, onSuccessComment}:NewCommentPopupPr
   const handleSubmitComment = (newCommentItem: NewComment) => {
     dispatch(AddCommentAction(newCommentItem));
   };
+
+  const clickOnEsc = useCallback((evt) => {
+    if(evt.keyCode === 27){
+      onNewComment(false); }
+  },[]);
+
+  useEffect(() => {
+    document.addEventListener('keydown', clickOnEsc);
+  }, [clickOnEsc]);
+
+  const clickOnOverlay = useCallback((evt) => {
+    if(evt.target.className === 'modal__overlay'){
+      onNewComment(false);
+    }
+  },[]);
+
+  useEffect(() => {
+    document.addEventListener('click', clickOnOverlay);
+  }, [clickOnOverlay]);
 
   return (
     <div style={{position: 'relative', width: '550px', height: '610px', marginBottom: '50px'}}>
@@ -101,7 +120,7 @@ function NewCommentPopup ({id, onNewComment, onSuccessComment}:NewCommentPopupPr
               <label className="form-review__label form-review__label--required" htmlFor="adv">Достоинства</label>
               <input
                 className="form-review__input"
-                id="adv"
+
                 type="text"
                 autoComplete="off"
                 name="advantage"

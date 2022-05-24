@@ -1,3 +1,4 @@
+import { useCallback, useEffect } from 'react';
 import { getRetinaImg } from '../../utils';
 import { useAppDispatch } from '../../hooks/hooks';
 import { setOrderList, getOrderList } from '../../store/cart-process/cart-process';
@@ -30,6 +31,25 @@ function CartAddPopup ({guitar, onGuitarId, onAddSuccess}:CartAddPopupProps) : J
     dispatch(setOrderList(item));
     dispatch(getOrderList());
   };
+
+  const clickOnEsc = useCallback((evt) => {
+    if(evt.keyCode === 27){
+      onGuitarId(null); }
+  },[]);
+
+  useEffect(() => {
+    document.addEventListener('keydown', clickOnEsc);
+  }, [clickOnEsc]);
+
+  const clickOnOverlay = useCallback((evt) => {
+    if(evt.target.className === 'modal__overlay'){
+      onGuitarId(null);
+    }
+  },[]);
+
+  useEffect(() => {
+    document.addEventListener('click', clickOnOverlay);
+  }, [clickOnOverlay]);
 
   return (
     <div style={{position: 'relative', width: '550px', height: '440px', marginBottom: '50px'}}>

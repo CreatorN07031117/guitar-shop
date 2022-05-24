@@ -1,8 +1,30 @@
+import {useCallback, useEffect} from 'react';
+
 type CartAddSuccessProps = {
   onAddSuccess: (value: boolean) => void;
 }
 
 function CartAddSuccess ({onAddSuccess}:CartAddSuccessProps): JSX.Element {
+
+  const clickOnEsc = useCallback((evt) => {
+    if(evt.keyCode === 27){
+      onAddSuccess(false); }
+  },[]);
+
+  useEffect(() => {
+    document.addEventListener('keydown', clickOnEsc);
+  }, [clickOnEsc]);
+
+  const clickOnOverlay = useCallback((evt) => {
+    if(evt.target.className === 'modal__overlay'){
+      onAddSuccess(false);
+    }
+  },[]);
+
+  useEffect(() => {
+    document.addEventListener('click', clickOnOverlay);
+  }, [clickOnOverlay]);
+
   return (
     <div style={{position: 'relative', width: '550px', height: '410px', marginBottom: '50px'}}>
       <div className="modal is-active modal--success modal-for-ui-kit">

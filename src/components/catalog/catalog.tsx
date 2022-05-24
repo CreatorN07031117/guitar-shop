@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Header from '../header/header';
 import Footer from '../footer/footer';
 import CatalogFilter from './components/catalog-filter/catalog-filter';
@@ -8,7 +8,7 @@ import GuitarCard from './components/guitar-card/gutar-card';
 import Pagination from './components/pagination/pagination';
 import CartAddPopup from '../cart-add-popup/cart-add-popup';
 import CartAddSuccess from '../cart-add-success/cart-add-success';
-import { getPages, setPages, getCurrantPage } from '../../store/catalog-process/catalog-process';
+import { getPages, setPages } from '../../store/catalog-process/catalog-process';
 import { useAppSelector, useAppDispatch } from '../../hooks/hooks';
 import { CARDS_PER_PAGE, AppRoute  } from '../../const';
 

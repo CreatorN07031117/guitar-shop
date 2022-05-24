@@ -1,4 +1,30 @@
-function SuccessCommentAddPopup (): JSX.Element {
+import { useCallback, useEffect } from 'react';
+
+type SuccessCommentAddPopupProps = {
+  onSuccessComment: (value: boolean) => void;
+}
+
+function SuccessCommentAddPopup ({onSuccessComment}: SuccessCommentAddPopupProps): JSX.Element {
+
+  const clickOnEsc = useCallback((evt) => {
+    if(evt.keyCode === 27){
+      onSuccessComment(false); }
+  },[]);
+
+  useEffect(() => {
+    document.addEventListener('keydown', clickOnEsc);
+  }, [clickOnEsc]);
+
+  const clickOnOverlay = useCallback((evt) => {
+    if(evt.target.className === 'modal__overlay'){
+      onSuccessComment(false);
+    }
+  },[]);
+
+  useEffect(() => {
+    document.addEventListener('click', clickOnOverlay);
+  }, [clickOnOverlay]);
+
   return (
     <div style={{position: 'relative', width: '550px', height: '410px', marginBottom: '50px'}}>
       <div className="modal is-active modal--success modal-for-ui-kit">
@@ -12,7 +38,14 @@ function SuccessCommentAddPopup (): JSX.Element {
             <div className="modal__button-container modal__button-container--review">
               <button className="button button--small modal__button modal__button--review">К покупкам!</button>
             </div>
-            <button className="modal__close-btn button-cross" type="button" aria-label="Закрыть">
+            <button
+              className="modal__close-btn button-cross"
+              type="button"
+              aria-label="Закрыть"
+              onClick={()=>{
+                onSuccessComment(false);
+              }}
+            >
               <span className="button-cross__icon">
               </span><span className="modal__close-btn-interactive-area"></span>
             </button>

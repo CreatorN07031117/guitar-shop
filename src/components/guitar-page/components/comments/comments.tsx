@@ -45,13 +45,13 @@ function CommentsList (): JSX.Element {
         >
         Показать еще отзывы
         </button>}
-          <a className="button button--up button--red-border button--big reviews__up-button" href="#header">Наверх</a>
+        <a className="button button--up button--red-border button--big reviews__up-button" href="#header">Наверх</a>
       </section>
       {newComment && <NewCommentPopup
         id={guitar.id as number}
         onNewComment={(value:boolean) => setNewComment(value)}
         onSuccessComment={(value:boolean) => setSuccessAddComment(value)} />}
-      {successAddComment && <SuccessCommentAddPopup />}
+      {successAddComment && <SuccessCommentAddPopup onSuccessComment={(value:boolean) => setSuccessAddComment(value)}/>}
     </>
   );
 }
