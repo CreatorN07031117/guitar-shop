@@ -1,21 +1,30 @@
-import { useState } from 'react';
-import { useAppSelector } from '../../../../hooks/hooks';
-import { COMMENTS_ON_PAGE } from '../../../../const';
+import {useState} from 'react';
+import {useAppSelector} from '../../../../hooks/hooks';
+import {COMMENTS_ON_PAGE} from '../../../../const';
 import CommentItem from '../comment-item/comment-item';
 import NewCommentPopup from '../new-comment-popup/new-comment-popup';
 import SuccessCommentAddPopup from '../success-comment-add-popup/success-comment-add-popup';
 
-function CommentsList (): JSX.Element {
 
-  const { comments, guitar } = useAppSelector(({PRODUCT}) => PRODUCT);
+function CommentsList (): JSX.Element {
+  const {guitar} = useAppSelector(({PRODUCT}) => PRODUCT);
+  let {comments} = useAppSelector(({PRODUCT}) => PRODUCT);
+
+  comments = comments.slice().sort((a, b) => {
+    const A = Number(new Date(a.createAt));
+    const B = Number(new Date(b.createAt));
+    return (B - A);
+  });
 
   const [showComments, setShowComments] = useState ({
     list: comments.slice(0, COMMENTS_ON_PAGE),
     counter: COMMENTS_ON_PAGE,
   });
   const allComments = comments.length;
+
   const [newComment, setNewComment] = useState <boolean> (false);
   const [successAddComment, setSuccessAddComment] = useState <boolean> (false);
+
 
   return (
     <>
@@ -32,7 +41,8 @@ function CommentsList (): JSX.Element {
         {showComments.list.map((item) =>(
           <CommentItem key={item.id} comment={item} />
         ))}
-        {showComments.counter < allComments && <button
+        {showComments.counter < allComments &&
+        <button
           className="button button--medium reviews__more-button"
           onClick={(evt) => {
             evt.preventDefault();
@@ -45,13 +55,14 @@ function CommentsList (): JSX.Element {
         >
         Показать еще отзывы
         </button>}
-        <a className="button button--up button--red-border button--big reviews__up-button" href="#header">Наверх</a>
+        {(comments.length > 0) && (<a style={{zIndex: '1'}} className="button button--up button--red-border button--big reviews__up-button" href="#header">Наверх</a>)}
       </section>
-      {newComment && <NewCommentPopup
+      {newComment &&
+      <NewCommentPopup
         id={guitar.id as number}
         onNewComment={(value:boolean) => setNewComment(value)}
         onSuccessComment={(value:boolean) => setSuccessAddComment(value)}
-       />}
+      />}
       {successAddComment && <SuccessCommentAddPopup onSuccessComment={(value:boolean) => setSuccessAddComment(value)}/>}
     </>
   );

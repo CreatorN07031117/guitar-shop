@@ -1,6 +1,6 @@
-import { Link, useParams } from 'react-router-dom';
-import { getCurrantPage } from '../../../../store/catalog-process/catalog-process';
-import { useAppSelector, useAppDispatch } from '../../../../hooks/hooks';
+import {Link, useParams} from 'react-router-dom';
+import {getCurrantPage} from '../../../../store/catalog-process/catalog-process';
+import {useAppSelector, useAppDispatch} from '../../../../hooks/hooks';
 
 function Pagination(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -10,7 +10,7 @@ function Pagination(): JSX.Element {
     dispatch(getCurrantPage(Number(params.id)));
   }
 
-  const { pages, currentPage } = useAppSelector(({CATALOG}) => CATALOG);
+  const {pages, currentPage} = useAppSelector(({CATALOG}) => CATALOG);
 
   const pageNumbers = [];
 

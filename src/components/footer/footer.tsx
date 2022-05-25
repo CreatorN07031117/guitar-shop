@@ -1,29 +1,36 @@
+import {Link} from 'react-router-dom';
+import {AppRoute} from '../../const';
+
+
 function Footer(): JSX.Element {
   return (
     <footer className="footer">
-      <div className="footer__container container"><a className="footer__logo logo"><img className="logo__img" width="70" height="70" src="./img/svg/logo.svg" alt="Логотип" /></a>
+      <div className="footer__container container">
+        <Link to={AppRoute.Index} className="footer__logo logo">
+          <img className="logo__img" width="70" height="70" src="/img/svg/logo.svg" alt="Логотип" />
+        </Link>
         <div className="socials footer__socials">
           <ul className="socials__list">
             <li className="socials-item">
-              <a className="socials__link" href="https://www.skype.com/" aria-label="skype">
+              <Link className="socials__link" to="https://www.skype.com/" aria-label="skype">
                 <svg className="socials__icon" width="24" height="24" aria-hidden="true">
                   <use xlinkHref="#icon-skype"></use>
                 </svg>
-              </a>
+              </Link>
             </li>
             <li className="socials-item">
-              <a className="socials__link" href="https://www.vsco.com/" aria-label="vsco">
+              <Link className="socials__link" to="https://www.vsco.com/" aria-label="vsco">
                 <svg className="socials__icon" width="24" height="24" aria-hidden="true">
                   <use xlinkHref="#icon-vsco"></use>
                 </svg>
-              </a>
+              </Link>
             </li>
             <li className="socials-item">
-              <a className="socials__link" href="https://www.pinterest.com/" aria-label="pinterest">
+              <Link className="socials__link" to="https://www.pinterest.com/" aria-label="pinterest">
                 <svg className="socials__icon" width="24" height="24" aria-hidden="true">
                   <use xlinkHref="#icon-pinterest"></use>
                 </svg>
-              </a>
+              </Link>
             </li>
           </ul>
         </div>
@@ -35,19 +42,19 @@ function Footer(): JSX.Element {
           <h2 className="footer__nav-title">Информация</h2>
           <ul className="footer__nav-list">
             <li className="footer__nav-list-item">
-              <a className="link" href="#top">Где купить?</a>
+              <Link className="link" to="#">Где купить?</Link>
             </li>
             <li className="footer__nav-list-item">
-              <a className="link" href="#top">Блог</a>
+              <Link className="link" to="#">Блог</Link>
             </li>
             <li className="footer__nav-list-item">
-              <a className="link" href="#top">Вопрос - ответ</a>
+              <Link className="link" to="#">Вопрос - ответ</Link>
             </li>
             <li className="footer__nav-list-item">
-              <a className="link" href="#top">Возврат</a>
+              <Link className="link" to="#">Возврат</Link>
             </li>
             <li className="footer__nav-list-item">
-              <a className="link" href="#top">Сервис-центры</a>
+              <Link className="link" to="#">Сервис-центры</Link>
             </li>
           </ul>
         </section>

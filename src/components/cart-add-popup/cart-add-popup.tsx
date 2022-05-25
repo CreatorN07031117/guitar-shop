@@ -5,6 +5,7 @@ import { setOrderList, getOrderList } from '../../store/cart-process/cart-proces
 import { GuitarType } from '../../const';
 import { Guitar } from '../../types/data-types';
 
+
 type CartAddPopupProps = {
   guitar: Guitar;
   onGuitarId: (id: number | null) => void;
@@ -36,8 +37,6 @@ function CartAddPopup ({guitar, onGuitarId, onAddSuccess}:CartAddPopupProps) : J
     if(evt.keyCode === 27){
       onGuitarId(null); }
   },[onGuitarId]);
-
-
 
   useEffect(() => {
     document.addEventListener('keydown', clickOnEsc);

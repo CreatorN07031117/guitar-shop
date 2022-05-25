@@ -1,7 +1,7 @@
-import { Link } from 'react-router-dom';
-import { useAppSelector } from '../../../../hooks/hooks';
-import { getRetinaImg, getRatingStars } from '../../../../utils';
-import { Guitar } from '../../../../types/data-types';
+import {Link} from 'react-router-dom';
+import {useAppSelector} from '../../../../hooks/hooks';
+import {getRetinaImg, getRatingStars} from '../../../../utils';
+import {Guitar} from '../../../../types/data-types';
 
 
 type GuitarCardProps = {
@@ -11,7 +11,7 @@ type GuitarCardProps = {
 
 function GuitarCard ({guitar, onGuitarId}:GuitarCardProps): JSX.Element {
 
-  const { orderList } = useAppSelector(({CART}) => CART);
+  const {orderList} = useAppSelector(({CART}) => CART);
 
   const retinaPreviewImg = getRetinaImg(guitar.previewImg);
   const inCart = orderList.includes(guitar.id);

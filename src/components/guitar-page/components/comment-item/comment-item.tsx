@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import 'dayjs/locale/ru';
-import { Comment } from '../../../../types/data-types';
-import { getRatingStars } from '../../../../utils';
+import {Comment} from '../../../../types/data-types';
+import {getRatingStars} from '../../../../utils';
 
 type CommentItemProps = {
   comment: Comment

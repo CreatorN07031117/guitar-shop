@@ -1,10 +1,11 @@
-import { Link } from 'react-router-dom';
-import { AppRoute } from '../../const';
-import { useAppSelector } from '../../hooks/hooks';
+import {Link} from 'react-router-dom';
+import {AppRoute} from '../../const';
+import {useAppSelector} from '../../hooks/hooks';
+
 
 function Header(): JSX.Element {
 
-  const { orderList } = useAppSelector(({CART}) => CART);
+  const {orderList} = useAppSelector(({CART}) => CART);
 
   return (
     <header className="header" id="header">

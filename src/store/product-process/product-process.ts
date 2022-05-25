@@ -19,13 +19,13 @@ export const productProcess = createSlice({
     },
     loadGuitar: (state, action) => {
       state.guitar = action.payload;
-      state.isDataLoaded = true;
     },
     getComments: (state) => {
       ({comments: state.comments} = state);
     },
     loadComments: (state, action) =>{
       state.comments = action.payload;
+      state.isDataLoaded = true;
     },
   },
 });

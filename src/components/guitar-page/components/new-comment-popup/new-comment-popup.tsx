@@ -1,7 +1,7 @@
-import { useState, ChangeEvent, useRef, useCallback, useEffect } from 'react';
-import { useAppDispatch } from '../../../../hooks/hooks';
-import { AddCommentAction } from '../../../../store/api-actions';
-import { NewComment } from '../../../../types/data-types';
+import {useState, ChangeEvent, useRef, useCallback, useEffect} from 'react';
+import {useAppDispatch} from '../../../../hooks/hooks';
+import {AddCommentAction} from '../../../../store/api-actions';
+import {NewComment} from '../../../../types/data-types';
 
 type NewCommentPopupProps = {
   id: number,
@@ -51,8 +51,8 @@ function NewCommentPopup ({id, onNewComment, onSuccessComment}:NewCommentPopupPr
 
   const clickOnEsc = useCallback((evt) => {
     if(evt.keyCode === 27){
-      onNewComment(false); }
-  },[]);
+      onNewComment(false);}
+  },[onNewComment]);
 
   useEffect(() => {
     document.addEventListener('keydown', clickOnEsc);
@@ -62,7 +62,7 @@ function NewCommentPopup ({id, onNewComment, onSuccessComment}:NewCommentPopupPr
     if(evt.target.className === 'modal__overlay'){
       onNewComment(false);
     }
-  },[]);
+  },[onNewComment]);
 
   useEffect(() => {
     document.addEventListener('click', clickOnOverlay);
