@@ -102,6 +102,7 @@ function NewCommentPopup ({id, onNewComment, onSuccessComment}:NewCommentPopupPr
                     ref={inputNameRef}
                     value={newComment.userName}
                     onChange={handleInputChange}
+                    data-testid="name"
                   />
                   <p className="form-review__warning">Заполните поле</p>
                 </div>
@@ -125,7 +126,7 @@ function NewCommentPopup ({id, onNewComment, onSuccessComment}:NewCommentPopupPr
               <label className="form-review__label form-review__label--required" htmlFor="adv">Достоинства</label>
               <input
                 className="form-review__input"
-
+                data-testid="adv"
                 type="text"
                 autoComplete="off"
                 name="advantage"
@@ -137,6 +138,7 @@ function NewCommentPopup ({id, onNewComment, onSuccessComment}:NewCommentPopupPr
               <label className="form-review__label form-review__label--required" htmlFor="disadv">Недостатки</label>
               <input
                 className="form-review__input"
+                data-testid="disadv"
                 id="disadv"
                 type="text"
                 autoComplete="off"
@@ -150,6 +152,7 @@ function NewCommentPopup ({id, onNewComment, onSuccessComment}:NewCommentPopupPr
               <textarea
                 className="form-review__input form-review__input--textarea"
                 id="comment"
+                data-testid="comment"
                 rows={10}
                 autoComplete="off"
                 name="comment"

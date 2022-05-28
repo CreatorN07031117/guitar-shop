@@ -40,6 +40,7 @@ function GuitarCard ({guitar, onGuitarId}:GuitarCardProps): JSX.Element {
           <span className="button button--red-border button--mini button--in-cart" >В Корзине</span> :
           <span
             className="button button--red button--mini button--add-to-cart"
+            data-testid="addToCart"
             onClick={() => {
               onGuitarId(guitar.id);
             }}

@@ -67,7 +67,7 @@ function GuitarPage (): JSX.Element {
             </li>
           </ul>
           <div className="product-container">
-            <img className="product-container__img" src={`../${guitar.previewImg}`} srcSet={`../${retinaImg}`} width="90" height="235" alt="" />
+            <img className="product-container__img" src={`../${guitar.previewImg}`} srcSet={`../${retinaImg}`} width="90" height="235" alt={guitar.name} />
             <div className="product-container__info-wrapper">
               <h2 className="product-container__title title title--big title--uppercase">{guitar.name}</h2>
               <div className="rate product-container__rating">

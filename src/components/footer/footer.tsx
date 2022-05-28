@@ -12,25 +12,25 @@ function Footer(): JSX.Element {
         <div className="socials footer__socials">
           <ul className="socials__list">
             <li className="socials-item">
-              <Link className="socials__link" to="https://www.skype.com/" aria-label="skype">
+              <a className="socials__link" href={'https://www.skype.com/'}aria-label="skype">
                 <svg className="socials__icon" width="24" height="24" aria-hidden="true">
                   <use xlinkHref="#icon-skype"></use>
                 </svg>
-              </Link>
+              </a>
             </li>
             <li className="socials-item">
-              <Link className="socials__link" to="https://www.vsco.com/" aria-label="vsco">
+              <a className="socials__link" href="https://www.vsco.com/" aria-label="vsco">
                 <svg className="socials__icon" width="24" height="24" aria-hidden="true">
                   <use xlinkHref="#icon-vsco"></use>
                 </svg>
-              </Link>
+              </a>
             </li>
             <li className="socials-item">
-              <Link className="socials__link" to="https://www.pinterest.com/" aria-label="pinterest">
+              <a className="socials__link" href="https://www.pinterest.com/" aria-label="pinterest">
                 <svg className="socials__icon" width="24" height="24" aria-hidden="true">
                   <use xlinkHref="#icon-pinterest"></use>
                 </svg>
-              </Link>
+              </a>
             </li>
           </ul>
         </div>
