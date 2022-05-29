@@ -3,11 +3,10 @@ import thunk, {ThunkDispatch} from 'redux-thunk';
 import MockAdapter from 'axios-mock-adapter';
 import {configureMockStore} from '@jedmao/redux-mock-store';
 import {createAPI} from '../services/api';
-import {redirectToRoute} from './actions';
 import {APIRoute} from '../const';
 import {State} from '../types/store-types';
-import {makeMockGuitar, makeMockGuitars, makeMockComment, makeMockComments} from '../mock/mock';
-import {fetchGuitarsActions, fetchGuitarActions, fetchCommentsActions, AddCommentAction} from './api-actions';
+import {makeMockGuitar, makeMockGuitars, makeMockComments} from '../mock/mock';
+import {fetchGuitarsActions, fetchGuitarActions, fetchCommentsActions} from './api-actions';
 import {loadGuitar, loadComments } from './product-process/product-process';
 import {loadGuitars} from './catalog-process/catalog-process';
 

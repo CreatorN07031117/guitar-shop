@@ -3,7 +3,7 @@ import CatalogSort from './catalog-sort';
 
 
 describe('Component: CatalogSort', () => {
-  it('shoul render correctly', () => {
+  it('Компонент отрисовывается корректно', () => {
     render(
       <CatalogSort />,
     );

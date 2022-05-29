@@ -1,10 +1,10 @@
-import {Link} from 'react-router-dom';
+import {Link, useLocation} from 'react-router-dom';
 import {AppRoute} from '../../const';
 import {useAppSelector} from '../../hooks/hooks';
 
 
 function Header(): JSX.Element {
-
+  const location = useLocation();
   const {orderList} = useAppSelector(({CART}) => CART);
 
   return (
@@ -14,7 +14,7 @@ function Header(): JSX.Element {
         <nav className="main-nav">
           <ul className="main-nav__list">
             <li>
-              <Link className="link main-nav__link link--current" to="#">Каталог</Link>
+              <Link className={`link main-nav__link ${location.pathname === AppRoute.Index && 'link--current'}`} to={AppRoute.Catalog}>Каталог</Link>
             </li>
             <li>
               <Link className="link main-nav__link" to="#">Где купить?</Link>

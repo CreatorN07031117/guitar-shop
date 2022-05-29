@@ -17,10 +17,10 @@ function NewCommentPopup ({id, onNewComment, onSuccessComment, guitarName, onAdd
   const dispatch = useAppDispatch();
 
   const [warning, setWarning] = useState({
-    name: false,
+    userName: false,
     rating: false,
-    adv: false,
-    disadv: false,
+    advantage: false,
+    disadvantage: false,
     comment: false,
   });
 
@@ -43,10 +43,10 @@ function NewCommentPopup ({id, onNewComment, onSuccessComment, guitarName, onAdd
     setNewComment((prevNewComment) => ({...prevNewComment, [name]: Number(value)}));
     setWarning((prevWarning) => ({
       ...prevWarning,
-      name: false,
+      userName: false,
       rating: false,
-      adv: false,
-      disadv: false,
+      advantage: false,
+      disadvantage: false,
       comment: false,
     }));
   };
@@ -56,10 +56,10 @@ function NewCommentPopup ({id, onNewComment, onSuccessComment, guitarName, onAdd
     setNewComment((prevNewComment) => ({...prevNewComment, [name]: value}));
     setWarning((prevWarning) => ({
       ...prevWarning,
-      name: false,
+      userName: false,
       rating: false,
-      adv: false,
-      disadv: false,
+      advantage: false,
+      disadvantage: false,
       comment: false,
     }));
   };
@@ -76,10 +76,10 @@ function NewCommentPopup ({id, onNewComment, onSuccessComment, guitarName, onAdd
       setWarning((prevWarning) => ({...prevWarning, rating: true}));
     }
     if(newComment.advantage.length === 0){
-      setWarning((prevWarning) => ({...prevWarning, adv: true}));
+      setWarning((prevWarning) => ({...prevWarning, advantage: true}));
     }
     if(newComment.disadvantage.length === 0){
-      setWarning((prevWarning) => ({...prevWarning, disadv: true}));
+      setWarning((prevWarning) => ({...prevWarning, disadvantage: true}));
     }
     if(newComment.comment.length === 0){
       setWarning((prevWarning) => ({...prevWarning, comment: true}));
@@ -105,24 +105,24 @@ function NewCommentPopup ({id, onNewComment, onSuccessComment, guitarName, onAdd
     return () => {document.body.style.overflow = 'unset';};
   }, []);
 
-  const clickOnEsc = useCallback((evt) => {
+  const HandleClickOnEsc = useCallback((evt) => {
     if(evt.keyCode === 27){
       onNewComment(false);}
   },[onNewComment]);
 
   useEffect(() => {
-    document.addEventListener('keydown', clickOnEsc);
-  }, [clickOnEsc]);
+    document.addEventListener('keydown', HandleClickOnEsc);
+  }, [HandleClickOnEsc]);
 
-  const clickOnOverlay = useCallback((evt) => {
+  const HandleClickOnOverlay = useCallback((evt) => {
     if(evt.target.className === 'modal__overlay'){
       onNewComment(false);
     }
   },[onNewComment]);
 
   useEffect(() => {
-    document.addEventListener('click', clickOnOverlay);
-  }, [clickOnOverlay]);
+    document.addEventListener('click', HandleClickOnOverlay);
+  }, [HandleClickOnOverlay]);
 
   return (
     <div style={{position: 'relative', width: '550px', height: '610px', marginBottom: '50px'}}>
@@ -159,7 +159,7 @@ function NewCommentPopup ({id, onNewComment, onSuccessComment, guitarName, onAdd
                     onChange={handleInputChange}
                     data-testid="name"
                   />
-                  {warning.name? (<p className="form-review__warning">Заполните поле</p>) : (<div style={{height: '15px'}}></div>)}
+                  {warning.userName? (<p className="form-review__warning">Заполните поле</p>) : (<div style={{height: '15px'}}></div>)}
                 </div>
                 <div>
                   <span className="form-review__label form-review__label--required">Ваша Оценка</span>
@@ -189,7 +189,7 @@ function NewCommentPopup ({id, onNewComment, onSuccessComment, guitarName, onAdd
                 value={newComment.advantage}
                 onChange={handleInputChange}
               />
-              {warning.adv? (<p className="form-review__warning">Заполните поле</p>): (<div style={{height: '15px'}}></div>)}
+              {warning.advantage? (<p className="form-review__warning">Заполните поле</p>): (<div style={{height: '15px'}}></div>)}
               <label className="form-review__label form-review__label--required" htmlFor="disadv">Недостатки</label>
               <input
                 className="form-review__input"
@@ -202,7 +202,7 @@ function NewCommentPopup ({id, onNewComment, onSuccessComment, guitarName, onAdd
                 value={newComment.disadvantage}
                 onChange={handleInputChange}
               />
-              {warning.disadv? (<p className="form-review__warning">Заполните поле</p>): (<div style={{height: '15px'}}></div>)}
+              {warning.disadvantage? (<p className="form-review__warning">Заполните поле</p>): (<div style={{height: '15px'}}></div>)}
               <label className="form-review__label form-review__label--required" htmlFor="comment">Комментарий</label>
               <textarea
                 className="form-review__input form-review__input--textarea"

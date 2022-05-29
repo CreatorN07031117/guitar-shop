@@ -23,7 +23,7 @@ function GuitarPage (): JSX.Element {
     dispatch(deleteComments());
     store.dispatch(fetchCommentsActions(params.id as string));
     store.dispatch(fetchGuitarActions(params.id as string));
-  }, [params.id]);
+  }, [dispatch, params.id]);
 
   const [selectGuitarId, setSelectGuitarId] = useState <null | number> (null);
   const [addToCart, setAddToCart] = useState <boolean> (false);

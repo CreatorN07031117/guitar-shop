@@ -43,7 +43,7 @@ const fakeApp = (
 
 
 describe('Application Routing', () => {
-  it('должен отрисовать "Catalog" когда пользователь переходит на "/"', () => {
+  it('Должен отрисовать "Catalog" когда пользователь переходит на "/"', () => {
     history.push('/');
 
     render(fakeApp);
@@ -52,7 +52,7 @@ describe('Application Routing', () => {
     expect(screen.getByText('Название гитары')).toBeInTheDocument();
   });
 
-  it('должен отрисовать "Guitar page" когда пользователь переходит на "/guitar/id"', () => {
+  it('Должен отрисовать "Guitar page" когда пользователь переходит на "/guitar/id"', () => {
     history.push('/guitars/1');
 
     render(fakeApp);
@@ -60,7 +60,7 @@ describe('Application Routing', () => {
     expect(screen.getByText('Характеристики')).toBeInTheDocument();
   });
 
-  it ('должен отрисовать "Not Found Page"когда пользователь переходит на несуществующую страницу', () => {
+  it ('Должен отрисовать "Not Found Page"когда пользователь переходит на несуществующую страницу', () => {
     history.push('/guitar/non');
 
     render(fakeApp);
@@ -68,7 +68,7 @@ describe('Application Routing', () => {
     expect(screen.getByText('404')).toBeInTheDocument();
   });
 
-  it('должен отрисовать "Catalog" когда пользователь переходит на  "/catalog"', () => {
+  it('Должен отрисовать "Catalog" когда пользователь переходит на  "/catalog"', () => {
     history.push('/catalog');
 
     render(fakeApp);

@@ -12,25 +12,25 @@ function SuccessCommentAddPopup ({onSuccessComment}: SuccessCommentAddPopupProps
     return () => {document.body.style.overflow = 'unset';};
   }, []);
 
-  const clickOnEsc = useCallback((evt) => {
+  const HandleClickOnEsc = useCallback((evt) => {
     if(evt.keyCode === 27){
       onSuccessComment(false);
     }
   },[onSuccessComment]);
 
   useEffect(() => {
-    document.addEventListener('keydown', clickOnEsc);
-  }, [clickOnEsc]);
+    document.addEventListener('keydown', HandleClickOnEsc);
+  }, [HandleClickOnEsc]);
 
-  const clickOnOverlay = useCallback((evt) => {
+  const HandleClickOnOverlay = useCallback((evt) => {
     if(evt.target.className === 'modal__overlay'){
       onSuccessComment(false);
     }
   },[onSuccessComment]);
 
   useEffect(() => {
-    document.addEventListener('click', clickOnOverlay);
-  }, [clickOnOverlay]);
+    document.addEventListener('click', HandleClickOnOverlay);
+  }, [HandleClickOnOverlay]);
 
   return (
     <div style={{position: 'relative', width: '550px', height: '410px', marginBottom: '50px'}}>

@@ -11,7 +11,7 @@ const history = createMemoryHistory();
 
 
 describe('Component: Pagination', () => {
-  it('should render correctly', () => {
+  it('Компонент отрисовывается корректно', () => {
 
     const store = mockStore({
       CATALOG: {
