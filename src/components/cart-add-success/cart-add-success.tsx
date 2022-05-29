@@ -11,24 +11,24 @@ function CartAddSuccess ({onAddSuccess}:CartAddSuccessProps): JSX.Element {
     return () => {document.body.style.overflow = 'unset';};
   }, []);
 
-  const clickOnEsc = useCallback((evt) => {
+  const handleClickOnEsc = useCallback((evt) => {
     if(evt.keyCode === 27){
       onAddSuccess(false); }
-  },[]);
+  },[onAddSuccess]);
 
   useEffect(() => {
-    document.addEventListener('keydown', clickOnEsc);
-  }, [clickOnEsc]);
+    document.addEventListener('keydown', handleClickOnEsc);
+  }, [handleClickOnEsc]);
 
-  const clickOnOverlay = useCallback((evt) => {
+  const handleClickOnOverlay = useCallback((evt) => {
     if(evt.target.className === 'modal__overlay'){
       onAddSuccess(false);
     }
-  },[]);
+  },[onAddSuccess]);
 
   useEffect(() => {
-    document.addEventListener('click', clickOnOverlay);
-  }, [clickOnOverlay]);
+    document.addEventListener('click', handleClickOnOverlay);
+  }, [handleClickOnOverlay]);
 
   return (
     <div style={{position: 'relative', width: '550px', height: '410px', marginBottom: '50px'}}>

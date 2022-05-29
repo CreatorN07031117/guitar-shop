@@ -33,24 +33,24 @@ function CartAddPopup ({guitar, onGuitarId, onAddSuccess}:CartAddPopupProps) : J
     dispatch(getOrderList());
   };
 
-  const clickOnEsc = useCallback((evt) => {
+  const handleClickOnEsc = useCallback((evt) => {
     if(evt.keyCode === 27){
       onGuitarId(null); }
   },[onGuitarId]);
 
   useEffect(() => {
-    document.addEventListener('keydown', clickOnEsc);
-  }, [clickOnEsc]);
+    document.addEventListener('keydown', handleClickOnEsc);
+  }, [handleClickOnEsc]);
 
-  const clickOnOverlay = useCallback((evt) => {
+  const handleClickOnOverlay = useCallback((evt) => {
     if(evt.target.className === 'modal__overlay'){
       onGuitarId(null);
     }
   },[onGuitarId]);
 
   useEffect(() => {
-    document.addEventListener('click', clickOnOverlay);
-  }, [clickOnOverlay]);
+    document.addEventListener('click', handleClickOnOverlay);
+  }, [handleClickOnOverlay]);
 
   return (
     <div style={{position: 'relative', width: '550px', height: '440px', marginBottom: '50px'}}>

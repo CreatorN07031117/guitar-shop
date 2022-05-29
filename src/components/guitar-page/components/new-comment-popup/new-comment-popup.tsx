@@ -1,16 +1,28 @@
 import {useState, ChangeEvent, useRef, useCallback, useEffect} from 'react';
 import {useAppDispatch} from '../../../../hooks/hooks';
 import {AddCommentAction} from '../../../../store/api-actions';
-import {NewComment} from '../../../../types/data-types';
+import {NewComment, Comment} from '../../../../types/data-types';
+import {generateUid} from '../../../../utils';
+
 
 type NewCommentPopupProps = {
+  guitarName: string,
   id: number,
   onNewComment: (value:boolean) => void;
   onSuccessComment: (value: boolean) => void;
+  onAddComment:(item: Comment) => void;
 }
 
-function NewCommentPopup ({id, onNewComment, onSuccessComment}:NewCommentPopupProps): JSX.Element {
+function NewCommentPopup ({id, onNewComment, onSuccessComment, guitarName, onAddComment}:NewCommentPopupProps): JSX.Element {
   const dispatch = useAppDispatch();
+
+  const [warning, setWarning] = useState({
+    userName: false,
+    rating: false,
+    advantage: false,
+    disadvantage: false,
+    comment: false,
+  });
 
   const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
   const inputNameRef = useRef<HTMLInputElement | null>(null);
@@ -29,11 +41,27 @@ function NewCommentPopup ({id, onNewComment, onSuccessComment}:NewCommentPopupPr
   const handleRatingChange = (evt: ChangeEvent<HTMLInputElement>) => {
     const {name, value} = evt.target;
     setNewComment((prevNewComment) => ({...prevNewComment, [name]: Number(value)}));
+    setWarning((prevWarning) => ({
+      ...prevWarning,
+      userName: false,
+      rating: false,
+      advantage: false,
+      disadvantage: false,
+      comment: false,
+    }));
   };
 
   const handleInputChange = (evt: ChangeEvent<HTMLInputElement>) => {
     const {name, value} = evt.target;
     setNewComment((prevNewComment) => ({...prevNewComment, [name]: value}));
+    setWarning((prevWarning) => ({
+      ...prevWarning,
+      userName: false,
+      rating: false,
+      advantage: false,
+      disadvantage: false,
+      comment: false,
+    }));
   };
   const handleTextAreaChange = (evt: ChangeEvent<HTMLTextAreaElement>) => {
     const {name, value} = evt.target;
@@ -41,7 +69,35 @@ function NewCommentPopup ({id, onNewComment, onSuccessComment}:NewCommentPopupPr
   };
 
   const handleSubmitComment = (newCommentItem: NewComment) => {
-    dispatch(AddCommentAction(newCommentItem));
+    if(newComment.userName.length === 0){
+      setWarning((prevWarning) => ({...prevWarning, name: true}));
+    }
+    if(newComment.rating === 0){
+      setWarning((prevWarning) => ({...prevWarning, rating: true}));
+    }
+    if(newComment.advantage.length === 0){
+      setWarning((prevWarning) => ({...prevWarning, advantage: true}));
+    }
+    if(newComment.disadvantage.length === 0){
+      setWarning((prevWarning) => ({...prevWarning, disadvantage: true}));
+    }
+    if(newComment.comment.length === 0){
+      setWarning((prevWarning) => ({...prevWarning, comment: true}));
+    }
+    if(newComment.userName.length > 0 &&
+       newComment.rating > 0 &&
+       newComment.advantage.length > 0 &&
+       newComment.disadvantage.length > 0 &&
+       newComment.comment.length > 0){
+      dispatch(AddCommentAction(newCommentItem));
+      const comment = Object.assign({
+        createAt: new Date(),
+        id: generateUid(),
+      }, newComment);
+      onAddComment(comment);
+      onNewComment(false);
+      onSuccessComment(true);
+    }
   };
 
   useEffect(() => {
@@ -49,24 +105,24 @@ function NewCommentPopup ({id, onNewComment, onSuccessComment}:NewCommentPopupPr
     return () => {document.body.style.overflow = 'unset';};
   }, []);
 
-  const clickOnEsc = useCallback((evt) => {
+  const HandleClickOnEsc = useCallback((evt) => {
     if(evt.keyCode === 27){
       onNewComment(false);}
   },[onNewComment]);
 
   useEffect(() => {
-    document.addEventListener('keydown', clickOnEsc);
-  }, [clickOnEsc]);
+    document.addEventListener('keydown', HandleClickOnEsc);
+  }, [HandleClickOnEsc]);
 
-  const clickOnOverlay = useCallback((evt) => {
+  const HandleClickOnOverlay = useCallback((evt) => {
     if(evt.target.className === 'modal__overlay'){
       onNewComment(false);
     }
   },[onNewComment]);
 
   useEffect(() => {
-    document.addEventListener('click', clickOnOverlay);
-  }, [clickOnOverlay]);
+    document.addEventListener('click', HandleClickOnOverlay);
+  }, [HandleClickOnOverlay]);
 
   return (
     <div style={{position: 'relative', width: '550px', height: '610px', marginBottom: '50px'}}>
@@ -75,7 +131,7 @@ function NewCommentPopup ({id, onNewComment, onSuccessComment}:NewCommentPopupPr
           <div className="modal__overlay" data-close-modal></div>
           <div className="modal__content">
             <h2 className="modal__header modal__header--review title title--medium">Оставить отзыв</h2>
-            <h3 className="modal__product-name title title--medium-20 title--uppercase">СURT Z30 Plus</h3>
+            <h3 className="modal__product-name title title--medium-20 title--uppercase">{guitarName}</h3>
             <form className="form-review"
               onSubmit={(evt) => {
                 evt.preventDefault();
@@ -87,7 +143,6 @@ function NewCommentPopup ({id, onNewComment, onSuccessComment}:NewCommentPopupPr
                   comment: newComment.comment,
                   rating: newComment.rating,
                 });
-                onSuccessComment(true);
               }}
             >
               <div className="form-review__wrapper">
@@ -104,7 +159,7 @@ function NewCommentPopup ({id, onNewComment, onSuccessComment}:NewCommentPopupPr
                     onChange={handleInputChange}
                     data-testid="name"
                   />
-                  <p className="form-review__warning">Заполните поле</p>
+                  {warning.userName? (<p className="form-review__warning">Заполните поле</p>) : (<div style={{height: '15px'}}></div>)}
                 </div>
                 <div>
                   <span className="form-review__label form-review__label--required">Ваша Оценка</span>
@@ -119,7 +174,7 @@ function NewCommentPopup ({id, onNewComment, onSuccessComment}:NewCommentPopupPr
                     <label className="rate__label" htmlFor="star-2" title="Плохо"></label>
                     <input className="visually-hidden" id="star-1" name="rating" type="radio" value="1" onChange={handleRatingChange} />
                     <label className="rate__label" htmlFor="star-1" title="Ужасно"></label>
-                    <p className="rate__message">Поставьте оценку</p>
+                    {warning.rating && (<p className="rate__message">Поставьте оценку</p>)}
                   </div>
                 </div>
               </div>
@@ -134,7 +189,7 @@ function NewCommentPopup ({id, onNewComment, onSuccessComment}:NewCommentPopupPr
                 value={newComment.advantage}
                 onChange={handleInputChange}
               />
-              <p className="form-review__warning">Заполните поле</p>
+              {warning.advantage? (<p className="form-review__warning">Заполните поле</p>): (<div style={{height: '15px'}}></div>)}
               <label className="form-review__label form-review__label--required" htmlFor="disadv">Недостатки</label>
               <input
                 className="form-review__input"
@@ -147,7 +202,7 @@ function NewCommentPopup ({id, onNewComment, onSuccessComment}:NewCommentPopupPr
                 value={newComment.disadvantage}
                 onChange={handleInputChange}
               />
-              <p className="form-review__warning">Заполните поле</p>
+              {warning.disadvantage? (<p className="form-review__warning">Заполните поле</p>): (<div style={{height: '15px'}}></div>)}
               <label className="form-review__label form-review__label--required" htmlFor="comment">Комментарий</label>
               <textarea
                 className="form-review__input form-review__input--textarea"
@@ -161,7 +216,7 @@ function NewCommentPopup ({id, onNewComment, onSuccessComment}:NewCommentPopupPr
                 onChange={handleTextAreaChange}
               >
               </textarea>
-              <p className="form-review__warning">Заполните поле</p>
+              {warning.comment? (<p className="form-review__warning">Заполните поле</p>) : (<div style={{height: '15px'}}></div>)}
               <button
                 className="button button--medium-20 form-review__button"
                 type="submit"
@@ -173,9 +228,7 @@ function NewCommentPopup ({id, onNewComment, onSuccessComment}:NewCommentPopupPr
               className="modal__close-btn button-cross"
               type="button"
               aria-label="Закрыть"
-              onClick={() => {
-                onNewComment(false);
-              }}
+              onClick={() => onNewComment(false)}
             >
               <span className="button-cross__icon"></span>
               <span className="modal__close-btn-interactive-area"></span>

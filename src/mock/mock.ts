@@ -1,4 +1,4 @@
-import {name, internet, lorem, datatype} from 'faker';
+import {name, internet, datatype} from 'faker';
 import {Guitar, Guitars, Comment, Comments} from '../types/data-types';
 
 export const makeMockGuitar = (): Guitar => ({

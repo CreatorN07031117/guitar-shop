@@ -2,33 +2,35 @@ import {useCallback, useEffect} from 'react';
 
 
 type SuccessCommentAddPopupProps = {
-  onSuccessComment: (value: boolean) => void;
-}
+  onSuccessComment: (value: boolean) => void,
+};
 
 function SuccessCommentAddPopup ({onSuccessComment}: SuccessCommentAddPopupProps): JSX.Element {
+
   useEffect(() => {
     document.body.style.overflow = 'hidden';
     return () => {document.body.style.overflow = 'unset';};
   }, []);
 
-  const clickOnEsc = useCallback((evt) => {
+  const HandleClickOnEsc = useCallback((evt) => {
     if(evt.keyCode === 27){
-      onSuccessComment(false); }
+      onSuccessComment(false);
+    }
   },[onSuccessComment]);
 
   useEffect(() => {
-    document.addEventListener('keydown', clickOnEsc);
-  }, [clickOnEsc]);
+    document.addEventListener('keydown', HandleClickOnEsc);
+  }, [HandleClickOnEsc]);
 
-  const clickOnOverlay = useCallback((evt) => {
+  const HandleClickOnOverlay = useCallback((evt) => {
     if(evt.target.className === 'modal__overlay'){
       onSuccessComment(false);
     }
   },[onSuccessComment]);
 
   useEffect(() => {
-    document.addEventListener('click', clickOnOverlay);
-  }, [clickOnOverlay]);
+    document.addEventListener('click', HandleClickOnOverlay);
+  }, [HandleClickOnOverlay]);
 
   return (
     <div style={{position: 'relative', width: '550px', height: '410px', marginBottom: '50px'}}>
@@ -41,7 +43,14 @@ function SuccessCommentAddPopup ({onSuccessComment}: SuccessCommentAddPopupProps
             </svg>
             <p className="modal__message">Спасибо за ваш отзыв!</p>
             <div className="modal__button-container modal__button-container--review">
-              <button className="button button--small modal__button modal__button--review">К покупкам!</button>
+              <button
+                className="button button--small modal__button modal__button--review"
+                onClick={()=>{
+                  onSuccessComment(false);
+                }}
+              >
+                К покупкам!
+              </button>
             </div>
             <button
               className="modal__close-btn button-cross"

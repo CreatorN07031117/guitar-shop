@@ -3,11 +3,10 @@ import thunk, {ThunkDispatch} from 'redux-thunk';
 import MockAdapter from 'axios-mock-adapter';
 import {configureMockStore} from '@jedmao/redux-mock-store';
 import {createAPI} from '../services/api';
-import {redirectToRoute} from './actions';
 import {APIRoute} from '../const';
 import {State} from '../types/store-types';
-import {makeMockGuitar, makeMockGuitars, makeMockComment, makeMockComments} from '../mock/mock';
-import {fetchGuitarsActions, fetchGuitarActions, fetchCommentsActions, AddCommentAction} from './api-actions';
+import {makeMockGuitar, makeMockGuitars, makeMockComments} from '../mock/mock';
+import {fetchGuitarsActions, fetchGuitarActions, fetchCommentsActions} from './api-actions';
 import {loadGuitar, loadComments } from './product-process/product-process';
 import {loadGuitars} from './catalog-process/catalog-process';
 
@@ -65,28 +64,5 @@ describe('Async actions', () => {
 
     const actions = store.getActions().map(({type}) => type);
     expect(actions).toContain(loadComments.toString());
-  });
-
-  it('должен вызвать AddCommentAction когда POST / comments', async () => {
-    const mockNewComment = {
-      guitarId: 1,
-      userName: 'test name',
-      advantage: 'test advantage',
-      disadvantage: 'test disadvantage',
-      comment: 'test comment',
-      rating: 1,
-    };
-
-
-    mockAPI
-      .onPost(`${APIRoute.Comments}${mockNewComment.guitarId}$`)
-      .reply(200, mockNewComment);
-
-    const store = mockStore();
-    Storage.prototype.setItem = jest.fn();
-
-    await store.dispatch(AddCommentAction(mockNewComment));
-    const actions = store.getActions().map(({type}) => type);
-    expect(actions).toContain(redirectToRoute.toString());
   });
 });

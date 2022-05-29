@@ -31,13 +31,15 @@ describe('Component: NewCommentPopup', () => {
             id={1}
             onNewComment={jest.fn()}
             onSuccessComment={jest.fn()}
+            onAddComment={jest.fn()}
+            guitarName='название гитары'
           />
         </HistoryRouter>
       </Provider>,
     );
 
     expect(screen.getByText('Ваше Имя')).toBeInTheDocument();
-    expect(screen.getByText('Поставьте оценку')).toBeInTheDocument();
+    expect(screen.getByText('название гитары')).toBeInTheDocument();
 
     userEvent.type(screen.getByTestId('comment'), 'testcomment');
     userEvent.type(screen.getByTestId('name'), 'testname');

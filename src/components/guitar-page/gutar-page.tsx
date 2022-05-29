@@ -8,25 +8,26 @@ import TabCharacteristics from './components/tab-characteristics/tab-characteris
 import TabDescription from './components/tab-description/tab-description';
 import CartAddPopup from '../cart-add-popup/cart-add-popup';
 import CartAddSuccess from '../cart-add-success/cart-add-success';
+import {deleteComments} from '../../store/product-process/product-process';
 import {fetchGuitarActions, fetchCommentsActions} from '../../store/api-actions';
-import {useAppSelector} from '../../hooks/hooks';
+import {useAppSelector, useAppDispatch} from '../../hooks/hooks';
 import {getRatingStars, getRetinaImg} from '../../utils';
 import {AppRoute, GuitarType} from '../../const';
 
 
 function GuitarPage (): JSX.Element {
+  const dispatch = useAppDispatch();
   const params = useParams();
+
+  useEffect(() => {
+    dispatch(deleteComments());
+    store.dispatch(fetchCommentsActions(params.id as string));
+    store.dispatch(fetchGuitarActions(params.id as string));
+  }, [dispatch, params.id]);
 
   const [selectGuitarId, setSelectGuitarId] = useState <null | number> (null);
   const [addToCart, setAddToCart] = useState <boolean> (false);
   const [activeTab, setActiveTab] = useState ('characteristics');
-
-  useEffect(() => {
-    store.dispatch(fetchGuitarActions(params.id as string));
-  }, [params.id]);
-  useEffect(() => {
-    store.dispatch(fetchCommentsActions(params.id as string));
-  });
 
   const {guitar, comments, isDataLoaded} = useAppSelector(({PRODUCT}) => PRODUCT);
   const rating = getRatingStars(guitar.rating);
@@ -117,8 +118,14 @@ function GuitarPage (): JSX.Element {
         </div>
       </main>
       <Footer />
-      {selectGuitarId===null? null : <CartAddPopup guitar={guitar} onGuitarId={(id) => setSelectGuitarId(id)} onAddSuccess={(value: boolean) => setAddToCart(value)} />}
-      {addToCart && <CartAddSuccess onAddSuccess={(value: boolean) => setAddToCart(value)} />}
+      {selectGuitarId===null?
+        null :
+        <CartAddPopup
+          guitar={guitar}
+          onGuitarId={(id) => setSelectGuitarId(id)}
+          onAddSuccess={(value: boolean) => setAddToCart(value)}
+        />}
+      {addToCart && <CartAddSuccess onAddSuccess={(value: boolean) => setAddToCart(value)}/>}
     </div>
   );
 }

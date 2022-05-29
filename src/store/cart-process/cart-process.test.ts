@@ -35,5 +35,5 @@ describe('Reducer: cartProcess', () => {
         orderList: [2],
         coupon: '',
       });
-    });
+  });
 });

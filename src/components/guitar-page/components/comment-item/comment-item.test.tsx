@@ -1,4 +1,4 @@
-import {render, screen} from '@testing-library/react'
+import {render, screen} from '@testing-library/react';
 import {createMemoryHistory} from 'history';
 import HistoryRouter from '../../../history-router';
 import {makeMockComment} from '../../../../mock/mock';

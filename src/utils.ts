@@ -1,4 +1,5 @@
-import { RATING_STARS } from './const';
+import {RATING_STARS} from './const';
+import {Comment} from './types/data-types';
 
 export function getRetinaImg (img: string) {
   return img.slice(0, -4).concat('@2x.jpg 2x');
@@ -14,4 +15,14 @@ export function getRatingStars (rating: number) {
   }
 
   return stars;
+}
+
+export function sortCommentsByData (a:Comment, b:Comment) {
+  const A = Number(new Date(a.createAt));
+  const B = Number(new Date(b.createAt));
+  return (B - A);
+}
+
+export function generateUid() {
+  return (performance.now().toString(36)+Math.random().toString(36)).replace(/\./g,'');
 }

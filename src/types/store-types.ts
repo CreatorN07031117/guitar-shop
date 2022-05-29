@@ -1,5 +1,5 @@
-import { store } from '../store/store';
-import { Guitars, Guitar, Comments } from './data-types';
+import {store} from '../store/store';
+import {Guitars, Guitar, Comments} from './data-types';
 
 
 export type State = ReturnType<typeof store.getState>;

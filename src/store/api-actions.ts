@@ -7,6 +7,7 @@ import {loadGuitars} from './catalog-process/catalog-process';
 import {loadComments, loadGuitar} from './product-process/product-process';
 import {redirectToRoute} from './actions';
 import {errorHandle} from '../services/error-handle';
+import {toast} from 'react-toastify';
 
 
 export const fetchGuitarsActions =
@@ -68,8 +69,10 @@ export const AddCommentAction =
 }>(
   'data/postComment',
   async ({guitarId, userName, advantage, disadvantage, comment, rating}, {dispatch, extra: api}) => {
-    try {await api.post(`${APIRoute.Comments}${guitarId}$`, {guitarId, userName, advantage, disadvantage, comment, rating});
-      dispatch(redirectToRoute(`${APIRoute.Guitar}${guitarId}${APIRoute.Comments}`));
+    try {await api.post(`${APIRoute.Comments}`, {guitarId, userName, advantage, disadvantage, comment, rating})
+      .then((response) => {
+        if(response.status === 201){toast.success('Отзыв успешно отправлен');}
+      });
     } catch (error) {
       errorHandle(error);
     }
