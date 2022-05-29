@@ -4,23 +4,20 @@ import {COMMENTS_ON_PAGE} from '../../../../const';
 import CommentItem from '../comment-item/comment-item';
 import NewCommentPopup from '../new-comment-popup/new-comment-popup';
 import SuccessCommentAddPopup from '../success-comment-add-popup/success-comment-add-popup';
+import {sortCommentsByData} from '../../../../utils';
 
 
 function CommentsList (): JSX.Element {
+
   const {guitar} = useAppSelector(({PRODUCT}) => PRODUCT);
-  let {comments} = useAppSelector(({PRODUCT}) => PRODUCT);
+  const {comments} = useAppSelector(({PRODUCT}) => PRODUCT);
 
-  comments = comments.slice().sort((a, b) => {
-    const A = Number(new Date(a.createAt));
-    const B = Number(new Date(b.createAt));
-    return (B - A);
-  });
-
+  comments.slice().sort(sortCommentsByData);
   const [showComments, setShowComments] = useState ({
+    comments: comments,
     list: comments.slice(0, COMMENTS_ON_PAGE),
     counter: COMMENTS_ON_PAGE,
   });
-  const allComments = comments.length;
 
   const [newComment, setNewComment] = useState <boolean> (false);
   const [successAddComment, setSuccessAddComment] = useState <boolean> (false);
@@ -41,16 +38,16 @@ function CommentsList (): JSX.Element {
         {showComments.list.map((item) =>(
           <CommentItem key={item.id} comment={item} />
         ))}
-        {showComments.counter < allComments &&
+        {showComments.counter < showComments.comments.length &&
         <button
           className="button button--medium reviews__more-button"
           onClick={(evt) => {
             evt.preventDefault();
-
-            setShowComments({
-              list: comments.slice(0, showComments.counter+ COMMENTS_ON_PAGE),
+            setShowComments((prevShowComments) =>({
+              ...prevShowComments,
+              list: showComments.comments.slice(0, showComments.counter+ COMMENTS_ON_PAGE),
               counter: showComments.counter +  COMMENTS_ON_PAGE,
-            });
+            }));
           }}
         >
         Показать еще отзывы
@@ -59,11 +56,29 @@ function CommentsList (): JSX.Element {
       </section>
       {newComment &&
       <NewCommentPopup
+        guitarName={guitar.name}
         id={guitar.id as number}
         onNewComment={(value:boolean) => setNewComment(value)}
         onSuccessComment={(value:boolean) => setSuccessAddComment(value)}
+        onAddComment={(item) => {
+          const newCommentsList = Object.assign([], showComments.comments);
+          newCommentsList.push(item);
+          setShowComments((prevState) => (
+            {...prevState,
+              list: newCommentsList.sort(sortCommentsByData).slice(0, showComments.counter),
+              comments: newCommentsList.sort(sortCommentsByData),
+            }
+          ));
+        }}
+
       />}
-      {successAddComment && <SuccessCommentAddPopup onSuccessComment={(value:boolean) => setSuccessAddComment(value)}/>}
+      {successAddComment &&
+      <SuccessCommentAddPopup
+        onSuccessComment={(value:boolean) => {
+          setSuccessAddComment(value);
+        }}
+        id={guitar.id}
+      />}
     </>
   );
 }

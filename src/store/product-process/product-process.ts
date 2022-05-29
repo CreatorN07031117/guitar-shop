@@ -1,7 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { ProductProcess } from '../../types/store-types';
-import { Guitar, Comments } from '../../types/data-types';
+import { Guitar, Comments, Comment } from '../../types/data-types';
 import { NameSpace } from '../../const';
+import { Action } from 'history';
 
 
 const initialState: ProductProcess = {
@@ -27,7 +28,10 @@ export const productProcess = createSlice({
       state.comments = action.payload;
       state.isDataLoaded = true;
     },
+    addComment: (state, action) => {
+      state.comments.push(action.payload as Comment);
+    },
   },
 });
 
-export const { getGuitar, loadGuitar, getComments, loadComments } = productProcess.actions;
+export const {getGuitar, loadGuitar, getComments, loadComments,addComment} = productProcess.actions;

@@ -56,7 +56,13 @@ function Catalog(): JSX.Element {
         </div>
       </main>
       <Footer />
-      {selectGuitarId===null? null : <CartAddPopup guitar={guitarsOnPage.filter((item) => item.id === selectGuitarId)[0]} onGuitarId={(id) => setSelectGuitarId(id)} onAddSuccess={(value: boolean) => setAddToCart(value)} />}
+      {selectGuitarId===null?
+        null :
+        <CartAddPopup
+          guitar={guitarsOnPage.filter((item) => item.id === selectGuitarId)[0]}
+          onGuitarId={(id) => setSelectGuitarId(id)}
+          onAddSuccess={(value: boolean) => setAddToCart(value)}
+        />}
       {addToCart && <CartAddSuccess onAddSuccess={(value: boolean) => setAddToCart(value)} />}
     </div>
   );

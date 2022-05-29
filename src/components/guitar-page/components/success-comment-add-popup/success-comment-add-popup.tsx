@@ -2,10 +2,13 @@ import {useCallback, useEffect} from 'react';
 
 
 type SuccessCommentAddPopupProps = {
-  onSuccessComment: (value: boolean) => void;
-}
+  onSuccessComment: (value: boolean) => void,
+  id: number,
+};
 
-function SuccessCommentAddPopup ({onSuccessComment}: SuccessCommentAddPopupProps): JSX.Element {
+function SuccessCommentAddPopup ({onSuccessComment, id}: SuccessCommentAddPopupProps): JSX.Element {
+
+
   useEffect(() => {
     document.body.style.overflow = 'hidden';
     return () => {document.body.style.overflow = 'unset';};
@@ -13,7 +16,8 @@ function SuccessCommentAddPopup ({onSuccessComment}: SuccessCommentAddPopupProps
 
   const clickOnEsc = useCallback((evt) => {
     if(evt.keyCode === 27){
-      onSuccessComment(false); }
+      onSuccessComment(false);
+    }
   },[onSuccessComment]);
 
   useEffect(() => {
@@ -41,7 +45,14 @@ function SuccessCommentAddPopup ({onSuccessComment}: SuccessCommentAddPopupProps
             </svg>
             <p className="modal__message">Спасибо за ваш отзыв!</p>
             <div className="modal__button-container modal__button-container--review">
-              <button className="button button--small modal__button modal__button--review">К покупкам!</button>
+              <button
+                className="button button--small modal__button modal__button--review"
+                onClick={()=>{
+                  onSuccessComment(false);
+                }}
+              >
+                К покупкам!
+              </button>
             </div>
             <button
               className="modal__close-btn button-cross"
