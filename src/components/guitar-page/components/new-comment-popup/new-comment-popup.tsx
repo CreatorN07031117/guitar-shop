@@ -2,7 +2,7 @@ import {useState, ChangeEvent, useRef, useCallback, useEffect} from 'react';
 import {useAppDispatch} from '../../../../hooks/hooks';
 import {AddCommentAction} from '../../../../store/api-actions';
 import {NewComment, Comment} from '../../../../types/data-types';
-import {} from '../../../../store/product-process/product-process';
+import {generateUid} from '../../../../utils';
 
 
 type NewCommentPopupProps = {
@@ -92,9 +92,8 @@ function NewCommentPopup ({id, onNewComment, onSuccessComment, guitarName, onAdd
       dispatch(AddCommentAction(newCommentItem));
       const comment = Object.assign({
         createAt: new Date(),
-        id: '',
+        id: generateUid(),
       }, newComment);
-
       onAddComment(comment);
       onNewComment(false);
       onSuccessComment(true);

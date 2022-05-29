@@ -3,11 +3,9 @@ import {useCallback, useEffect} from 'react';
 
 type SuccessCommentAddPopupProps = {
   onSuccessComment: (value: boolean) => void,
-  id: number,
 };
 
-function SuccessCommentAddPopup ({onSuccessComment, id}: SuccessCommentAddPopupProps): JSX.Element {
-
+function SuccessCommentAddPopup ({onSuccessComment}: SuccessCommentAddPopupProps): JSX.Element {
 
   useEffect(() => {
     document.body.style.overflow = 'hidden';

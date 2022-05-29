@@ -4,7 +4,7 @@ import {AppDispatch, State} from '../types/store-types';
 import {APIRoute} from '../const';
 import {Guitar, Guitars, Comments, NewComment} from '../types/data-types';
 import {loadGuitars} from './catalog-process/catalog-process';
-import {loadComments, loadGuitar, addComment} from './product-process/product-process';
+import {loadComments, loadGuitar} from './product-process/product-process';
 import {redirectToRoute} from './actions';
 import {errorHandle} from '../services/error-handle';
 import {toast} from 'react-toastify';
@@ -72,7 +72,6 @@ export const AddCommentAction =
     try {await api.post(`${APIRoute.Comments}`, {guitarId, userName, advantage, disadvantage, comment, rating})
       .then((response) => {
         if(response.status === 201){toast.success('Отзыв успешно отправлен');}
-       console.log(response.data)
       });
     } catch (error) {
       errorHandle(error);

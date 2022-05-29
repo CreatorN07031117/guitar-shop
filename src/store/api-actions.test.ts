@@ -66,27 +66,4 @@ describe('Async actions', () => {
     const actions = store.getActions().map(({type}) => type);
     expect(actions).toContain(loadComments.toString());
   });
-
-  it('должен вызвать AddCommentAction когда POST / comments', async () => {
-    const mockNewComment = {
-      guitarId: 1,
-      userName: 'test name',
-      advantage: 'test advantage',
-      disadvantage: 'test disadvantage',
-      comment: 'test comment',
-      rating: 1,
-    };
-
-
-    mockAPI
-      .onPost(`${APIRoute.Comments}${mockNewComment.guitarId}$`)
-      .reply(200, mockNewComment);
-
-    const store = mockStore();
-    Storage.prototype.setItem = jest.fn();
-
-    await store.dispatch(AddCommentAction(mockNewComment));
-    const actions = store.getActions().map(({type}) => type);
-    expect(actions).toContain(redirectToRoute.toString());
-  });
 });

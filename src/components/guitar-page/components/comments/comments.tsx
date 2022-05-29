@@ -8,7 +8,6 @@ import {sortCommentsByData} from '../../../../utils';
 
 
 function CommentsList (): JSX.Element {
-
   const {guitar} = useAppSelector(({PRODUCT}) => PRODUCT);
   const {comments} = useAppSelector(({PRODUCT}) => PRODUCT);
 
@@ -46,7 +45,7 @@ function CommentsList (): JSX.Element {
             setShowComments((prevShowComments) =>({
               ...prevShowComments,
               list: showComments.comments.slice(0, showComments.counter+ COMMENTS_ON_PAGE),
-              counter: showComments.counter +  COMMENTS_ON_PAGE,
+              counter: showComments.counter + COMMENTS_ON_PAGE,
             }));
           }}
         >
@@ -62,6 +61,7 @@ function CommentsList (): JSX.Element {
         onSuccessComment={(value:boolean) => setSuccessAddComment(value)}
         onAddComment={(item) => {
           const newCommentsList = Object.assign([], showComments.comments);
+
           newCommentsList.push(item);
           setShowComments((prevState) => (
             {...prevState,
@@ -77,7 +77,6 @@ function CommentsList (): JSX.Element {
         onSuccessComment={(value:boolean) => {
           setSuccessAddComment(value);
         }}
-        id={guitar.id}
       />}
     </>
   );
