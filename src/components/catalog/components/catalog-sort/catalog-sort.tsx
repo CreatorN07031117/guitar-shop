@@ -11,7 +11,7 @@ function CatalogSort (): JSX.Element {
         <button className="catalog-sort__order-button catalog-sort__order-button--down" aria-label="По убыванию"></button>
       </div>
     </div>
-  )
+  );
 }
 
 export default CatalogSort;

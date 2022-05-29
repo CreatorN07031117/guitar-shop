@@ -1,6 +1,6 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { CartProcess } from '../../types/store-types';
-import { NameSpace } from '../../const';
+import {createSlice} from '@reduxjs/toolkit';
+import {CartProcess} from '../../types/store-types';
+import {NameSpace} from '../../const';
 
 
 const initialState: CartProcess = {
@@ -18,13 +18,7 @@ export const cartProcess = createSlice({
     setOrderList: (state, action) => {
       state.orderList.push(action.payload as number);
     },
-    getCoupon: (state) => {
-      ({coupon: state.coupon} = state);
-    },
-    loadCoupon: (state, action) => {
-      state.coupon = action.payload;
-    },
   },
 });
 
-export const { getOrderList, setOrderList, getCoupon, loadCoupon } = cartProcess.actions;
+export const {getOrderList, setOrderList} = cartProcess.actions;

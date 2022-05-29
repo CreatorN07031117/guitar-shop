@@ -1,7 +1,7 @@
-import { useState, ChangeEvent, useRef, useCallback, useEffect } from 'react';
-import { useAppDispatch } from '../../../../hooks/hooks';
-import { AddCommentAction } from '../../../../store/api-actions';
-import { NewComment } from '../../../../types/data-types';
+import {useState, ChangeEvent, useRef, useCallback, useEffect} from 'react';
+import {useAppDispatch} from '../../../../hooks/hooks';
+import {AddCommentAction} from '../../../../store/api-actions';
+import {NewComment} from '../../../../types/data-types';
 
 type NewCommentPopupProps = {
   id: number,
@@ -51,8 +51,8 @@ function NewCommentPopup ({id, onNewComment, onSuccessComment}:NewCommentPopupPr
 
   const clickOnEsc = useCallback((evt) => {
     if(evt.keyCode === 27){
-      onNewComment(false); }
-  },[]);
+      onNewComment(false);}
+  },[onNewComment]);
 
   useEffect(() => {
     document.addEventListener('keydown', clickOnEsc);
@@ -62,7 +62,7 @@ function NewCommentPopup ({id, onNewComment, onSuccessComment}:NewCommentPopupPr
     if(evt.target.className === 'modal__overlay'){
       onNewComment(false);
     }
-  },[]);
+  },[onNewComment]);
 
   useEffect(() => {
     document.addEventListener('click', clickOnOverlay);
@@ -102,6 +102,7 @@ function NewCommentPopup ({id, onNewComment, onSuccessComment}:NewCommentPopupPr
                     ref={inputNameRef}
                     value={newComment.userName}
                     onChange={handleInputChange}
+                    data-testid="name"
                   />
                   <p className="form-review__warning">Заполните поле</p>
                 </div>
@@ -125,7 +126,7 @@ function NewCommentPopup ({id, onNewComment, onSuccessComment}:NewCommentPopupPr
               <label className="form-review__label form-review__label--required" htmlFor="adv">Достоинства</label>
               <input
                 className="form-review__input"
-
+                data-testid="adv"
                 type="text"
                 autoComplete="off"
                 name="advantage"
@@ -137,6 +138,7 @@ function NewCommentPopup ({id, onNewComment, onSuccessComment}:NewCommentPopupPr
               <label className="form-review__label form-review__label--required" htmlFor="disadv">Недостатки</label>
               <input
                 className="form-review__input"
+                data-testid="disadv"
                 id="disadv"
                 type="text"
                 autoComplete="off"
@@ -150,6 +152,7 @@ function NewCommentPopup ({id, onNewComment, onSuccessComment}:NewCommentPopupPr
               <textarea
                 className="form-review__input form-review__input--textarea"
                 id="comment"
+                data-testid="comment"
                 rows={10}
                 autoComplete="off"
                 name="comment"

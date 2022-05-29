@@ -1,4 +1,5 @@
-import { useCallback, useEffect } from 'react';
+import {useCallback, useEffect} from 'react';
+
 
 type SuccessCommentAddPopupProps = {
   onSuccessComment: (value: boolean) => void;
@@ -13,7 +14,7 @@ function SuccessCommentAddPopup ({onSuccessComment}: SuccessCommentAddPopupProps
   const clickOnEsc = useCallback((evt) => {
     if(evt.keyCode === 27){
       onSuccessComment(false); }
-  },[]);
+  },[onSuccessComment]);
 
   useEffect(() => {
     document.addEventListener('keydown', clickOnEsc);
@@ -23,7 +24,7 @@ function SuccessCommentAddPopup ({onSuccessComment}: SuccessCommentAddPopupProps
     if(evt.target.className === 'modal__overlay'){
       onSuccessComment(false);
     }
-  },[]);
+  },[onSuccessComment]);
 
   useEffect(() => {
     document.addEventListener('click', clickOnOverlay);

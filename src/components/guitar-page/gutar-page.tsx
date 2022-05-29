@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
-import { store } from '../../store/store';
+import {useEffect, useState} from 'react';
+import {Link, useParams} from 'react-router-dom';
+import {store} from '../../store/store';
 import Header from '../header/header';
 import Footer from '../footer/footer';
 import CommentsList from './components/comments/comments';
@@ -8,10 +8,10 @@ import TabCharacteristics from './components/tab-characteristics/tab-characteris
 import TabDescription from './components/tab-description/tab-description';
 import CartAddPopup from '../cart-add-popup/cart-add-popup';
 import CartAddSuccess from '../cart-add-success/cart-add-success';
-import { fetchGuitarActions, fetchCommentsActions } from '../../store/api-actions';
-import { useAppSelector } from '../../hooks/hooks';
-import { getRatingStars, getRetinaImg } from '../../utils';
-import { AppRoute, GuitarType } from '../../const';
+import {fetchGuitarActions, fetchCommentsActions} from '../../store/api-actions';
+import {useAppSelector} from '../../hooks/hooks';
+import {getRatingStars, getRetinaImg} from '../../utils';
+import {AppRoute, GuitarType} from '../../const';
 
 
 function GuitarPage (): JSX.Element {
@@ -28,7 +28,7 @@ function GuitarPage (): JSX.Element {
     store.dispatch(fetchCommentsActions(params.id as string));
   });
 
-  const { guitar } = useAppSelector(({PRODUCT}) => PRODUCT);
+  const {guitar, comments, isDataLoaded} = useAppSelector(({PRODUCT}) => PRODUCT);
   const rating = getRatingStars(guitar.rating);
 
   let retinaImg;
@@ -49,6 +49,7 @@ function GuitarPage (): JSX.Element {
   };
 
   return (
+
     <div className="wrapper">
       <Header />
       <main className="page-content">
@@ -66,7 +67,7 @@ function GuitarPage (): JSX.Element {
             </li>
           </ul>
           <div className="product-container">
-            <img className="product-container__img" src={`../${guitar.previewImg}`} srcSet={`../${retinaImg}`} width="90" height="235" alt="" />
+            <img className="product-container__img" src={`../${guitar.previewImg}`} srcSet={`../${retinaImg}`} width="90" height="235" alt={guitar.name} />
             <div className="product-container__info-wrapper">
               <h2 className="product-container__title title title--big title--uppercase">{guitar.name}</h2>
               <div className="rate product-container__rating">
@@ -75,6 +76,7 @@ function GuitarPage (): JSX.Element {
                     <use xlinkHref={item}> </use>
                   </svg> ))}
                 <p className="visually-hidden">Оценка: {}</p>
+                <p className="rate__count"><span className="visually-hidden">Всего оценок:</span>{comments?.length}</p>
               </div>
               <div className="tabs">
                 <span className={`button button--medium tabs__button ${activeTab==='description' && 'button--black-border'}`}
@@ -111,7 +113,7 @@ function GuitarPage (): JSX.Element {
               </span>
             </div>
           </div>
-          <CommentsList />
+          {isDataLoaded? <CommentsList /> : (<p>Комментарии загружаются...</p>)}
         </div>
       </main>
       <Footer />
