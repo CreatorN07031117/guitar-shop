@@ -1,5 +1,6 @@
 import {useEffect, useState} from 'react';
 import {Link, useParams} from 'react-router-dom';
+import {store} from '../../store/store';
 import Header from '../header/header';
 import Footer from '../footer/footer';
 import CommentsList from './components/comments/comments';
@@ -24,8 +25,8 @@ function GuitarPage(): JSX.Element {
 
   useEffect(() => {
     dispatch(deleteComments());
-    dispatch(fetchCommentsActions(params.id as string));
-    dispatch(fetchGuitarActions(params.id as string));
+    store.dispatch(fetchCommentsActions(params.id as string));
+    store.dispatch(fetchGuitarActions(params.id as string));
   }, [dispatch, params.id]);
 
   const [selectGuitarId, setSelectGuitarId] = useState <null | number> (null);
