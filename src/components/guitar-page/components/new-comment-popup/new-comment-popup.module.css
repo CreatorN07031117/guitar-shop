@@ -1,0 +1,381 @@
+.modal {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  z-index: 1000;
+
+  display: flex;
+  visibility: visible;
+  overflow-y: auto;
+  flex-direction: column;
+
+  opacity: 1;
+  background: rgba(84, 77, 77, 0.65);
+
+  -webkit-transition: opacity 0.6s cubic-bezier(0.55, 0, 0.1, 1), visibility 0.6s cubic-bezier(0.55, 0, 0.1, 1), -webkit-transform 0.6s cubic-bezier(0.55, 0, 0.1, 1);
+          transition: opacity 0.6s cubic-bezier(0.55, 0, 0.1, 1), visibility 0.6s cubic-bezier(0.55, 0, 0.1, 1), -webkit-transform 0.6s cubic-bezier(0.55, 0, 0.1, 1);
+          transition: opacity 0.6s cubic-bezier(0.55, 0, 0.1, 1), transform 0.6s cubic-bezier(0.55, 0, 0.1, 1), visibility 0.6s cubic-bezier(0.55, 0, 0.1, 1);
+          transition: opacity 0.6s cubic-bezier(0.55, 0, 0.1, 1), transform 0.6s cubic-bezier(0.55, 0, 0.1, 1), visibility 0.6s cubic-bezier(0.55, 0, 0.1, 1), -webkit-transform 0.6s cubic-bezier(0.55, 0, 0.1, 1);
+  -webkit-transform: scale(1);
+  transform: scale(1);
+pointer-events: auto;
+
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: none;
+  scrollbar-width: none
+}
+
+.modal::-webkit-scrollbar {
+  display: none;
+}
+
+.modalContent {
+  position: relative;
+
+  overflow: hidden;
+
+  width: 410px;
+  padding: 40px;
+  padding-top: 26px;
+  padding-bottom: 29px;
+
+  border-radius: 4px;
+  background-color: #fefafa;
+}
+
+.modalWrapper {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  justify-content: center;
+
+  width: 100%;
+  min-height: 100%;
+  padding: 60px 40px;
+}
+
+.modalOverlay {
+  top: 0;
+  left: 0;
+  position: absolute;
+
+  width: 100%;
+  height: 100%;
+
+  cursor: pointer;
+}
+
+.modalHeader {
+  margin-top: 0;
+  margin-bottom: 23px;
+  padding: 0;
+
+  font-family: "Open Sans", "Arial", sans-serif;
+  font-weight: 700;
+  line-height: 1.2;
+  font-size: 18px;
+
+  letter-spacing: 0.02em;
+
+  color: inherit;
+}
+
+.modalTitle {
+  margin-top: 0;
+  margin-bottom: 10px;
+  padding: 0;
+
+  font-family: "Open Sans", "Arial", sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 20px;
+
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+
+  color: inherit;
+}
+
+.formReview {
+  display: flex;
+  flex-direction: column;
+}
+
+.formReviewWrapper {
+  display: flex;
+
+  margin-bottom: 5px;
+  padding-top: 23px;
+}
+
+.formReviewNameWrapper {
+  width: 175px;
+  margin-right: 30px;
+}
+
+.formReviewLabel {
+  display: inline-block;
+  align-self: flex-start;
+
+  position: relative;
+
+  margin-bottom: 5px;
+
+  font-size: 12px;
+  line-height: 15px;
+
+  color: #585757;
+
+  letter-spacing: 0.02em;
+}
+
+.formReviewLabel::before {
+  top: -5px;
+  right: -10px;
+  position: absolute;
+
+  width: 5px;
+  height: 5px;
+
+  font-size: 12px;
+  line-height: 16px;
+
+  color: #c90606;
+
+  content: "*";
+}
+
+.formReviewInput {
+  width: 100%;
+  margin-bottom: 0;
+  padding: 5px 8px;
+
+  font-size: 14px;
+
+  border: 1px solid #585757;
+  border-radius: 2px;
+  background-color: inherit;
+}
+
+.formReviewTextarea {
+  width: 100%;
+  height: 70px;
+  padding: 5px 8px;
+
+  font-size: 14px;
+
+  border: 1px solid #585757;
+  border-radius: 2px;
+  background-color: inherit;
+}
+
+.formReviewWarning {
+  display: block;
+
+  margin: 0;
+  padding-right: 5px;
+
+  font-size: 10px;
+  line-height: 15px;
+
+  color: #eb5555;
+
+  text-align: end;
+  letter-spacing: 0.02em;
+}
+
+.modalButton {
+  display: block;
+
+  margin-top: 7px;
+  margin-right: 70px;
+  margin-left: 70px;
+  padding: var(--button-vertical-padding) var(--button-horizontal-padding);
+
+  font-family: "Open Sans", "Arial", sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 19px;
+
+  color: #fefafa;
+  border: 2px solid #131212;
+  border-radius: 2px;
+  background-color: #131212;
+
+  cursor: pointer;
+  -webkit-transition: background-image 0.3s ease, background-color 0.3s ease, color 0.3s ease, border 0.3s ease;
+          transition: background-image 0.3s ease, background-color 0.3s ease, color 0.3s ease, border 0.3s ease;
+  text-align: center;
+  letter-spacing: 0.05em;
+
+  --button-horizontal-padding: 20px;
+  --button-vertical-padding: 12px;
+}
+
+.modalButton:hover {
+  color: #131212;
+  background-color: #fefafa;
+}
+
+.rate {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+
+  width: 100%;
+  margin-left: -3px;
+
+  color: #c90606;
+}
+
+.rate:not(:checked) > label {
+  float: right;
+  overflow: hidden;
+
+  width: 18px;
+  height: 20px;
+
+  font-size: 30px;
+
+  color: #ffffff;
+
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.rate:not(:checked) > label::before {
+  position: absolute;
+
+  width: 24px;
+  height: 20px;
+
+  background: url("../../../../../public/img/sprite/icon-star.svg") no-repeat top 0 left 0;
+  background-size: 18px 20px;
+
+  content: "";
+}
+
+.rate > input:checked ~ label {
+  background: url("../../../../../public/img/sprite/icon-full-star.svg") no-repeat top 0 left 0;
+  background-size: 18px 20px;
+}
+
+.rate:not(:checked) > label:hover,
+.rate:not(:checked) > label:hover ~ label {
+  background: url("../../../../../public/img/sprite/icon-full-star.svg") no-repeat top 0 left 0;
+  background-size: 18px 20px;
+}
+
+.rate > input:focus + label {
+  outline: 1px solid #000000;
+  outline-offset: -1px;
+}
+
+.rateLabel {
+  margin-left: 3px;
+}
+
+.rateMessage {
+  bottom: -17px;
+  left: 7px;
+  position: absolute;
+
+  width: 100px;
+  margin: 0;
+
+  font-size: 10px;
+  font-weight: normal;
+  font-style: normal;
+  line-height: 15px;
+
+  color: #eb5555;
+
+  letter-spacing: 0.02em;
+}
+
+.visuallyHidden {
+  position: absolute;
+
+  clip: rect(0 0 0 0);
+
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+}
+
+.modalCloseBtn {
+  top: 23px;
+  right: 23px;
+  position: absolute;
+
+  width: 14px;
+  height: 14px;
+  padding: 0;
+
+  color: #585757;
+  border: none;
+  background-color: transparent;
+
+  cursor: pointer;
+  -webkit-transition: outline-color 0.3s ease;
+  -webkit-transition: color 0.3s ease;
+          transition: outline-color 0.3s ease;
+          transition: color 0.3s ease;
+}
+
+.modalCloseBtn:hover {
+  color: #c90606;
+}
+
+.modalCloseBtn:focus {
+  color: #c90606;
+  outline: none;
+}
+
+.buttonCrossIcon::before,
+.buttonCrossIcon::after {
+  top: 6.5px;
+  left: -1.5px;
+  position: absolute;
+
+  width: 17px;
+  height: 1px;
+
+  background-color: currentColor;
+
+  content: "";
+}
+
+.buttonCrossIcon::before {
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+}
+
+.buttonCrossIcon::after {
+  -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+}
+
+.modalCloseBtninteractiveArea {
+  position: relative;
+}
+
+.modalCloseBtninteractiveArea::before {
+  top: 50%;
+  left: 50%;
+  position: absolute;
+
+  width: 60px;
+  height: 65px;
+
+  content: "";
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}

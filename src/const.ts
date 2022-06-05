@@ -23,8 +23,6 @@ export const enum APIRoute {
   Guitars = '/guitars',
   Guitar = '/guitars/',
   Comments = '/comments',
-  Coupons = '/coupons',
-  Order = '/orderes'
 }
 
 export const enum HTTPCode {
@@ -39,3 +37,11 @@ export const enum GuitarType {
 }
 
 export const COMMENTS_ON_PAGE = 3;
+
+export const enum TextRating {
+  Terrible = 'Ужасно',
+  Poorly = 'Плохо',
+  Fine = 'Нормально',
+  Good = 'Хорошо',
+  Great = 'Отлично',
+}

@@ -1,0 +1,86 @@
+.review {
+  margin-bottom: 30px;
+}
+
+.reviewWrapper {
+  display: flex;
+  align-items: baseline;
+
+  min-width: 100px;
+  margin-bottom: 10px;
+}
+
+.reviewTitleName {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding: 0;
+
+  font-family: "Open Sans", "Arial", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 22px;
+
+  color: inherit;
+}
+
+.reviewTitle {
+  margin-top: 0;
+  margin-bottom: 3px;
+  padding: 0;
+
+  font-family: "Open Sans", "Arial", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 22px;
+
+  color: inherit;
+}
+
+.reviewValue {
+  margin-top: 0;
+  margin-bottom: 10px;
+
+  font-size: 14px;
+  line-height: 19px;
+}
+
+.reviewDate {
+  margin-left: 10px;
+
+  font-size: 12px;
+  line-height: 16px;
+
+  color: #585757;
+}
+
+
+.rate {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+  width: 100%;
+  margin-bottom: 12px;
+
+  color: #c90606;
+}
+
+.rate svg {
+  margin-right: 3px;
+}
+
+.rate label {
+  position: relative;
+}
+
+.visuallyHidden {
+  position: absolute;
+
+  clip: rect(0 0 0 0);
+
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+}

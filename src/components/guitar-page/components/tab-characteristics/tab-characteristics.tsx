@@ -1,24 +1,28 @@
+import style from './tab-characteristics.module.css';
+import '../../../app/app.module.css';
+
+
 type TabCharacteristicsProps = {
   vendorCode: string,
   type: string,
   stringCount: number,
 }
 
-function TabCharacteristics ({vendorCode, type, stringCount }:TabCharacteristicsProps): JSX.Element {
+function TabCharacteristics({vendorCode, type, stringCount }:TabCharacteristicsProps): JSX.Element {
   return (
-    <table className="tabs__table">
+    <table className={style.tabsTable }>
       <tbody>
-        <tr className="tabs__table-row">
-          <td className="tabs__title">Артикул:</td>
-          <td className="tabs__value">{vendorCode}</td>
+        <tr className={style.tabsTableRow}>
+          <td className={style.tabsTitle}>Артикул:</td>
+          <td className={style.tabsValue}>{vendorCode}</td>
         </tr>
-        <tr className="tabs__table-row">
-          <td className="tabs__title">Тип:</td>
-          <td className="tabs__value">{type}</td>
+        <tr className={style.tabsTableRow}>
+          <td className={style.tabsTitle}>Тип:</td>
+          <td className={style.tabsValue}>{type}</td>
         </tr>
-        <tr className="tabs__table-row">
-          <td className="tabs__title">Количество струн:</td>
-          <td className="tabs__value">{stringCount} струнная</td>
+        <tr className={style.tabsTableRow}>
+          <td className={style.tabsTitle}>Количество струн:</td>
+          <td className={style.tabsValue}>{stringCount} струнная</td>
         </tr>
       </tbody>
     </table>

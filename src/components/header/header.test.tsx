@@ -16,6 +16,7 @@ const store = mockStore({
   },
 });
 
+
 describe('Component: Header', () => {
   it('Компонент отрисовывается корректно', () => {
     render(

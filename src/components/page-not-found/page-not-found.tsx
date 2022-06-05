@@ -1,13 +1,16 @@
 import Header from '../header/header';
 import Footer from '../footer/footer';
+import style from './page-not-found.module.css';
+import '../app/app.module.css';
+
 
 function PageNotFound ():JSX.Element {
   return (
-    <div className="wrapper">
+    <div className={style.wrapper}>
       <Header />
-      <main className="page-content">
-        <div className="container">
-          <h1 className="page-content__title title title--bigger">404</h1>
+      <main className={style.pageContent}>
+        <div className={style.container}>
+          <h1 className={style.titleBigger}>404</h1>
           <p>Такой страницы не существует</p>
         </div>
       </main>

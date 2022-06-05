@@ -9,6 +9,7 @@ const history = createMemoryHistory();
 history.push('/guitars/1');
 const mockGuitar = makeMockGuitar();
 
+
 describe('Component: TabCDescription', () => {
   it('Компонент отрисовывается корректно', () => {
     render(

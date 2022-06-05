@@ -1,18 +1,20 @@
 import {useState} from 'react';
-import {useAppSelector} from '../../../../hooks/hooks';
-import {COMMENTS_ON_PAGE} from '../../../../const';
 import CommentItem from '../comment-item/comment-item';
 import NewCommentPopup from '../new-comment-popup/new-comment-popup';
 import SuccessCommentAddPopup from '../success-comment-add-popup/success-comment-add-popup';
+import {useAppSelector} from '../../../../hooks/use-app-selector';
 import {sortCommentsByData} from '../../../../utils';
+import {COMMENTS_ON_PAGE} from '../../../../const';
+import style from './comments.module.css';
+import '../../../app/app.module.css';
 
 
-function CommentsList (): JSX.Element {
+function CommentsList(): JSX.Element {
   const {guitar} = useAppSelector(({PRODUCT}) => PRODUCT);
   const {comments} = useAppSelector(({PRODUCT}) => PRODUCT);
 
   comments.slice().sort(sortCommentsByData);
-  const [showComments, setShowComments] = useState ({
+  const [showComments, setShowComments] = useState({
     comments: comments,
     list: comments.slice(0, COMMENTS_ON_PAGE),
     counter: COMMENTS_ON_PAGE,
@@ -21,28 +23,27 @@ function CommentsList (): JSX.Element {
   const [newComment, setNewComment] = useState <boolean> (false);
   const [successAddComment, setSuccessAddComment] = useState <boolean> (false);
 
-
   return (
     <>
-      <section className="reviews">
-        <h3 className="reviews__title title title--bigger">Отзывы</h3>
+      <section className={style.reviews}>
+        <h3 className={style.reviewsTitle}>Отзывы</h3>
         <span
-          className="button button--red-border button--big reviews__sumbit-button"
+          className={style.newRewiewButton}
           onClick={() => {
             setNewComment(true);
           }}
         >
           Оставить отзыв
         </span>
-        {showComments.list.map((item) =>(
+        {showComments.list.map((item) => (
           <CommentItem key={item.id} comment={item} />
         ))}
         {showComments.counter < showComments.comments.length &&
         <button
-          className="button button--medium reviews__more-button"
+          className={style.reviewsMoreButton}
           onClick={(evt) => {
             evt.preventDefault();
-            setShowComments((prevShowComments) =>({
+            setShowComments((prevShowComments) => ({
               ...prevShowComments,
               list: showComments.comments.slice(0, showComments.counter+ COMMENTS_ON_PAGE),
               counter: showComments.counter + COMMENTS_ON_PAGE,
@@ -51,7 +52,7 @@ function CommentsList (): JSX.Element {
         >
         Показать еще отзывы
         </button>}
-        {(comments.length > 0) && (<a style={{zIndex: '1'}} className="button button--up button--red-border button--big reviews__up-button" href="#header">Наверх</a>)}
+        {(comments.length > 0) && (<a style={{zIndex: '1'}} className={style.buttonUp} href="#header">Наверх</a>)}
       </section>
       {newComment &&
       <NewCommentPopup
@@ -63,14 +64,12 @@ function CommentsList (): JSX.Element {
           const newCommentsList = Object.assign([], showComments.comments);
 
           newCommentsList.push(item);
-          setShowComments((prevState) => (
-            {...prevState,
-              list: newCommentsList.sort(sortCommentsByData).slice(0, showComments.counter),
-              comments: newCommentsList.sort(sortCommentsByData),
-            }
-          ));
+          setShowComments((prevState) => ({
+            ...prevState,
+            list: newCommentsList.sort(sortCommentsByData).slice(0, showComments.counter),
+            comments: newCommentsList.sort(sortCommentsByData),
+          }));
         }}
-
       />}
       {successAddComment &&
       <SuccessCommentAddPopup

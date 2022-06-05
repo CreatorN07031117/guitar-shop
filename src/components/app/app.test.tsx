@@ -32,7 +32,6 @@ const store = mockStore({
   },
 });
 
-
 const fakeApp = (
   <Provider store={store}>
     <HistoryRouter history={history}>

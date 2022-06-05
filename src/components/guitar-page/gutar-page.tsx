@@ -10,12 +10,16 @@ import CartAddPopup from '../cart-add-popup/cart-add-popup';
 import CartAddSuccess from '../cart-add-success/cart-add-success';
 import {deleteComments} from '../../store/product-process/product-process';
 import {fetchGuitarActions, fetchCommentsActions} from '../../store/api-actions';
-import {useAppSelector, useAppDispatch} from '../../hooks/hooks';
+import {useAppSelector} from '../../hooks/use-app-selector';
+import {useAppDispatch} from '../../hooks/use-app-dispatch';
 import {getRatingStars, getRetinaImg} from '../../utils';
 import {AppRoute, GuitarType} from '../../const';
+import {spotRating} from '../../utils';
+import style from './guitar-page.module.css';
+import '../app/app.module.css';
 
 
-function GuitarPage (): JSX.Element {
+function GuitarPage(): JSX.Element {
   const dispatch = useAppDispatch();
   const params = useParams();
 
@@ -40,72 +44,72 @@ function GuitarPage (): JSX.Element {
   const getGuitarType = (type:string) => {
     if(type === 'electric'){
       return GuitarType.Electric;
-    } else if (type === 'ukulele'){
+    } else if(type === 'ukulele'){
       return GuitarType.Ukulele;
-    } else if (type === 'acoustic'){
+    } else if(type === 'acoustic'){
       return GuitarType.Acoustic;
-    } else {
+    } else{
       return type;
     }
   };
 
   return (
-
-    <div className="wrapper">
+    <div className={style.wrapper}>
       <Header />
-      <main className="page-content">
-        <div className="container">
-          <h1 className="page-content__title title title--bigger">{guitar.name}</h1>
-          <ul className="breadcrumbs page-content__breadcrumbs">
-            <li className="breadcrumbs__item">
+      <main className={style.pageContent}>
+        <div className={style.container}>
+          <h1 className={style.titleBigger}>{guitar.name}</h1>
+          <ul className={style.breadcrumbs}>
+            <li className={style.breadcrumbsItem}>
               <Link to={AppRoute.Index}>Главная</Link>
             </li>
-            <li className="breadcrumbs__item">
+            <li className={style.breadcrumbsItem}>
               <Link to={AppRoute.Catalog}>Каталог</Link>
             </li>
-            <li className="breadcrumbs__item">
+            <li className={style.breadcrumbsItem}>
               <span className="link">{guitar.name}</span>
             </li>
           </ul>
-          <div className="product-container">
-            <img className="product-container__img" src={`../${guitar.previewImg}`} srcSet={`../${retinaImg}`} width="90" height="235" alt={guitar.name} />
-            <div className="product-container__info-wrapper">
-              <h2 className="product-container__title title title--big title--uppercase">{guitar.name}</h2>
-              <div className="rate product-container__rating">
+          <div className={style.productContainer}>
+            <img className={style.productContainerImg} src={`../${guitar.previewImg}`} srcSet={`../${retinaImg}`} width="90" height="235" alt={guitar.name} />
+            <div className={style.productContainerInfoWapper}>
+              <h2 className={style.productContainerTitle}>{guitar.name}</h2>
+              <div className={style.rate}>
                 {rating.map((item, index) => (
                   <svg key={item.concat(index.toString())} width="14" height="14" aria-hidden="true">
                     <use xlinkHref={item}> </use>
-                  </svg> ))}
-                <p className="visually-hidden">Оценка: {}</p>
-                <p className="rate__count"><span className="visually-hidden">Всего оценок:</span>{comments?.length}</p>
+                  </svg>
+                ))}
+                <p className={style.visuallyHidden}>Оценка: {spotRating(guitar.rating)}</p>
+                <p className={style.rateCount}><span className="visually-hidden">Всего оценок:</span>{comments?.length}</p>
               </div>
-              <div className="tabs">
-                <span className={`button button--medium tabs__button ${activeTab==='description' && 'button--black-border'}`}
+              <div className={style.tabs}>
+                <span className={activeTab === 'description'? style.tabsButtonBlackBorder : style.tabsButton }
                   onClick={() => {
-                    setActiveTab((prevActiveTab) => (prevActiveTab = 'characteristics'));
+                    setActiveTab((prevActiveTab) => (prevActiveTab='characteristics'));
                   }}
                 >
                     Характеристики
                 </span>
-                <span className={`button button--medium tabs__button ${activeTab==='characteristics' && 'button--black-border'}`}
+                <span className={activeTab === 'characteristics'? style.tabsButtonBlackBorder : style.tabsButton}
                   onClick={() => {
-                    setActiveTab((prevActiveTab) => (prevActiveTab = 'description'));
+                    setActiveTab((prevActiveTab) => (prevActiveTab='description'));
                   }}
                 >
                   Описание
                 </span>
-                <div className="tabs__content" id="characteristics">
+                <div className={style.tabsContent} id="characteristics">
                   {activeTab==='characteristics'?
                     <TabCharacteristics vendorCode={guitar.vendorCode} type={getGuitarType(guitar.type)} stringCount={guitar.stringCount} /> :
                     <TabDescription description={guitar.description} />}
                 </div>
               </div>
             </div>
-            <div className="product-container__price-wrapper">
-              <p className="product-container__price-info product-container__price-info--title">Цена:</p>
-              <p className="product-container__price-info product-container__price-info--value">{guitar.price?.toLocaleString()} ₽</p>
+            <div className={style.productContainerPriceWrapper}>
+              <p className={style.priceInfoTitle}>Цена:</p>
+              <p className={style.priceInfoValue}>{guitar.price?.toLocaleString()} ₽</p>
               <span
-                className="button button--red button--big product-container__button"
+                className={style.addToCartButton}
                 onClick={() => {
                   setSelectGuitarId(guitar.id);
                 }}

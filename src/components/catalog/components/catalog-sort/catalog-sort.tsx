@@ -1,14 +1,18 @@
-function CatalogSort (): JSX.Element {
+import style from './catalog-sort.module.css';
+import '../../../app/app.module.css';
+
+
+function CatalogSort(): JSX.Element {
   return (
-    <div className="catalog-sort">
-      <h2 className="catalog-sort__title">Сортировать:</h2>
-      <div className="catalog-sort__type">
-        <button className="catalog-sort__type-button" aria-label="по цене">по цене</button>
-        <button className="catalog-sort__type-button" aria-label="по популярности">по популярности</button>
+    <div className={style.catalogSort}>
+      <h2 className={style.catalogSortTitle}>Сортировать:</h2>
+      <div className={style.catalogSortType}>
+        <button className={style.catalogSortTypeButton} aria-label="по цене">по цене</button>
+        <button className={style.catalogSortTypeButton} aria-label="по популярности">по популярности</button>
       </div>
-      <div className="catalog-sort__order">
-        <button className="catalog-sort__order-button catalog-sort__order-button--up" aria-label="По возрастанию"></button>
-        <button className="catalog-sort__order-button catalog-sort__order-button--down" aria-label="По убыванию"></button>
+      <div className={style.catalogSortOrder}>
+        <button className={style.catalogSortOrderButtonUp} aria-label="По возрастанию"></button>
+        <button className={style.catalogSortOrderButtonDown} aria-label="По убыванию"></button>
       </div>
     </div>
   );

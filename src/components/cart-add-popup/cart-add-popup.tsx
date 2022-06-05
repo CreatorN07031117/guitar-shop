@@ -1,9 +1,11 @@
-import { useCallback, useEffect } from 'react';
-import { getRetinaImg } from '../../utils';
-import { useAppDispatch } from '../../hooks/hooks';
-import { setOrderList, getOrderList } from '../../store/cart-process/cart-process';
-import { GuitarType } from '../../const';
-import { Guitar } from '../../types/data-types';
+import {useCallback, useEffect} from 'react';
+import {useAppDispatch} from '../../hooks/use-app-dispatch';
+import {setOrderList, getOrderList} from '../../store/cart-process/cart-process';
+import {GuitarType} from '../../const';
+import {getRetinaImg} from '../../utils';
+import {Guitar} from '../../types/data-types';
+import style from './cart-add-popup.module.css';
+import '../app/app.module.css';
 
 
 type CartAddPopupProps = {
@@ -12,9 +14,10 @@ type CartAddPopupProps = {
   onAddSuccess: (value: boolean) => void;
 }
 
-function CartAddPopup ({guitar, onGuitarId, onAddSuccess}:CartAddPopupProps) : JSX.Element {
+
+function CartAddPopup({guitar, onGuitarId, onAddSuccess}:CartAddPopupProps): JSX.Element {
   const dispatch = useAppDispatch();
-  const retinaImg = getRetinaImg (guitar.previewImg);
+  const retinaImg = getRetinaImg(guitar.previewImg);
 
   const shortDescription = (type:string, stringsCount:number) => {
     if(type === 'electric'){
@@ -35,7 +38,8 @@ function CartAddPopup ({guitar, onGuitarId, onAddSuccess}:CartAddPopupProps) : J
 
   const handleClickOnEsc = useCallback((evt) => {
     if(evt.keyCode === 27){
-      onGuitarId(null); }
+      onGuitarId(null);
+    }
   },[onGuitarId]);
 
   useEffect(() => {
@@ -43,55 +47,60 @@ function CartAddPopup ({guitar, onGuitarId, onAddSuccess}:CartAddPopupProps) : J
   }, [handleClickOnEsc]);
 
   const handleClickOnOverlay = useCallback((evt) => {
-    if(evt.target.className === 'modal__overlay'){
+    if(evt.target.dataset.closeModal){
       onGuitarId(null);
     }
   },[onGuitarId]);
 
-  useEffect(() => {
+  useEffect(()=>{
     document.addEventListener('click', handleClickOnOverlay);
   }, [handleClickOnOverlay]);
 
+  const handleBtnClick = (evt:React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    evt.preventDefault();
+    onGuitarId(null);
+    onAddSuccess(true);
+    handleClick(guitar.id);
+  };
+
   return (
     <div style={{position: 'relative', width: '550px', height: '440px', marginBottom: '50px'}}>
-      <div className="modal is-active modal-for-ui-kit">
-        <div className="modal__wrapper">
-          <div className="modal__overlay" data-close-modal></div>
-          <div className="modal__content">
-            <h2 className="modal__header title title--medium">Добавить товар в корзину</h2>
-            <div className="modal__info">
-              <img className="modal__img" src={`../${guitar.previewImg}`} srcSet={`../${retinaImg}`} width="67" height="137" alt={guitar.name} />
-              <div className="modal__info-wrapper">
-                <h3 className="modal__product-name title title--little title--uppercase">{guitar.name}</h3>
-                <p className="modal__product-params modal__product-params--margin-11">Артикул: {guitar.vendorCode}</p>
-                <p className="modal__product-params">{shortDescription(guitar.type, guitar.stringCount)}</p>
-                <p className="modal__price-wrapper">
-                  <span className="modal__price">Цена:</span><span className="modal__price">{guitar.price.toLocaleString()} ₽</span>
+      <div className={style.modal}>
+        <div className={style.modalWrapper}>
+          <div className={style.modalOverlay} data-close-modal></div>
+          <div className={style.modalContent}>
+            <h2 className={style.modalHeader}>Добавить товар в корзину</h2>
+            <div className={style.modalInfo}>
+              <img className={style.modalImg} src={`../${guitar.previewImg}`} srcSet={`../${retinaImg}`} width="67" height="137" alt={guitar.name} />
+              <div className={style.modalInfoWrapper}>
+                <h3 className={style.modalTitle}>{guitar.name}</h3>
+                <p className={style.modalProductParams}>Артикул: {guitar.vendorCode}</p>
+                <p className={style.productParams}>{shortDescription(guitar.type, guitar.stringCount)}</p>
+                <p className={style.modalPriceWrapper}>
+                  <span className={style.modalPrice}>Цена:</span><span className={style.modalPrice}>{guitar.price.toLocaleString()} ₽</span>
                 </p>
               </div>
             </div>
-            <div className="modal__button-container">
+            <div className={style.modalButtonContainer}>
               <button
-                className="button button--red button--big modal__button modal__button--add"
+                className={style.button}
                 onClick={(evt) => {
-                  evt.preventDefault();
-                  onGuitarId(null);
-                  onAddSuccess(true);
-                  handleClick(guitar.id);
+                  handleBtnClick(evt);
                 }}
               >
                 Добавить в корзину
               </button>
             </div>
             <button
-              className="modal__close-btn button-cross"
+              className={style.modalCloseBtn}
               type="button"
               aria-label="Закрыть"
               onClick={() => {
                 onGuitarId(null);
               }}
             >
-              <span className="button-cross__icon"></span><span className="modal__close-btn-interactive-area"></span>
+              <span className={style.buttonCrossIcon}></span>
+              <span className={style.modalCloseBtninteractiveArea}></span>
             </button>
           </div>
         </div>

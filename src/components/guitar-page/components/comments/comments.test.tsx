@@ -25,6 +25,7 @@ const store = mockStore({
   },
 });
 
+
 describe('Component: GuitarPage', () => {
   it('Компонент отрисовывается корректно', () => {
     render(
