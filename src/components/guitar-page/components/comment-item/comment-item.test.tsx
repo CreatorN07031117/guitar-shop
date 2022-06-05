@@ -8,6 +8,7 @@ import CommentItem from './comment-item';
 const mockComment = makeMockComment();
 const history = createMemoryHistory();
 
+
 describe('Component: CommentItem', () => {
   it('Компонент отрисовывается корректно', () => {
     render(

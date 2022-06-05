@@ -22,6 +22,7 @@ const store = mockStore({
   },
 });
 
+
 describe('Component: NewCommentPopup', () => {
   it('Компонент отрисовывается корректно', () => {
     render(

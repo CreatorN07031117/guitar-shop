@@ -7,7 +7,7 @@ type SuccessCommentAddPopupProps = {
   onSuccessComment: (value: boolean) => void,
 };
 
-function SuccessCommentAddPopup ({onSuccessComment}: SuccessCommentAddPopupProps): JSX.Element {
+function SuccessCommentAddPopup({onSuccessComment}: SuccessCommentAddPopupProps): JSX.Element {
 
   useEffect(() => {
     document.body.style.overflow = 'hidden';

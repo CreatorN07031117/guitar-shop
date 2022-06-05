@@ -6,6 +6,7 @@ import HistoryRouter from '../../../history-router';
 import GuitarCard from './gutar-card';
 import {makeMockGuitar} from '../../../../mock/mock';
 
+
 const mockStore = configureMockStore();
 const history = createMemoryHistory();
 const mockGuitar = makeMockGuitar();

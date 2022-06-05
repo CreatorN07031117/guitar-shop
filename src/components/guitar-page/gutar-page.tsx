@@ -14,11 +14,12 @@ import {useAppSelector} from '../../hooks/use-app-selector';
 import {useAppDispatch} from '../../hooks/use-app-dispatch';
 import {getRatingStars, getRetinaImg} from '../../utils';
 import {AppRoute, GuitarType} from '../../const';
+import {spotRating} from '../../utils';
 import style from './guitar-page.module.css';
 import '../app/app.module.css';
 
 
-function GuitarPage (): JSX.Element {
+function GuitarPage(): JSX.Element {
   const dispatch = useAppDispatch();
   const params = useParams();
 
@@ -53,7 +54,6 @@ function GuitarPage (): JSX.Element {
   };
 
   return (
-
     <div className={style.wrapper}>
       <Header />
       <main className={style.pageContent}>
@@ -80,7 +80,7 @@ function GuitarPage (): JSX.Element {
                     <use xlinkHref={item}> </use>
                   </svg>
                 ))}
-                <p className={style.visuallyHidden}>Оценка: {}</p>
+                <p className={style.visuallyHidden}>Оценка: {spotRating(guitar.rating)}</p>
                 <p className={style.rateCount}><span className="visually-hidden">Всего оценок:</span>{comments?.length}</p>
               </div>
               <div className={style.tabs}>

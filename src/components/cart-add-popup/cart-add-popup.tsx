@@ -14,7 +14,8 @@ type CartAddPopupProps = {
   onAddSuccess: (value: boolean) => void;
 }
 
-function CartAddPopup ({guitar, onGuitarId, onAddSuccess}:CartAddPopupProps): JSX.Element {
+
+function CartAddPopup({guitar, onGuitarId, onAddSuccess}:CartAddPopupProps): JSX.Element {
   const dispatch = useAppDispatch();
   const retinaImg = getRetinaImg(guitar.previewImg);
 

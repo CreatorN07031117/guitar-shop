@@ -16,6 +16,7 @@ const store = mockStore({
   },
 });
 
+
 describe('Component: NotFoundPage', () => {
   it('Компонент отрисовывается корректно', () => {
     render(

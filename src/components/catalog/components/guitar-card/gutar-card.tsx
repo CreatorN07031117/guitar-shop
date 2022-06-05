@@ -2,6 +2,7 @@ import {Link} from 'react-router-dom';
 import {useAppSelector} from '../../../../hooks/use-app-selector';
 import {getRetinaImg, getRatingStars} from '../../../../utils';
 import {Guitar} from '../../../../types/data-types';
+import {spotRating} from '../../../../utils';
 import style from './guitar-card.module.css';
 import '../../../app/app.module.css';
 
@@ -11,7 +12,7 @@ type GuitarCardProps = {
   onGuitarId: (id: number | null) => void;
 }
 
-function GuitarCard ({guitar, onGuitarId}:GuitarCardProps): JSX.Element {
+function GuitarCard({guitar, onGuitarId}:GuitarCardProps): JSX.Element {
 
   const {orderList} = useAppSelector(({CART}) => CART);
 
@@ -30,7 +31,7 @@ function GuitarCard ({guitar, onGuitarId}:GuitarCardProps): JSX.Element {
               <use xlinkHref={item}> </use>
             </svg>
           ))}
-          <p className={style.visuallyHidden}>Рейтинг: {}</p>
+          <p className={style.visuallyHidden}>Рейтинг: {spotRating(guitar.rating)}</p>
           <p className={style.rateCount}>
             <span className={style.visuallyHidden}>Всего оценок:</span>{guitar.comments?.length}
           </p>

@@ -146,12 +146,25 @@
   color: #c90606;
 }
 
-.mainNavLink--current {
-  pointer-events: none;
-}
-
 .mainNavLink:active {
   color: #545454;
+}
+
+
+.mainNavLinkCurrent {
+  font: inherit;
+
+  color: inherit;
+
+  cursor: pointer;
+  -webkit-transition: color 0.3s ease;
+          transition: color 0.3s ease;
+  display: block;
+
+  margin-top: 10px;
+  margin-left: 37px;
+
+  pointer-events: none;
 }
 
 .formSearch {

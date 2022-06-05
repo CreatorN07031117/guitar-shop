@@ -6,7 +6,7 @@ type TabDescriptionProps = {
   description: string;
 }
 
-function TabDescription ({description}:TabDescriptionProps): JSX.Element {
+function TabDescription({description}:TabDescriptionProps): JSX.Element {
   return (
     <p className={style.tabsDescription}>{description}</p>
   );

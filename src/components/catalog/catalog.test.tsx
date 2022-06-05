@@ -23,6 +23,7 @@ const store = mockStore({
   },
 });
 
+
 describe('Component: Catalog', () => {
   it('Компонент отрисовывается корректно', () => {
     render(

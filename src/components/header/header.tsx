@@ -16,7 +16,7 @@ function Header(): JSX.Element {
         <nav className={style.mainNav}>
           <ul className={style.mainNavList}>
             <li>
-              <Link className={style.mainNavLink} to={AppRoute.Catalog}>Каталог</Link>
+              <Link className={location.pathname === AppRoute.Index? style.mainNavLinkCurrent : style.mainNavLink} to={AppRoute.Catalog}>Каталог</Link>
             </li>
             <li>
               <Link className={style.mainNavLink} to="#">Где купить?</Link>

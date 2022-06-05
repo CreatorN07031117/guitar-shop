@@ -7,7 +7,6 @@ import {AppRoute} from '../../const';
 
 function App(): JSX.Element {
 
-
   return(
     <Routes>
       <Route path={AppRoute.Index}>

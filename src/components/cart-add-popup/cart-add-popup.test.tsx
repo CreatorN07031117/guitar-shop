@@ -18,6 +18,7 @@ const store = mockStore({
   },
 });
 
+
 describe('Component: CartAddPopup', () => {
   it('Компонент отрисовывается корректно', () => {
 

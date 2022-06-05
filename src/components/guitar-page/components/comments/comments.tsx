@@ -9,7 +9,7 @@ import style from './comments.module.css';
 import '../../../app/app.module.css';
 
 
-function CommentsList (): JSX.Element {
+function CommentsList(): JSX.Element {
   const {guitar} = useAppSelector(({PRODUCT}) => PRODUCT);
   const {comments} = useAppSelector(({PRODUCT}) => PRODUCT);
 
@@ -70,7 +70,6 @@ function CommentsList (): JSX.Element {
             comments: newCommentsList.sort(sortCommentsByData),
           }));
         }}
-
       />}
       {successAddComment &&
       <SuccessCommentAddPopup

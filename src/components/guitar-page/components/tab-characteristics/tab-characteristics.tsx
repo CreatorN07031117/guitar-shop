@@ -8,7 +8,7 @@ type TabCharacteristicsProps = {
   stringCount: number,
 }
 
-function TabCharacteristics ({vendorCode, type, stringCount }:TabCharacteristicsProps): JSX.Element {
+function TabCharacteristics({vendorCode, type, stringCount }:TabCharacteristicsProps): JSX.Element {
   return (
     <table className={style.tabsTable }>
       <tbody>

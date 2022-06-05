@@ -7,7 +7,7 @@ type CartAddSuccessProps = {
   onAddSuccess: (value: boolean) => void;
 }
 
-function CartAddSuccess ({onAddSuccess}:CartAddSuccessProps): JSX.Element {
+function CartAddSuccess({onAddSuccess}:CartAddSuccessProps): JSX.Element {
 
   useEffect(() => {
     document.body.style.overflow = 'hidden';
@@ -16,7 +16,8 @@ function CartAddSuccess ({onAddSuccess}:CartAddSuccessProps): JSX.Element {
 
   const handleClickOnEsc = useCallback((evt) => {
     if(evt.keyCode === 27){
-      onAddSuccess(false); }
+      onAddSuccess(false);
+    }
   },[onAddSuccess]);
 
   useEffect(() => {

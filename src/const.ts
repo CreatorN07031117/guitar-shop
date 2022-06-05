@@ -37,3 +37,11 @@ export const enum GuitarType {
 }
 
 export const COMMENTS_ON_PAGE = 3;
+
+export const enum TextRating {
+  Terrible = 'Ужасно',
+  Poorly = 'Плохо',
+  Fine = 'Нормально',
+  Good = 'Хорошо',
+  Great = 'Отлично',
+}

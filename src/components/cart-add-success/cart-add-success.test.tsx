@@ -6,6 +6,7 @@ import CartAddSuccess from './cart-add-success';
 
 const history = createMemoryHistory();
 
+
 describe('Component: CartAddSuccess', () => {
   it('Компонент отрисовывается корректно', () => {
 

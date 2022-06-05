@@ -2,7 +2,7 @@ import style from './catalog-sort.module.css';
 import '../../../app/app.module.css';
 
 
-function CatalogSort (): JSX.Element {
+function CatalogSort(): JSX.Element {
   return (
     <div className={style.catalogSort}>
       <h2 className={style.catalogSortTitle}>Сортировать:</h2>

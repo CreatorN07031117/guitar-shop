@@ -6,6 +6,7 @@ import Footer from './footer';
 
 const history = createMemoryHistory();
 
+
 describe('Component: Footer', () => {
   it('Компонент отрисовывается корректно', () => {
     render(

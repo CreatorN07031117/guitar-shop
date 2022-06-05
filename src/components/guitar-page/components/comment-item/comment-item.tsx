@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import 'dayjs/locale/ru';
 import {Comment} from '../../../../types/data-types';
-import {getRatingStars} from '../../../../utils';
+import {getRatingStars, spotRating} from '../../../../utils';
 import style from './comment-item.module.css';
 import '../../../app/app.module.css';
 
@@ -25,7 +25,7 @@ function CommentItem ({comment}: CommentItemProps): JSX.Element {
           <svg key={item.concat(index.toString())} width="16" height="16" aria-hidden="true">
             <use xlinkHref={item}> </use>
           </svg> ))}
-        <p className={style.visuallyHidden}>Оценка: {}</p>
+        <p className={style.visuallyHidden}>Оценка: {spotRating(comment.rating)}</p>
       </div>
       <h4 className={style.reviewTitle}>Достоинства:</h4>
       <p className={style.reviewValue}>{comment.advantage}</p>

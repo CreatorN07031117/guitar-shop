@@ -15,7 +15,7 @@ type NewCommentPopupProps = {
   onAddComment:(item: Comment) => void;
 }
 
-function NewCommentPopup ({id, onNewComment, onSuccessComment, guitarName, onAddComment}:NewCommentPopupProps): JSX.Element {
+function NewCommentPopup({id, onNewComment, onSuccessComment, guitarName, onAddComment}:NewCommentPopupProps): JSX.Element {
   const dispatch = useAppDispatch();
 
   const [warning, setWarning] = useState({
