@@ -1,10 +1,14 @@
+import style from './tab-description.module.css';
+import '../../../app/app.module.css';
+
+
 type TabDescriptionProps = {
   description: string;
 }
 
 function TabDescription ({description}:TabDescriptionProps): JSX.Element {
   return (
-    <p className="tabs__product-description">{description}</p>
+    <p className={style.tabsDescription}>{description}</p>
   );
 }
 

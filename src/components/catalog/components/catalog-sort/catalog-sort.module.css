@@ -1,0 +1,145 @@
+.catalogSort {
+  display: flex;
+  justify-content: flex-start;
+
+  width: 100%;
+  padding-top: 3px;
+
+  font-size: 16px;
+  line-height: 20px;
+
+  letter-spacing: 0.05em;
+
+  grid-area: sorter;
+}
+
+.catalogSortTitle {
+  margin: 0 20px 0 0;
+
+  font: inherit;
+
+  color: #000000;
+}
+
+.catalogSortType {
+  display: flex;
+
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+
+  color: #585757;
+}
+
+.catalogSortTypeButton {
+  position: relative;
+
+  padding: 0;
+
+  color: #585757;
+  border: none;
+  background-color: rgba(255, 255, 255, 0);
+
+  cursor: pointer;
+  -webkit-transition: color 0.3s ease, outline-color 0.3s ease;
+          transition: color 0.3s ease, outline-color 0.3s ease;
+  letter-spacing: 0.05em;
+}
+
+.catalogSortTypeButton:not(:last-child) {
+  margin-right: 30px;
+}
+
+.catalogSortTypeButton:hover {
+  color: #c90606;
+}
+
+.catalogSortTypeButton:focus {
+  outline: 1px solid #c90606;
+  outline-offset: 1px;
+}
+
+
+.catalogSortOrder {
+  display: flex;
+  align-items: center;
+
+  margin-right: 9px;
+  margin-left: auto;
+}
+
+.catalogSortOrderButtonUp {
+  position: relative;
+
+  width: 0;
+  height: 0;
+  padding: 0;
+
+  border-width: 12px 7px 0;
+  border-color: transparent;
+  border-top-color: #585757;
+  background-color: transparent;
+
+  cursor: pointer;
+  -webkit-transition: border-top-color 0.3s ease, outline-color 0.3s ease;
+          transition: border-top-color 0.3s ease, outline-color 0.3s ease;
+  -webkit-transform: rotate(180deg);
+          transform: rotate(180deg);
+}
+
+.catalogSortOrderButtonUp::before {
+  top: 50%;
+  left: 50%;
+  position: absolute;
+
+  width: 30px;
+  height: 30px;
+
+  content: "";
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+
+.catalogSortOrderButtonDown {
+  position: relative;
+
+  width: 0;
+  height: 0;
+  margin-left: 23px;
+  padding: 0;
+
+  border-width: 12px 7px 0;
+  border-color: transparent;
+  border-top-color: #585757;
+  background-color: transparent;
+
+  cursor: pointer;
+  -webkit-transition: border-top-color 0.3s ease, outline-color 0.3s ease;
+          transition: border-top-color 0.3s ease, outline-color 0.3s ease;
+}
+
+.catalogSortOrderButtonDown::before {
+  top: 50%;
+  left: 50%;
+  position: absolute;
+
+  width: 30px;
+  height: 30px;
+
+  content: "";
+  -webkit-transform: translate(-50%, -75%);
+          transform: translate(-50%, -75%);
+}
+
+.catalogSortOrderButtonUp:hover,
+.catalogSortOrderButtonDown:hover {
+  border-top-color: #c90606;
+}
+
+.catalogSortOrderButtonUp:focus,
+.catalogSortOrderButtonDown:focus {
+  outline: 1px solid #c90606;
+  outline-offset: 1px;
+}
+

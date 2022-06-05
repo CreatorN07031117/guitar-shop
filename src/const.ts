@@ -23,8 +23,6 @@ export const enum APIRoute {
   Guitars = '/guitars',
   Guitar = '/guitars/',
   Comments = '/comments',
-  Coupons = '/coupons',
-  Order = '/orderes'
 }
 
 export const enum HTTPCode {

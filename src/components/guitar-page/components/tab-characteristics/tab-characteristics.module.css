@@ -1,0 +1,29 @@
+.tabsTable {
+  width: inherit;
+  padding-top: 21px;
+
+  border-spacing: 0;
+}
+
+.tabsTableRow  {
+  display: flex;
+  justify-content: flex-start;
+
+  margin-bottom: 8px;
+}
+
+.tabsTitle {
+  max-width: 160px;
+  padding: 0;
+
+  font-weight: 600;
+
+  text-align: left;
+}
+
+.tabsValue {
+  max-width: 160px;
+  margin-left: auto;
+
+  text-align: end;
+}

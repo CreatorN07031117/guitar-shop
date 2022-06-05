@@ -1,7 +1,9 @@
 import {Link} from 'react-router-dom';
-import {useAppSelector} from '../../../../hooks/hooks';
+import {useAppSelector} from '../../../../hooks/use-app-selector';
 import {getRetinaImg, getRatingStars} from '../../../../utils';
 import {Guitar} from '../../../../types/data-types';
+import style from './guitar-card.module.css';
+import '../../../app/app.module.css';
 
 
 type GuitarCardProps = {
@@ -19,27 +21,31 @@ function GuitarCard ({guitar, onGuitarId}:GuitarCardProps): JSX.Element {
   const rating = getRatingStars(guitar.rating);
 
   return (
-    <div className="product-card">
+    <div className={style.productCard}>
       <img src={guitar.previewImg} srcSet={retinaPreviewImg} width="75" height="190" alt={guitar.name} />
-      <div className="product-card__info">
-        <div className="rate product-card__rate">
+      <div className={style.productCardInfo}>
+        <div className={style.rate}>
           {rating.map((item, index) => (
             <svg key={item.concat(index.toString())} width="12" height="11" aria-hidden="true">
               <use xlinkHref={item}> </use>
-            </svg> ))}
-          <p className="visually-hidden">Рейтинг: {}</p>
-          <p className="rate__count"><span className="visually-hidden">Всего оценок:</span>{guitar.comments?.length}</p>
+            </svg>
+          ))}
+          <p className={style.visuallyHidden}>Рейтинг: {}</p>
+          <p className={style.rateCount}>
+            <span className={style.visuallyHidden}>Всего оценок:</span>{guitar.comments?.length}
+          </p>
         </div>
-        <p className="product-card__title">{guitar.name}</p>
-        <p className="product-card__price"><span className="visually-hidden">Цена:</span>{guitar.price.toLocaleString()} ₽
+        <p className={style.productCardTitle}>{guitar.name}</p>
+        <p className={style.productCardPrice}>
+          <span className={style.visuallyHidden}>Цена:</span>{guitar.price.toLocaleString()} ₽
         </p>
       </div>
-      <div className="product-card__buttons">
-        <Link to={`/guitars/${guitar.id}`} className="button button--mini">Подробнее</Link>
+      <div className={style.productCardButtons}>
+        <Link to={`/guitars/${guitar.id}`} className={style.getMoreBtn}>Подробнее</Link>
         {inCart?
-          <span className="button button--red-border button--mini button--in-cart" >В Корзине</span> :
+          <span className={style.inCartYetBtn}>В Корзине</span> :
           <span
-            className="button button--red button--mini button--add-to-cart"
+            className={style.addInCartBtn}
             data-testid="addToCart"
             onClick={() => {
               onGuitarId(guitar.id);

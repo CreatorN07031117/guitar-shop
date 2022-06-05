@@ -1,8 +1,8 @@
-import { Route, Routes, Navigate } from 'react-router-dom';
+import {Route, Routes, Navigate} from 'react-router-dom';
 import Catalog from '../catalog/catalog';
 import GuitarPage from '../guitar-page/gutar-page';
 import PageNotFound from '../page-not-found/page-not-found';
-import { AppRoute } from '../../const';
+import {AppRoute} from '../../const';
 
 
 function App(): JSX.Element {
