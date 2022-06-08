@@ -1,4 +1,5 @@
 import {useCallback, useEffect} from 'react';
+import AriaModal from 'react-aria-modal';
 import style from './cart-add-success.module.css';
 import '../app/app.module.css';
 
@@ -35,41 +36,47 @@ function CartAddSuccess({onAddSuccess}:CartAddSuccessProps): JSX.Element {
   }, [handleClickOnOverlay]);
 
   return (
-    <div style={{position: 'relative', width: '550px', height: '410px', marginBottom: '50px'}}>
-      <div className={style.modal}>
-        <div className={style.modalWrapper}>
-          <div className={style.modalOverlay} data-close-modal></div>
-          <div className={style.modalContent}>
-            <svg className={style.modalIcon} width="26" height="20" aria-hidden="true">
-              <use xlinkHref="#icon-success"></use>
-            </svg>
-            <p className={style.modalMessage}>Товар успешно добавлен в корзину</p>
-            <div className={style.modalButtonContainer}>
-              <button className={style.goToCartBtn}>Перейти в корзину</button>
+    <AriaModal
+      titleText='cart add success'
+      initialFocus="#continue"
+    >
+      <div style={{position: 'relative', width: '550px', height: '410px', marginBottom: '50px'}}>
+        <div className={style.modal}>
+          <div className={style.modalWrapper}>
+            <div className={style.modalOverlay} data-close-modal></div>
+            <div className={style.modalContent}>
+              <svg className={style.modalIcon} width="26" height="20" aria-hidden="true">
+                <use xlinkHref="#icon-success"></use>
+              </svg>
+              <p className={style.modalMessage}>Товар успешно добавлен в корзину</p>
+              <div className={style.modalButtonContainer}>
+                <button className={style.goToCartBtn}>Перейти в корзину</button>
+                <button
+                  id='continue'
+                  className={style.continueShoppingBtn}
+                  onClick={() => {
+                    onAddSuccess(false);
+                  }}
+                >
+                Продолжить покупки
+                </button>
+              </div>
               <button
-                className={style.continueShoppingBtn}
+                className={style.modalCloseBtn}
+                type="button"
+                aria-label="Закрыть"
                 onClick={() => {
                   onAddSuccess(false);
                 }}
               >
-                Продолжить покупки
+                <span className={style.buttonCrossIcon}></span>
+                <span className={style.modalCloseBtninteractiveArea}></span>
               </button>
             </div>
-            <button
-              className={style.modalCloseBtn}
-              type="button"
-              aria-label="Закрыть"
-              onClick={() => {
-                onAddSuccess(false);
-              }}
-            >
-              <span className={style.buttonCrossIcon}></span>
-              <span className={style.modalCloseBtninteractiveArea}></span>
-            </button>
           </div>
         </div>
       </div>
-    </div>
+    </AriaModal>
   );
 }
 

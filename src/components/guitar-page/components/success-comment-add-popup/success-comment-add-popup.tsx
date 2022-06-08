@@ -1,4 +1,5 @@
 import {useCallback, useEffect} from 'react';
+import AriaModal from 'react-aria-modal';
 import style from './success-comment-add-popup.module.css';
 import '../../../app/app.module.css';
 
@@ -35,40 +36,46 @@ function SuccessCommentAddPopup({onSuccessComment}: SuccessCommentAddPopupProps)
   }, [HandleClickOnOverlay]);
 
   return (
-    <div style={{position: 'relative', width: '550px', height: '410px', marginBottom: '50px'}}>
-      <div className={style.modal}>
-        <div className={style.modalWrapper}>
-          <div className={style.modalOverlay} data-close-modal></div>
-          <div className={style.modalContent}>
-            <svg className={style.modalIcon} width="26" height="20" aria-hidden="true">
-              <use xlinkHref="#icon-success"></use>
-            </svg>
-            <p className={style.modalMessage}>Спасибо за ваш отзыв!</p>
-            <div className={style.modalButtonContainer}>
+    <AriaModal
+      titleText='add comment success'
+      initialFocus="#continue"
+    >
+      <div style={{position: 'relative', width: '550px', height: '410px', marginBottom: '50px'}}>
+        <div className={style.modal}>
+          <div className={style.modalWrapper}>
+            <div className={style.modalOverlay} data-close-modal></div>
+            <div className={style.modalContent}>
+              <svg className={style.modalIcon} width="26" height="20" aria-hidden="true">
+                <use xlinkHref="#icon-success"></use>
+              </svg>
+              <p className={style.modalMessage}>Спасибо за ваш отзыв!</p>
+              <div className={style.modalButtonContainer}>
+                <button
+                  id='continue'
+                  className={style.modalButton}
+                  onClick={()=>{
+                    onSuccessComment(false);
+                  }}
+                >
+                К покупкам!
+                </button>
+              </div>
               <button
-                className={style.modalButton}
+                className={style.modalCloseBtn}
+                type="button"
+                aria-label="Закрыть"
                 onClick={()=>{
                   onSuccessComment(false);
                 }}
               >
-                К покупкам!
+                <span className={style.buttonCrossIcon}>
+                </span><span className={style.modalCloseBtninteractiveArea}></span>
               </button>
             </div>
-            <button
-              className={style.modalCloseBtn}
-              type="button"
-              aria-label="Закрыть"
-              onClick={()=>{
-                onSuccessComment(false);
-              }}
-            >
-              <span className={style.buttonCrossIcon}>
-              </span><span className={style.modalCloseBtninteractiveArea}></span>
-            </button>
           </div>
         </div>
       </div>
-    </div>
+    </AriaModal>
   );
 }
 
