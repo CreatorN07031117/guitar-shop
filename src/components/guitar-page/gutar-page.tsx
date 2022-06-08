@@ -88,6 +88,7 @@ function GuitarPage(): JSX.Element {
                   onClick={() => {
                     setActiveTab((prevActiveTab) => (prevActiveTab='characteristics'));
                   }}
+                  tabIndex={0}
                 >
                     Характеристики
                 </span>
@@ -95,6 +96,7 @@ function GuitarPage(): JSX.Element {
                   onClick={() => {
                     setActiveTab((prevActiveTab) => (prevActiveTab='description'));
                   }}
+                  tabIndex={0}
                 >
                   Описание
                 </span>
@@ -113,6 +115,7 @@ function GuitarPage(): JSX.Element {
                 onClick={() => {
                   setSelectGuitarId(guitar.id);
                 }}
+                tabIndex={0}
               >
                 Добавить в корзину
               </span>

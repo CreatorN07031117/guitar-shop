@@ -73,7 +73,7 @@ function NewCommentPopup({id, onNewComment, onSuccessComment, guitarName, onAddC
 
   const handleSubmitComment = (newCommentItem: NewComment) => {
     if(newComment.userName.length === 0){
-      setWarning((prevWarning) => ({...prevWarning, name: true}));
+      setWarning((prevWarning) => ({...prevWarning, userName: true}));
     }
     if(newComment.rating === 0){
       setWarning((prevWarning) => ({...prevWarning, rating: true}));

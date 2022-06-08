@@ -11,9 +11,10 @@ import '../../../app/app.module.css';
 
 function CommentsList(): JSX.Element {
   const {guitar} = useAppSelector(({PRODUCT}) => PRODUCT);
-  const {comments} = useAppSelector(({PRODUCT}) => PRODUCT);
+  let {comments} = useAppSelector(({PRODUCT}) => PRODUCT);
 
-  comments.slice().sort(sortCommentsByData);
+  comments = comments.slice().sort((a,b) => sortCommentsByData(a,b));
+
   const [showComments, setShowComments] = useState({
     comments: comments,
     list: comments.slice(0, COMMENTS_ON_PAGE),
@@ -32,6 +33,7 @@ function CommentsList(): JSX.Element {
           onClick={() => {
             setNewComment(true);
           }}
+          tabIndex={0}
         >
           Оставить отзыв
         </span>
