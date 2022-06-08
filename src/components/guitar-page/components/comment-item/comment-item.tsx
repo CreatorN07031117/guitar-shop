@@ -13,7 +13,7 @@ type CommentItemProps = {
 function CommentItem ({comment}: CommentItemProps): JSX.Element {
   dayjs.locale('ru');
   const rating = getRatingStars(comment.rating);
-  const date = dayjs(comment.createAt).format('D MMMM YYYY');
+  const date = dayjs(comment.createAt).format('D MMMM');
 
   return (
     <div className={style.review}>
