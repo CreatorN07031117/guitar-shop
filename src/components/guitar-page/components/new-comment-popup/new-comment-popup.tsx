@@ -1,4 +1,5 @@
 import {useState, ChangeEvent, useRef, useCallback, useEffect} from 'react';
+import AriaModal from 'react-aria-modal';
 import {useAppDispatch} from '../../../../hooks/use-app-dispatch';
 import {AddCommentAction} from '../../../../store/api-actions';
 import {NewComment, Comment} from '../../../../types/data-types';
@@ -128,118 +129,123 @@ function NewCommentPopup({id, onNewComment, onSuccessComment, guitarName, onAddC
   }, [HandleClickOnOverlay]);
 
   return (
-    <div style={{position: 'relative', width: '550px', height: '610px', marginBottom: '50px'}}>
-      <div className={style.modal}>
-        <div className={style.modalWrapper}>
-          <div className={style.modalOverlay} data-close-modal></div>
-          <div className={style.modalContent}>
-            <h2 className={style.modalHeader}>Оставить отзыв</h2>
-            <h3 className={style.modalTitle}>{guitarName}</h3>
-            <form className={style.formReview}
-              onSubmit={(evt) => {
-                evt.preventDefault();
-                handleSubmitComment({
-                  guitarId: newComment.guitarId,
-                  userName: newComment.userName,
-                  advantage: newComment.advantage,
-                  disadvantage: newComment.disadvantage,
-                  comment: newComment.comment,
-                  rating: newComment.rating,
-                });
-              }}
-            >
-              <div className={style.formReviewWrapper}>
-                <div className={style.formReviewNameWrapper}>
-                  <label className={style.formReviewLabel} htmlFor="user-name">Ваше Имя</label>
-                  <input
-                    className={style.formReviewInput}
-                    id="user-name"
-                    type="text"
-                    autoComplete="off"
-                    name="userName"
-                    ref={inputNameRef}
-                    value={newComment.userName}
-                    onChange={handleInputChange}
-                    data-testid="name"
-                  />
-                  {warning.userName? (<p className={style.formReviewWarning}>Заполните поле</p>) : (<div style={{height: '15px'}}></div>)}
-                </div>
-                <div>
-                  <span className={style.formReviewLabel}>Ваша Оценка</span>
-                  <div className={style.rate}>
-                    <input className={style.visuallyHidden} id="star-5" name="rating" type="radio" value="5" onChange={handleRatingChange} />
-                    <label className={style.rateLabel} htmlFor="star-5" title="Отлично"></label>
-                    <input className={style.visuallyHidden} id="star-4" name="rating" type="radio" value="4" onChange={handleRatingChange} />
-                    <label className={style.rateLabel} htmlFor="star-4" title="Хорошо"></label>
-                    <input className={style.visuallyHidden} id="star-3" name="rating" type="radio" value="3" onChange={handleRatingChange} />
-                    <label className={style.rateLabel} htmlFor="star-3" title="Нормально"></label>
-                    <input className={style.visuallyHidden} id="star-2" name="rating" type="radio" value="2" onChange={handleRatingChange} />
-                    <label className={style.rateLabel} htmlFor="star-2" title="Плохо"></label>
-                    <input className={style.visuallyHidden} id="star-1" name="rating" type="radio" value="1" onChange={handleRatingChange} />
-                    <label className={style.rateLabel} htmlFor="star-1" title="Ужасно"></label>
-                    {warning.rating && (<p className={style.rateMessage}>Поставьте оценку</p>)}
+    <AriaModal
+      titleText='new rewiew'
+      initialFocus="#user-name"
+    >
+      <div style={{position: 'relative', width: '550px', height: '610px', marginBottom: '50px'}}>
+        <div className={style.modal}>
+          <div className={style.modalWrapper}>
+            <div className={style.modalOverlay} data-close-modal></div>
+            <div className={style.modalContent}>
+              <h2 className={style.modalHeader}>Оставить отзыв</h2>
+              <h3 className={style.modalTitle}>{guitarName}</h3>
+              <form className={style.formReview}
+                onSubmit={(evt) => {
+                  evt.preventDefault();
+                  handleSubmitComment({
+                    guitarId: newComment.guitarId,
+                    userName: newComment.userName,
+                    advantage: newComment.advantage,
+                    disadvantage: newComment.disadvantage,
+                    comment: newComment.comment,
+                    rating: newComment.rating,
+                  });
+                }}
+              >
+                <div className={style.formReviewWrapper}>
+                  <div className={style.formReviewNameWrapper}>
+                    <label className={style.formReviewLabel} htmlFor="user-name">Ваше Имя</label>
+                    <input
+                      className={style.formReviewInput}
+                      id="user-name"
+                      type="text"
+                      autoComplete="off"
+                      name="userName"
+                      ref={inputNameRef}
+                      value={newComment.userName}
+                      onChange={handleInputChange}
+                      data-testid="name"
+                    />
+                    {warning.userName? (<p className={style.formReviewWarning}>Заполните поле</p>) : (<div style={{height: '15px'}}></div>)}
+                  </div>
+                  <div>
+                    <span className={style.formReviewLabel}>Ваша Оценка</span>
+                    <div className={style.rate}>
+                      <input className={style.visuallyHidden} id="star-5" name="rating" type="radio" value="5" onChange={handleRatingChange} />
+                      <label className={style.rateLabel} htmlFor="star-5" title="Отлично"></label>
+                      <input className={style.visuallyHidden} id="star-4" name="rating" type="radio" value="4" onChange={handleRatingChange} />
+                      <label className={style.rateLabel} htmlFor="star-4" title="Хорошо"></label>
+                      <input className={style.visuallyHidden} id="star-3" name="rating" type="radio" value="3" onChange={handleRatingChange} />
+                      <label className={style.rateLabel} htmlFor="star-3" title="Нормально"></label>
+                      <input className={style.visuallyHidden} id="star-2" name="rating" type="radio" value="2" onChange={handleRatingChange} />
+                      <label className={style.rateLabel} htmlFor="star-2" title="Плохо"></label>
+                      <input className={style.visuallyHidden} id="star-1" name="rating" type="radio" value="1" onChange={handleRatingChange} />
+                      <label className={style.rateLabel} htmlFor="star-1" title="Ужасно"></label>
+                      {warning.rating && (<p className={style.rateMessage}>Поставьте оценку</p>)}
+                    </div>
                   </div>
                 </div>
-              </div>
-              <label className={style.formReviewLabel} htmlFor="adv">Достоинства</label>
-              <input
-                className={style.formReviewInput}
-                data-testid="adv"
-                type="text"
-                autoComplete="off"
-                name="advantage"
-                ref={inputAdvRef}
-                value={newComment.advantage}
-                onChange={handleInputChange}
-              />
-              {warning.advantage? (<p className={style.formReviewWarning}>Заполните поле</p>): (<div style={{height: '15px'}}></div>)}
-              <label className={style.formReviewLabel} htmlFor="disadv">Недостатки</label>
-              <input
-                className={style.formReviewInput}
-                data-testid="disadv"
-                id="disadv"
-                type="text"
-                autoComplete="off"
-                name="disadvantage"
-                ref={inputDisadvRef}
-                value={newComment.disadvantage}
-                onChange={handleInputChange}
-              />
-              {warning.disadvantage? (<p className={style.formReviewWarning}>Заполните поле</p>): (<div style={{height: '15px'}}></div>)}
-              <label className={style.formReviewLabel} htmlFor="comment">Комментарий</label>
-              <textarea
-                className={style.formReviewTextarea}
-                id="comment"
-                data-testid="comment"
-                rows={10}
-                autoComplete="off"
-                name="comment"
-                ref={textAreaRef}
-                value={newComment.comment}
-                onChange={handleTextAreaChange}
-              >
-              </textarea>
-              {warning.comment? (<p className={style.formReviewWarning}>Заполните поле</p>) : (<div style={{height: '15px'}}></div>)}
-              <button
-                className={style.modalButton}
-                type="submit"
-              >
+                <label className={style.formReviewLabel} htmlFor="adv">Достоинства</label>
+                <input
+                  className={style.formReviewInput}
+                  data-testid="adv"
+                  type="text"
+                  autoComplete="off"
+                  name="advantage"
+                  ref={inputAdvRef}
+                  value={newComment.advantage}
+                  onChange={handleInputChange}
+                />
+                {warning.advantage? (<p className={style.formReviewWarning}>Заполните поле</p>): (<div style={{height: '15px'}}></div>)}
+                <label className={style.formReviewLabel} htmlFor="disadv">Недостатки</label>
+                <input
+                  className={style.formReviewInput}
+                  data-testid="disadv"
+                  id="disadv"
+                  type="text"
+                  autoComplete="off"
+                  name="disadvantage"
+                  ref={inputDisadvRef}
+                  value={newComment.disadvantage}
+                  onChange={handleInputChange}
+                />
+                {warning.disadvantage? (<p className={style.formReviewWarning}>Заполните поле</p>): (<div style={{height: '15px'}}></div>)}
+                <label className={style.formReviewLabel} htmlFor="comment">Комментарий</label>
+                <textarea
+                  className={style.formReviewTextarea}
+                  id="comment"
+                  data-testid="comment"
+                  rows={10}
+                  autoComplete="off"
+                  name="comment"
+                  ref={textAreaRef}
+                  value={newComment.comment}
+                  onChange={handleTextAreaChange}
+                >
+                </textarea>
+                {warning.comment? (<p className={style.formReviewWarning}>Заполните поле</p>) : (<div style={{height: '15px'}}></div>)}
+                <button
+                  className={style.modalButton}
+                  type="submit"
+                >
                 Отправить отзыв
+                </button>
+              </form>
+              <button
+                className={style.modalCloseBtn}
+                type="button"
+                aria-label="Закрыть"
+                onClick={() => onNewComment(false)}
+              >
+                <span className={style.buttonCrossIcon}></span>
+                <span className={style.modalCloseBtninteractiveArea}></span>
               </button>
-            </form>
-            <button
-              className={style.modalCloseBtn}
-              type="button"
-              aria-label="Закрыть"
-              onClick={() => onNewComment(false)}
-            >
-              <span className={style.buttonCrossIcon}></span>
-              <span className={style.modalCloseBtninteractiveArea}></span>
-            </button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </AriaModal>
   );
 }
 
