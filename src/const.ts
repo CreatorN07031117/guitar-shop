@@ -23,6 +23,9 @@ export const enum APIRoute {
   Guitars = '/guitars',
   Guitar = '/guitars/',
   Comments = '/comments',
+  Search = '/guitars?name_like=',
+  Sort = '/guitars?_sort',
+  Order = '&_order',
 }
 
 export const enum HTTPCode {
@@ -36,6 +39,10 @@ export const enum GuitarType {
   Acoustic = 'Акустическая',
 }
 
+export const stringsAcoustic = ['6-strings', '7-strings', '12-strings'];
+export const stringsElectric = ['4-strings', '6-strings', '7-strings'];
+export const stringsUkulele = ['4-strings'];
+
 export const COMMENTS_ON_PAGE = 3;
 
 export const enum TextRating {
@@ -44,4 +51,14 @@ export const enum TextRating {
   Fine = 'Нормально',
   Good = 'Хорошо',
   Great = 'Отлично',
+}
+
+export const enum Sort {
+  Price = 'price',
+  Rating = 'rating',
+}
+
+export const enum OrderMethod {
+  Desc = 'desc',
+  Asc = 'asc',
 }

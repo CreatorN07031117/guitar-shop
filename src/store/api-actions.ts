@@ -2,8 +2,8 @@ import {createAsyncThunk} from '@reduxjs/toolkit';
 import {AxiosInstance} from 'axios';
 import {AppDispatch, State} from '../types/store-types';
 import {APIRoute} from '../const';
-import {Guitar, Guitars, Comments, NewComment} from '../types/data-types';
-import {loadGuitars} from './catalog-process/catalog-process';
+import {Guitar, Guitars, Comments, NewComment, SortType} from '../types/data-types';
+import {loadGuitars, loadSort, loadOrderMethod} from './catalog-process/catalog-process';
 import {loadComments, loadGuitar} from './product-process/product-process';
 import {redirectToRoute} from './actions';
 import {errorHandle} from '../services/error-handle';
@@ -62,7 +62,7 @@ createAsyncThunk <void, string, {
 );
 
 export const AddCommentAction =
-  createAsyncThunk<void, NewComment, {
+createAsyncThunk<void, NewComment, {
   disadvantage: AppDispatch,
   state: State,
   extra: AxiosInstance
@@ -78,3 +78,23 @@ export const AddCommentAction =
     }
   },
 );
+
+export const fetchSortGuitars =
+createAsyncThunk<void, SortType, {
+  disadvantage: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  'data/fetchSortGuitars',
+  async ({sort, order}, {dispatch, extra: api}) => {
+    try {
+      const {data} = await api.get<Guitars>(`${APIRoute.Sort}=${sort}${APIRoute.Order}=${order}`);
+      dispatch(loadGuitars(data));
+      dispatch(loadSort(sort));
+      dispatch(loadOrderMethod(order));
+    } catch (error) {
+      errorHandle(error);
+    }
+  },
+);
+

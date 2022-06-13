@@ -66,3 +66,6 @@ describe('Async actions', () => {
     expect(actions).toContain(loadComments.toString());
   });
 });
+
+
+

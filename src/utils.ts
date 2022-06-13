@@ -1,5 +1,5 @@
 import {RATING_STARS, TextRating} from './const';
-import {Comment} from './types/data-types';
+import {Comment, SortType} from './types/data-types';
 
 
 export function getRetinaImg (img: string) {
@@ -50,4 +50,14 @@ export function spotRating (rate: number) {
   }
 
   return textRating;
+}
+
+export function getQueryStringFromObject (sort: SortType) {
+  return new URLSearchParams(sort).toString();
+}
+
+export function getObjectFromQueryString (search: string) {
+  const paramsEntries = new URLSearchParams(search).entries();
+
+  return Object.fromEntries(paramsEntries);
 }
