@@ -1,7 +1,7 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { CatalogProcess } from '../../types/store-types';
-import { Guitars } from '../../types/data-types';
-import { NameSpace } from '../../const';
+import {createSlice} from '@reduxjs/toolkit';
+import {CatalogProcess} from '../../types/store-types';
+import {Guitars} from '../../types/data-types';
+import {NameSpace} from '../../const';
 
 
 const initialState: CatalogProcess = {
@@ -9,6 +9,8 @@ const initialState: CatalogProcess = {
   isDataLoaded: false,
   currentPage: 1,
   pages: 1,
+  sortType: '',
+  orderMethod: '',
 };
 
 export const catalogProcess = createSlice({
@@ -31,7 +33,13 @@ export const catalogProcess = createSlice({
     getPages: (state) => {
       ({pages: state.pages} = state);
     },
+    loadSort: (state, action) => {
+      state.sortType = action.payload;
+    },
+    loadOrderMethod: (state, action) => {
+      state.orderMethod = action.payload;
+    },
   },
 });
 
-export const { getGuitars, loadGuitars, getCurrantPage, getPages, setPages } = catalogProcess.actions;
+export const {getGuitars, loadGuitars, getCurrantPage, getPages, setPages, loadSort, loadOrderMethod} = catalogProcess.actions;

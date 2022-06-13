@@ -34,3 +34,15 @@ export type NewComment = {
     comment: string,
     rating: number,
 }
+
+export type SortType = {
+  sort: string,
+  order: string,
+}
+
+export type Filter = {
+  type?: string,
+  priceGte?: string,
+  priceLte?: string,
+  stringCount?: string,
+}

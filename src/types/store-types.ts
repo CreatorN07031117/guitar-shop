@@ -11,6 +11,8 @@ export type CatalogProcess = {
   isDataLoaded: boolean,
   currentPage: number,
   pages: number,
+  sortType: string,
+  orderMethod: string,
 };
 
 export type CartProcess = {

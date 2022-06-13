@@ -1,6 +1,7 @@
 import {Link, useLocation} from 'react-router-dom';
 import {AppRoute} from '../../const';
 import {useAppSelector} from '../../hooks/use-app-selector';
+import Search from './Components/search/search';
 import style from './header.module.css';
 import '../app/app.module.css';
 
@@ -26,30 +27,7 @@ function Header(): JSX.Element {
             </li>
           </ul>
         </nav>
-        <div className={style.formSearch}>
-          <form className={style.formSearchForm} id="form-search">
-            <button className={style.formSearchSubmit} type="submit">
-              <svg className={style.formSearchIcon} width="14" height="15" aria-hidden="true">
-                <use xlinkHref="#icon-search"></use>
-              </svg><span className={style.visuallyHidden}>Начать поиск</span>
-            </button>
-            <input className={style.formSearchInput} id="search" type="text" autoComplete="off" placeholder="что вы ищите?" />
-            <label className={style.visuallyHidden} htmlFor="search">Поиск</label>
-          </form>
-          <ul className={style.formSearchSelectListHidden}>
-            <li className={style.formSearchSelectItem} tabIndex={0}>Четстер Plus</li>
-            <li className={style.formSearchSelectItem} tabIndex={0}>Четстер UX</li>
-            <li className={style.formSearchSelectItem} tabIndex={0}>Четстер UX2</li>
-            <li className={style.formSearchSelectItem} tabIndex={0}>Четстер UX3</li>
-            <li className={style.formSearchSelectItem} tabIndex={0}>Четстер UX4</li>
-            <li className={style.formSearchSelectItem} tabIndex={0}>Четстер UX5</li>
-          </ul>
-          <button className={style.formSearchReset} type="reset" form="form-search">
-            <svg className={style.formSearchIcon} width="14" height="15" aria-hidden="true">
-              <use xlinkHref="#icon-close"></use>
-            </svg><span className={style.visuallyHidden}>Сбросить поиск</span>
-          </button>
-        </div>
+        <Search />
         <Link className={style.headerCartLink} to="#" aria-label="Корзина">
           <svg className={style.headerCartIcon} width="14" height="14" aria-hidden="true">
             <use xlinkHref="#icon-basket"></use>

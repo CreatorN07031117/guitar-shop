@@ -60,6 +60,50 @@
   outline-offset: 1px;
 }
 
+.catalogSortTypeButtonActive {
+  position: relative;
+
+  padding: 0;
+
+  color: #585757;
+  border: none;
+  background-color: rgba(255, 255, 255, 0);
+
+  cursor: pointer;
+  -webkit-transition: color 0.3s ease, outline-color 0.3s ease;
+          transition: color 0.3s ease, outline-color 0.3s ease;
+  letter-spacing: 0.05em;
+
+  color: #000000;
+
+  pointer-events: none;
+}
+
+.catalogSortTypeButtonActive::before {
+  bottom: -3px;
+  position: absolute;
+
+  width: 100%;
+  height: 2px;
+
+  background-color: #c90606;
+
+  content: "";
+}
+
+.catalogSortTypeButtonActive:not(:last-child) {
+  margin-right: 30px;
+}
+
+.catalogSortTypeButtonActive:hover {
+  color: #c90606;
+}
+
+.catalogSortTypeButtonActive:focus {
+  outline: 1px solid #c90606;
+  outline-offset: 1px;
+}
+
 
 .catalogSortOrder {
   display: flex;
@@ -141,5 +185,11 @@
 .catalogSortOrderButtonDown:focus {
   outline: 1px solid #c90606;
   outline-offset: 1px;
+}
+
+.orderButtonActive {
+  border-top-color: #c90606;
+
+  pointer-events: none;
 }
 
