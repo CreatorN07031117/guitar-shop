@@ -43,6 +43,11 @@ function Search(): JSX.Element {
     setSearchPhrace((prevSearchPhrace) => ({...prevSearchPhrace, search: ''}));
   };
 
+  const handleBlur = (evt) => {
+    setSearchPhrace((prevSearchPhrace) => ({...prevSearchPhrace, search: ''}));
+  };
+
+
   return (
     <div className={style.formSearch}>
       <form className={style.formSearchForm} id="form-search">
@@ -60,6 +65,7 @@ function Search(): JSX.Element {
           value={searchPhrace.search}
           ref={searchRef}
           onChange={handleSearchChange}
+          onBlur={handleBlur}
         />
         <label className={style.visuallyHidden} htmlFor="search">Поиск</label>
       </form>

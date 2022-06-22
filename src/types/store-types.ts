@@ -11,8 +11,10 @@ export type CatalogProcess = {
   isDataLoaded: boolean,
   currentPage: number,
   pages: number,
-  sortType: string,
-  orderMethod: string,
+  sort: Sort,
+  filters: Filter,
+  priceMax: number,
+  priceMin: number,
 };
 
 export type CartProcess = {
@@ -24,5 +26,24 @@ export type ProductProcess = {
   guitar: Guitar;
   isDataLoaded: boolean,
   comments: Comments,
+}
+
+export type Filter = {
+  isFiltered: boolean,
+  priceGte: number,
+  priceLte: number,
+  acoustic: boolean,
+  electric: boolean,
+  ukulele: boolean,
+  fourStrings: boolean,
+  sixStrings: boolean,
+  sevenStrings: boolean,
+  twelveStrings: boolean,
+}
+
+export type Sort = {
+  isSorted: boolean,
+  sortType: string,
+  orderMethod: string,
 }
 

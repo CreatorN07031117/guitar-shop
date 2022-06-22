@@ -9,8 +9,25 @@ const initialState: CatalogProcess = {
   isDataLoaded: false,
   currentPage: 1,
   pages: 1,
-  sortType: '',
-  orderMethod: '',
+  sort: {
+    isSorted: false,
+    sortType: '',
+    orderMethod:'',
+  },
+  filters: {
+    isFiltered: false,
+    priceGte: 0,
+    priceLte: 0,
+    acoustic: false,
+    electric: false,
+    ukulele: false,
+    fourStrings: false,
+    sixStrings: false,
+    sevenStrings: false,
+    twelveStrings: false,
+  },
+  priceMax: 0,
+  priceMin: 0,
 };
 
 export const catalogProcess = createSlice({
@@ -34,12 +51,23 @@ export const catalogProcess = createSlice({
       ({pages: state.pages} = state);
     },
     loadSort: (state, action) => {
-      state.sortType = action.payload;
+      state.sort = action.payload;
+      state.isDataLoaded = false;
     },
-    loadOrderMethod: (state, action) => {
-      state.orderMethod = action.payload;
+    loadFilters: (state, action) => {
+      state.filters = action.payload;
+      state.isDataLoaded = false;
+    },
+    getFilters: (state) => {
+      ({pages: state.pages} = state);
+    },
+    loadPriceMax: (state, action) => {
+      state.priceMax = action.payload;
+    },
+    loadPriceMin: (state, action) => {
+      state.priceMin = action.payload;
     },
   },
 });
 
-export const {getGuitars, loadGuitars, getCurrantPage, getPages, setPages, loadSort, loadOrderMethod} = catalogProcess.actions;
+export const {getGuitars, loadGuitars, getCurrantPage, getPages, setPages, loadSort, loadFilters, getFilters, loadPriceMax, loadPriceMin} = catalogProcess.actions;

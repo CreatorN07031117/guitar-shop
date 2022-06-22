@@ -24,13 +24,13 @@ export const enum APIRoute {
   Guitar = '/guitars/',
   Comments = '/comments',
   Search = '/guitars?name_like=',
-  Sort = '/guitars?_sort',
-  Order = '&_order',
+ 
 }
 
 export const enum HTTPCode {
   BadRequest = 400,
-  NotFound= 404,
+  NotFound = 404,
+  BadGateway = 502,
 }
 
 export const enum GuitarType {
@@ -38,10 +38,6 @@ export const enum GuitarType {
   Electric = 'Электрогитара',
   Acoustic = 'Акустическая',
 }
-
-export const stringsAcoustic = ['6-strings', '7-strings', '12-strings'];
-export const stringsElectric = ['4-strings', '6-strings', '7-strings'];
-export const stringsUkulele = ['4-strings'];
 
 export const COMMENTS_ON_PAGE = 3;
 
@@ -53,7 +49,7 @@ export const enum TextRating {
   Great = 'Отлично',
 }
 
-export const enum Sort {
+export const enum SortType {
   Price = 'price',
   Rating = 'rating',
 }
@@ -61,4 +57,21 @@ export const enum Sort {
 export const enum OrderMethod {
   Desc = 'desc',
   Asc = 'asc',
+}
+
+export const enum SortParam {
+  Sort = '_sort=',
+  Order = '_order=',
+}
+
+export const enum FiltersParam {
+  PriceGte = 'price_gte=',
+  PriceLte = 'price_lte=',
+  Acoustic = 'type=acoustic',
+  Electric = 'type=electric',
+  Ukulele = 'type=ukulele',
+  FourStrings = 'stringCount=4',
+  SixStrings = 'stringCount=6',
+  SevenStrings = 'stringCount=7',
+  TwelveStrings = 'stringCount=12',
 }
