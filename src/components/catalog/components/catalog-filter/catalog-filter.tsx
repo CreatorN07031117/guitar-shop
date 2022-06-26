@@ -1,10 +1,10 @@
-import {ChangeEvent, useEffect, useRef, useState} from 'react';
+import {ChangeEvent, useEffect, useState, FocusEvent} from 'react';
 import {useSearchParams, useLocation} from 'react-router-dom';
 import {toast} from 'react-toastify';
 import {fetchFilterGuitars, fetchGuitarsActions} from '../../../../store/api-actions';
 import {useAppSelector} from '../../../../hooks/use-app-selector';
 import {useAppDispatch} from '../../../../hooks/use-app-dispatch';
-import {loadFilters} from '../../../../store/catalog-process/catalog-process';
+import {loadFilters, getCurrantPage} from '../../../../store/catalog-process/catalog-process';
 import {getFetchString, getArrayFromQueryString} from '../../../../utils';
 import style from './catalog-filter.module.css';
 import '../../../app/app.module.css';
@@ -26,11 +26,11 @@ function CatalogFilter(): JSX.Element {
   const {filters, sort, priceMin, priceMax} = useAppSelector(({CATALOG}) => CATALOG);
   const dispatch = useAppDispatch();
 
-  const minPriceRef = useRef<HTMLInputElement | null>(null);
-  const maxPriceRef = useRef<HTMLInputElement | null>(null);
-
   useEffect(()=>{
-    dispatch(fetchFilterGuitars(location.search));
+    if(location.search !== ''){
+      dispatch(fetchFilterGuitars(location.search));
+    }
+
     const paramsUrl = getArrayFromQueryString(location.search);
 
     const filtersFromUrl = {
@@ -47,12 +47,22 @@ function CatalogFilter(): JSX.Element {
     };
 
     if(paramsUrl.priceGte){
-      filtersFromUrl.priceGte = Number(paramsUrl.priceGte);
-      setPriceRange((prevPriceRange) => ({...prevPriceRange, minPrice: Number(paramsUrl.priceGte)}));
+      let minPrice = Number(paramsUrl.priceGte);
+      if(minPrice >  Number(paramsUrl.priceLte)){
+        minPrice = Number(paramsUrl.priceLte);
+      }
+
+      filtersFromUrl.priceGte = minPrice;
+      setPriceRange((prevPriceRange) => ({...prevPriceRange, minPrice: minPrice}));
     }
     if(paramsUrl.priceLte){
-      filtersFromUrl.priceLte = Number(paramsUrl.priceLte);
-      setPriceRange((prevPriceRange) => ({...prevPriceRange, maxPrice: Number(paramsUrl.priceLte)}));
+      let maxPrice = Number(paramsUrl.priceLte);
+      if(maxPrice < Number(paramsUrl.priceGte)){
+        maxPrice = Number(paramsUrl.priceGte);
+      }
+
+      filtersFromUrl.priceLte = maxPrice;
+      setPriceRange((prevPriceRange) => ({...prevPriceRange, maxPrice: maxPrice}));
     }
     if(paramsUrl.type){
       paramsUrl.type.map((item) => {
@@ -93,14 +103,14 @@ function CatalogFilter(): JSX.Element {
   }, [dispatch, location.search]);
 
 
-  const handlePriceChange = (evt: ChangeEvent<HTMLInputElement>) => {
+  const handlePriceChange = (evt: FocusEvent<HTMLInputElement>) => {
     const {name, value, id} = evt.target;
     let price = value;
 
     if(Number(value) === 0){
       return toast.error('Цена не может быть равна нулю');
     }
-    if(id === 'minPrice' && Number(value) > (priceRange.maxPrice as number)){
+    if(id === 'minPrice' && Number(value) > (priceRange.maxPrice as number) && priceRange.maxPrice !== null){
       return toast.error('Минимальная цена ниже максимальной');
     }
     if(id === 'minPrice' && Number(value) < priceMin){
@@ -120,18 +130,16 @@ function CatalogFilter(): JSX.Element {
     dispatch(loadFilters(newFilters));
     const response = getFetchString(newFilters, sort);
     setFilterParams(response);
-    dispatch(fetchFilterGuitars(response));
   };
 
   const changeHandle = (evt: ChangeEvent<HTMLInputElement>) => {
     const {name, checked} = evt.target;
 
     const newFilters = {...filters, [name]: checked};
-
+    dispatch(getCurrantPage(1));
     dispatch(loadFilters(newFilters));
     const response = getFetchString(newFilters, sort);
     setFilterParams(response);
-    dispatch(fetchFilterGuitars(response));
   };
 
   const clearFiltersHandle = () => {
@@ -147,6 +155,7 @@ function CatalogFilter(): JSX.Element {
       sevenStrings: false,
       twelveStrings: false,
     }));
+    setPriceRange((prevPriceRange) => ({...prevPriceRange, minPrice: null, maxPrice: null}));
     setFilterParams('');
     dispatch(fetchGuitarsActions());
   };
@@ -199,9 +208,12 @@ function CatalogFilter(): JSX.Element {
               placeholder={`${priceMin.toLocaleString()}`}
               id="minPrice"
               name="priceGte"
-              ref={minPriceRef}
+              data-testid="testpricemin"
               value={priceRange.minPrice as number}
-              onChange={(evt) => setTimeout(handlePriceChange, 1000, evt)}
+              onChange={(evt) => {
+                setPriceRange((prev) => ({...prev, minPrice: Number(evt.target.value)}));
+              }}
+              onBlur={handlePriceChange}
             />
           </div>
           <div className={style.formInput}>
@@ -211,9 +223,12 @@ function CatalogFilter(): JSX.Element {
               placeholder={`${priceMax.toLocaleString()}`}
               id="maxPrice"
               name="priceLte"
-              ref={maxPriceRef}
+              data-testid="testpricemax"
               value={priceRange.maxPrice as number}
-              onChange={(evt) => setTimeout(handlePriceChange, 1000, evt)}
+              onChange={(evt) => {
+                setPriceRange((prev) => ({...prev, maxPrice: Number(evt.target.value)}));
+              }}
+              onBlur={handlePriceChange}
             />
           </div>
         </div>
@@ -226,6 +241,7 @@ function CatalogFilter(): JSX.Element {
             type="checkbox"
             id="acoustic"
             name="acoustic"
+            data-testid="testtype"
             disabled={getDisabledType('acoustic')}
             checked={filters.acoustic}
             onChange={changeHandle}
@@ -308,7 +324,7 @@ function CatalogFilter(): JSX.Element {
           <label htmlFor="12-strings">12</label>
         </div>
       </fieldset>
-      <button 
+      <button
         className={style.resetButton}
         type="reset"
         onClick={clearFiltersHandle}

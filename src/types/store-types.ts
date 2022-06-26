@@ -29,7 +29,6 @@ export type ProductProcess = {
 }
 
 export type Filter = {
-  isFiltered: boolean,
   priceGte: number,
   priceLte: number,
   acoustic: boolean,
@@ -42,7 +41,6 @@ export type Filter = {
 }
 
 export type Sort = {
-  isSorted: boolean,
   sortType: string,
   orderMethod: string,
 }

@@ -52,6 +52,7 @@ function SuccessCommentAddPopup({onSuccessComment}: SuccessCommentAddPopupProps)
               <div className={style.modalButtonContainer}>
                 <button
                   id='continue'
+                  data-testid='continue'
                   className={style.modalButton}
                   onClick={()=>{
                     onSuccessComment(false);

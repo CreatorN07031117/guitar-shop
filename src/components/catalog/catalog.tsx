@@ -21,7 +21,6 @@ function Catalog(): JSX.Element {
   const [addToCart, setAddToCart] = useState <boolean> (false);
   const location = useLocation();
 
-
   const dispatch = useAppDispatch();
   const {guitars, currentPage, isDataLoaded} = useAppSelector(({CATALOG}) => CATALOG);
 
@@ -52,11 +51,12 @@ function Catalog(): JSX.Element {
             <CatalogFilter />
             <CatalogSort />
             <div className={style.catalogCards}>
-              {isDataLoaded?
-                (guitarsOnPage.map((item) => <GuitarCard key={item.id} guitar={item} onGuitarId={(id) => setSelectGuitarId(id)} />)) :
-                (<p>Загружаем данные...</p>)
+              {
+                isDataLoaded?
+                  (guitarsOnPage.map((item) => <GuitarCard key={item.id} guitar={item} onGuitarId={(id) => setSelectGuitarId(id)} />)) :
+                  (<p>Загружаем данные...</p>)
               }
-              {guitarsOnPage.length === 0 && (<p>Таких товаров не найдено</p>)}
+              {guitarsOnPage.length === 0 && isDataLoaded && (<p>Таких товаров не найдено</p>)}
             </div>
             <Pagination />
           </div>

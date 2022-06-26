@@ -10,12 +10,10 @@ const initialState: CatalogProcess = {
   currentPage: 1,
   pages: 1,
   sort: {
-    isSorted: false,
     sortType: '',
     orderMethod:'',
   },
   filters: {
-    isFiltered: false,
     priceGte: 0,
     priceLte: 0,
     acoustic: false,

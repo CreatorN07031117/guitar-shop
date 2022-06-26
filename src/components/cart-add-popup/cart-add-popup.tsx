@@ -89,6 +89,7 @@ function CartAddPopup({guitar, onGuitarId, onAddSuccess}:CartAddPopupProps): JSX
               <div className={style.modalButtonContainer}>
                 <button
                   id='add-to-cart'
+                  data-testid='addtocart'
                   className={style.button}
                   onClick={(evt) => {
                     handleBtnClick(evt);

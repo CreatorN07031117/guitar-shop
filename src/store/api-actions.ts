@@ -1,7 +1,7 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {AxiosInstance} from 'axios';
 import {toast} from 'react-toastify';
-import {loadGuitars, loadPriceMax, loadPriceMin} from './catalog-process/catalog-process';
+import {loadGuitars, loadPriceMax, loadPriceMin, getCurrantPage} from './catalog-process/catalog-process';
 import {loadComments, loadGuitar} from './product-process/product-process';
 import {redirectToRoute} from './actions';
 import {errorHandle} from '../services/error-handle';
@@ -20,7 +20,7 @@ createAsyncThunk <void, undefined, {
   'data/fetchGuitars',
   async (_arg, {dispatch, extra: api}) => {
     try {
-      const {data} = await api.get<Guitars>(`${APIRoute.Guitars}??_embed=comments`);
+      const {data} = await api.get<Guitars>(`${APIRoute.Guitars}?_embed=comments`);
       dispatch(loadGuitars(data));
     } catch (error) {
       dispatch(redirectToRoute('/*'));

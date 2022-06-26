@@ -1,4 +1,4 @@
-import {useState, useEffect, useRef, ChangeEvent, MouseEvent} from 'react';
+import {useState, useEffect, useRef, ChangeEvent, MouseEvent, FocusEvent} from 'react';
 import {Link, useLocation} from 'react-router-dom';
 import axios from 'axios';
 import {APIRoute} from '../../../../const';
@@ -8,9 +8,6 @@ import '../../../app/app.module.css';
 
 
 function Search(): JSX.Element {
-  /*
-очищать при перехооде на другую страницу
-  */
   const location = useLocation();
   const [searchPhrace, setSearchPhrace] = useState (
     {
@@ -43,7 +40,7 @@ function Search(): JSX.Element {
     setSearchPhrace((prevSearchPhrace) => ({...prevSearchPhrace, search: ''}));
   };
 
-  const handleBlur = (evt) => {
+  const handleBlur = (evt: FocusEvent<HTMLInputElement>) => {
     setSearchPhrace((prevSearchPhrace) => ({...prevSearchPhrace, search: ''}));
   };
 
@@ -63,6 +60,7 @@ function Search(): JSX.Element {
           autoComplete="off"
           placeholder="что вы ищите?"
           value={searchPhrace.search}
+          data-testid="search"
           ref={searchRef}
           onChange={handleSearchChange}
           onBlur={handleBlur}
@@ -82,16 +80,18 @@ function Search(): JSX.Element {
           </ul>
         )}
       {searchPhrace.search !== '' &&
-        (<button
-          className={style.formSearchReset}
-          type="reset"
-          form="form-search"
-          onClick={(evt) => handleCloseClick(evt)}
-        >
-          <svg className={style.formSearchIcon} width="14" height="15" aria-hidden="true">
-            <use xlinkHref="#icon-close"></use>
-          </svg><span className={style.visuallyHidden}>Сбросить поиск</span>
-         </button>)}
+        (
+          <button
+            className={style.formSearchReset}
+            type="reset"
+            form="form-search"
+            onClick={(evt) => handleCloseClick(evt)}
+          >
+            <svg className={style.formSearchIcon} width="14" height="15" aria-hidden="true">
+              <use xlinkHref="#icon-close"></use>
+            </svg><span className={style.visuallyHidden}>Сбросить поиск</span>
+          </button>
+        )}
     </div>
   );
 }

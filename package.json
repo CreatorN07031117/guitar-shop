@@ -9,6 +9,7 @@
     "focus-trap-react": "^8.11.2",
     "history": "^5.2.0",
     "i": "^0.3.7",
+    "jest-mock-axios": "^4.6.1",
     "jest-watcher": "^28.1.0",
     "npm": "^8.11.0",
     "postcss": "^8.4.14",

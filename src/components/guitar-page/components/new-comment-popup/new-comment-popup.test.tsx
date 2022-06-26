@@ -1,8 +1,8 @@
-import {render, screen} from '@testing-library/react';
+import {render, screen, waitFor} from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import {configureMockStore} from '@jedmao/redux-mock-store';
 import {Provider} from 'react-redux';
 import {createMemoryHistory} from 'history';
-import {configureMockStore} from '@jedmao/redux-mock-store';
-import userEvent from '@testing-library/user-event';
 import HistoryRouter from '../../../history-router';
 import NewCommentPopup from './new-comment-popup';
 import {makeMockGuitar, makeMockComments} from '../../../../mock/mock';
@@ -24,7 +24,7 @@ const store = mockStore({
 
 
 describe('Component: NewCommentPopup', () => {
-  it('Компонент отрисовывается корректно', () => {
+  it('Компонент отрисовывается корректно', async () => {
     render(
       <Provider store={store}>
         <HistoryRouter history={history}>
@@ -39,6 +39,7 @@ describe('Component: NewCommentPopup', () => {
       </Provider>,
     );
 
+    await waitFor(() => expect(screen.getByTestId('initial-focus-node')).toHaveFocus());
     expect(screen.getByText('Ваше Имя')).toBeInTheDocument();
     expect(screen.getByText('название гитары')).toBeInTheDocument();
 

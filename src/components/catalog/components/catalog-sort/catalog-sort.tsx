@@ -2,7 +2,6 @@ import {useEffect} from 'react';
 import {useSearchParams, useLocation} from 'react-router-dom';
 import {useAppSelector} from '../../../../hooks/use-app-selector';
 import {useAppDispatch} from '../../../../hooks/use-app-dispatch';
-import {fetchFilterGuitars} from '../../../../store/api-actions';
 import {loadSort} from '../../../../store/catalog-process/catalog-process';
 import {SortType, OrderMethod} from '../../../../const';
 import {getFetchString, getArrayFromQueryString} from '../../../../utils';
@@ -36,11 +35,7 @@ function CatalogSort(): JSX.Element {
     }
 
     dispatch(loadSort({...sort, sortType: type, orderMethod: order}));
-
     const response = getFetchString(filters, {...sort, sortType: type, orderMethod: order});
-
-    dispatch(fetchFilterGuitars(response));
-
     setSortParams(response);
   };
 
