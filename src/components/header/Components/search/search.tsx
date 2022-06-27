@@ -41,12 +41,13 @@ function Search(): JSX.Element {
   };
 
   const handleBlur = (evt: FocusEvent<HTMLInputElement>) => {
-    setSearchPhrace((prevSearchPhrace) => ({...prevSearchPhrace, search: ''}));
+    setTimeout( () => setSearchPhrace((prevSearchPhrace) => ({...prevSearchPhrace, search: ''})), 500);
+    ;
   };
 
 
   return (
-    <div className={style.formSearch}>
+    <div className={style.formSearch} >
       <form className={style.formSearchForm} id="form-search">
         <button className={style.formSearchSubmit} type="submit">
           <svg className={style.formSearchIcon} width="14" height="15" aria-hidden="true">

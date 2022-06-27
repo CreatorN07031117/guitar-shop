@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/static/css/main.513ae77c.css",
+    "main.js": "/static/js/main.c9fc1da4.js",
+    "static/media/bg_header@2x.png": "/static/media/bg_header@2x.475a1a5f6b5657394709.png",
+    "static/media/bg_header.png": "/static/media/bg_header.2392272813ba2de67270.png",
+    "static/media/droid-sans-700.woff": "/static/media/droid-sans-700.2d93375ad17b7e459636.woff",
+    "static/media/droid-sans.woff": "/static/media/droid-sans.5259d01f0356ec38fd6f.woff",
+    "static/media/bg_modal@2x.png": "/static/media/bg_modal@2x.c534a0c38090ec044437.png",
+    "static/media/droid-sans-700.woff2": "/static/media/droid-sans-700.501606db83b97ef05e97.woff2",
+    "static/media/droid-sans.woff2": "/static/media/droid-sans.41aa7eb0585682748737.woff2",
+    "index.html": "/index.html",
+    "static/media/open-sans-700.woff": "/static/media/open-sans-700.c48be257cab8b6b17ec2.woff",
+    "static/media/open-sans.woff": "/static/media/open-sans.3bcf4a100c8541796bab.woff",
+    "static/media/bg_modal.png": "/static/media/bg_modal.8969e4d30c9dace7edd3.png",
+    "static/media/open-sans-700.woff2": "/static/media/open-sans-700.1982a2cdb036e13fb971.woff2",
+    "static/media/open-sans.woff2": "/static/media/open-sans.1c61edf399c4e914722c.woff2",
+    "static/media/icon-full-star.svg": "/static/media/icon-full-star.07ff2f9dab8b5cb97d64.svg",
+    "static/media/icon-star.svg": "/static/media/icon-star.c332d417e3f72bf96d80.svg",
+    "main.513ae77c.css.map": "/static/css/main.513ae77c.css.map",
+    "main.c9fc1da4.js.map": "/static/js/main.c9fc1da4.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.513ae77c.css",
+    "static/js/main.c9fc1da4.js"
+  ]
+}
