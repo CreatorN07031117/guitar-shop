@@ -30,7 +30,6 @@ function Search(): JSX.Element {
     setSearchPhrace((prevSearchPhrace) => ({...prevSearchPhrace, search: '', result: []}));
   },[location.pathname]);
 
-
   const handleSearchChange = (evt: ChangeEvent<HTMLInputElement>) => {
     const {value} = evt.target;
     setSearchPhrace((prevSearchPhrace) => ({...prevSearchPhrace, search: value}));
@@ -43,7 +42,6 @@ function Search(): JSX.Element {
   const handleBlur = (evt: FocusEvent<HTMLInputElement>) => {
     setTimeout( () => setSearchPhrace((prevSearchPhrace) => ({...prevSearchPhrace, search: ''})), 500);
   };
-
 
   return (
     <div className={style.formSearch} >
