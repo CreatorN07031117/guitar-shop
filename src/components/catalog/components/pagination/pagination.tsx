@@ -9,7 +9,7 @@ import '../../../app/app.module.css';
 function Pagination(): JSX.Element {
   const dispatch = useAppDispatch();
   const params = useParams();
-  const location = useLocation()
+  const location = useLocation();
 
   if(params.id){
     dispatch(getCurrantPage(Number(params.id)));

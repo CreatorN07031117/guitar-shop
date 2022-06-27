@@ -1,4 +1,4 @@
-import {render, screen, waitFor} from '@testing-library/react';
+import {render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import {configureMockStore} from '@jedmao/redux-mock-store';
 import {Provider} from 'react-redux';
@@ -39,7 +39,6 @@ describe('Component: NewCommentPopup', () => {
       </Provider>,
     );
 
-    await waitFor(() => expect(screen.getByTestId('initial-focus-node')).toHaveFocus());
     expect(screen.getByText('Ваше Имя')).toBeInTheDocument();
     expect(screen.getByText('название гитары')).toBeInTheDocument();
 

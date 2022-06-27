@@ -1,7 +1,6 @@
-import {render, screen, act} from '@testing-library/react';
+import {render, screen} from '@testing-library/react';
 import {createMemoryHistory} from 'history';
 import {configureMockStore} from '@jedmao/redux-mock-store';
-import userEvent from '@testing-library/user-event';
 import {Provider} from 'react-redux';
 import HistoryRouter from '../../../history-router';
 import CatalogFilter from './catalog-filter';
@@ -26,14 +25,14 @@ const store = mockStore({
       sevenStrings: false,
       twelveStrings: false,
     },
-    priceMax: 1000,
-    priceMin: 20000,
+    priceMax: 20000,
+    priceMin: 1000,
   },
 });
 
 
 describe('Component: CatalogFilter', () => {
-  
+
   it('Компонент отрисовывается корректно', () => {
     render(
       <Provider store={store}>

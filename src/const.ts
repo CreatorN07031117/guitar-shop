@@ -24,7 +24,6 @@ export const enum APIRoute {
   Guitar = '/guitars/',
   Comments = '/comments',
   Search = '/guitars?name_like=',
- 
 }
 
 export const enum HTTPCode {

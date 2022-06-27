@@ -9,11 +9,11 @@ import {getFetchString, getArrayFromQueryString} from '../../../../utils';
 import style from './catalog-filter.module.css';
 import '../../../app/app.module.css';
 
+
 type PriceRange = {
   minPrice: null | number,
   maxPrice: null | number,
 }
-
 
 function CatalogFilter(): JSX.Element {
   const [, setFilterParams] = useSearchParams();
@@ -68,13 +68,13 @@ function CatalogFilter(): JSX.Element {
       paramsUrl.type.map((item) => {
         switch (item) {
           case 'acoustic':
-            filtersFromUrl.acoustic = true;
+            return filtersFromUrl.acoustic = true;
             break;
           case 'electric':
-            filtersFromUrl.electric = true;
+            return filtersFromUrl.electric = true;
             break;
           default:
-            filtersFromUrl.ukulele = true;
+            return filtersFromUrl.ukulele = true;
             break;
         }
       });
@@ -83,16 +83,16 @@ function CatalogFilter(): JSX.Element {
       paramsUrl.stringsCount.map((item) => {
         switch (item) {
           case '4':
-            filtersFromUrl.fourStrings = true;
+            return filtersFromUrl.fourStrings = true;
             break;
           case '6':
-            filtersFromUrl.sixStrings = true;
+            return filtersFromUrl.sixStrings = true;
             break;
           case '7':
-            filtersFromUrl.sevenStrings = true;
+            return filtersFromUrl.sevenStrings = true;
             break;
           default:
-            filtersFromUrl.twelveStrings= true;
+            return filtersFromUrl.twelveStrings= true;
             break;
         }
       });
@@ -103,14 +103,14 @@ function CatalogFilter(): JSX.Element {
   }, [dispatch, location.search]);
 
 
-  const handlePriceChange = (evt: FocusEvent<HTMLInputElement>) => {
+  const priceChangeHandle = (evt: FocusEvent<HTMLInputElement>) => {
     const {name, value, id} = evt.target;
     let price = value;
 
     if(Number(value) === 0){
       return toast.error('Цена не может быть равна нулю');
     }
-    if(id === 'minPrice' && Number(value) > (priceRange.maxPrice as number) && priceRange.maxPrice !== null){
+    if(id === 'minPrice' && priceRange.maxPrice !== null && Number(value) > priceRange.maxPrice){
       return toast.error('Минимальная цена ниже максимальной');
     }
     if(id === 'minPrice' && Number(value) < priceMin){
@@ -208,12 +208,12 @@ function CatalogFilter(): JSX.Element {
               placeholder={`${priceMin.toLocaleString()}`}
               id="minPrice"
               name="priceGte"
-              data-testid="testpricemin"
+              data-testid="pricemin"
               value={priceRange.minPrice as number}
               onChange={(evt) => {
                 setPriceRange((prev) => ({...prev, minPrice: Number(evt.target.value)}));
               }}
-              onBlur={handlePriceChange}
+              onBlur={priceChangeHandle}
             />
           </div>
           <div className={style.formInput}>
@@ -223,12 +223,12 @@ function CatalogFilter(): JSX.Element {
               placeholder={`${priceMax.toLocaleString()}`}
               id="maxPrice"
               name="priceLte"
-              data-testid="testpricemax"
+              data-testid="pricemax"
               value={priceRange.maxPrice as number}
               onChange={(evt) => {
                 setPriceRange((prev) => ({...prev, maxPrice: Number(evt.target.value)}));
               }}
-              onBlur={handlePriceChange}
+              onBlur={priceChangeHandle}
             />
           </div>
         </div>

@@ -1,7 +1,7 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {AxiosInstance} from 'axios';
 import {toast} from 'react-toastify';
-import {loadGuitars, loadPriceMax, loadPriceMin, getCurrantPage} from './catalog-process/catalog-process';
+import {loadGuitars, loadPriceMax, loadPriceMin} from './catalog-process/catalog-process';
 import {loadComments, loadGuitar} from './product-process/product-process';
 import {redirectToRoute} from './actions';
 import {errorHandle} from '../services/error-handle';

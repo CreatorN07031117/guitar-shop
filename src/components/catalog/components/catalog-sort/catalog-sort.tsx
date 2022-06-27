@@ -10,7 +10,6 @@ import '../../../app/app.module.css';
 
 
 function CatalogSort(): JSX.Element {
-
   const [, setSortParams] = useSearchParams();
 
   const location = useLocation();
@@ -20,7 +19,7 @@ function CatalogSort(): JSX.Element {
 
   useEffect(() => {
     const paramsUrl = getArrayFromQueryString(location.search);
-    dispatch(loadSort({...sort, sortType: paramsUrl.sortType, orderMethod: paramsUrl.orderMethod}));
+    dispatch(loadSort({sortType: paramsUrl.sortType, orderMethod: paramsUrl.orderMethod}));
   }, [location.search, dispatch]);
 
 
