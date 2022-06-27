@@ -42,7 +42,6 @@ function Search(): JSX.Element {
 
   const handleBlur = (evt: FocusEvent<HTMLInputElement>) => {
     setTimeout( () => setSearchPhrace((prevSearchPhrace) => ({...prevSearchPhrace, search: ''})), 500);
-    ;
   };
 
 
