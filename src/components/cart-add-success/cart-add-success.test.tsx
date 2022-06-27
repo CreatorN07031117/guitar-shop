@@ -6,9 +6,8 @@ import CartAddSuccess from './cart-add-success';
 
 const history = createMemoryHistory();
 
-
 describe('Component: CartAddSuccess', () => {
-  it('Компонент отрисовывается корректно', () => {
+  it('Компонент отрисовывается корректно', async () => {
 
     render(
       <HistoryRouter history={history}>

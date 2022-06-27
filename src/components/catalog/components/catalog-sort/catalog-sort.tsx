@@ -2,49 +2,40 @@ import {useEffect} from 'react';
 import {useSearchParams, useLocation} from 'react-router-dom';
 import {useAppSelector} from '../../../../hooks/use-app-selector';
 import {useAppDispatch} from '../../../../hooks/use-app-dispatch';
-import {fetchSortGuitars} from '../../../../store/api-actions';
-import {loadSort, loadOrderMethod} from '../../../../store/catalog-process/catalog-process';
-import {Sort, OrderMethod} from '../../../../const';
-import {getQueryStringFromObject, getObjectFromQueryString} from '../../../../utils';
+import {loadSort} from '../../../../store/catalog-process/catalog-process';
+import {SortType, OrderMethod} from '../../../../const';
+import {getFetchString, getArrayFromQueryString} from '../../../../utils';
 import style from './catalog-sort.module.css';
 import '../../../app/app.module.css';
 
 
 function CatalogSort(): JSX.Element {
-
-  const [sortParams , setSortParams] = useSearchParams();
+  const [, setSortParams] = useSearchParams();
 
   const location = useLocation();
   const dispatch = useAppDispatch();
 
+  const {filters, sort} = useAppSelector(({CATALOG}) => CATALOG);
+
   useEffect(() => {
-    const sortParamsUrl = getObjectFromQueryString(location.search);
-    console.log(sortParamsUrl)
-
-    dispatch(loadSort(sortParamsUrl.sort));
-    dispatch(loadOrderMethod(sortParamsUrl.order));
-  }, [dispatch, location.search]);
+    const paramsUrl = getArrayFromQueryString(location.search);
+    dispatch(loadSort({sortType: paramsUrl.sortType, orderMethod: paramsUrl.orderMethod}));
+  }, [location.search, dispatch]);
 
 
-  const {sortType, orderMethod} = useAppSelector(({CATALOG}) => CATALOG);
+  const handleSortClick = (type: string, order: string) => {
 
-
-  const handleSortClick = (sort: string, order: string) => {
-
-    if(order  === undefined){
+    if(order === ''){
       order = OrderMethod.Asc;
     }
 
-    if(sort === undefined){
-      sort = Sort.Price;
+    if(type === ''){
+      type = SortType.Price;
     }
 
-    dispatch(fetchSortGuitars({
-      sort: sort,
-      order: order,
-    }));
-
-    setSortParams({sort, order});
+    dispatch(loadSort({...sort, sortType: type, orderMethod: order}));
+    const response = getFetchString(filters, {...sort, sortType: type, orderMethod: order});
+    setSortParams(response);
   };
 
   return (
@@ -52,31 +43,31 @@ function CatalogSort(): JSX.Element {
       <h2 className={style.catalogSortTitle}>Сортировать:</h2>
       <div className={style.catalogSortType}>
         <button
-          className={sortType === Sort.Price? style.catalogSortTypeButtonActive : style.catalogSortTypeButton}
+          className={sort.sortType === SortType.Price? style.catalogSortTypeButtonActive : style.catalogSortTypeButton}
           aria-label="по цене"
-          onClick={() => handleSortClick(Sort.Price, orderMethod)}
+          onClick={() => handleSortClick(SortType.Price, sort.orderMethod)}
         >
           по цене
         </button>
         <button
-          className={sortType === Sort.Rating? style.catalogSortTypeButtonActive : style.catalogSortTypeButton}
+          className={sort.sortType === SortType.Rating? style.catalogSortTypeButtonActive : style.catalogSortTypeButton}
           aria-label="по популярности"
-          onClick={() => handleSortClick(Sort.Rating, orderMethod)}
+          onClick={() => handleSortClick(SortType.Rating, sort.orderMethod)}
         >
           по популярности
         </button>
       </div>
       <div className={style.catalogSortOrder}>
         <button
-          className={orderMethod === OrderMethod.Asc? `${style.orderButtonActive} ${style.catalogSortOrderButtonUp}` : style.catalogSortOrderButtonUp}
+          className={sort.orderMethod === OrderMethod.Asc? `${style.orderButtonActive} ${style.catalogSortOrderButtonUp}` : style.catalogSortOrderButtonUp}
           aria-label="По возрастанию"
-          onClick={() => handleSortClick(sortType, OrderMethod.Asc)}
+          onClick={() => handleSortClick(sort.sortType, OrderMethod.Asc)}
         >
         </button>
         <button
-          className={orderMethod === OrderMethod.Desc? `${style.orderButtonActive} ${style.catalogSortOrderButtonDown}` : style.catalogSortOrderButtonDown}
+          className={sort.orderMethod === OrderMethod.Desc? `${style.orderButtonActive} ${style.catalogSortOrderButtonDown}` : style.catalogSortOrderButtonDown}
           aria-label="По убыванию"
-          onClick={() => handleSortClick(sortType, OrderMethod.Desc)}
+          onClick={() => handleSortClick(sort.sortType, OrderMethod.Desc)}
         >
         </button>
       </div>

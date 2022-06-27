@@ -16,6 +16,23 @@ const store = mockStore({
     isDataLoaded: true,
     currentPage: 1,
     pages: 1,
+    sort: {
+      sortType: 'price',
+      orderMethod:'desc',
+    },
+    filters: {
+      priceGte: 0,
+      priceLte: 0,
+      acoustic: true,
+      electric: false,
+      ukulele: false,
+      fourStrings: false,
+      sixStrings: false,
+      sevenStrings: false,
+      twelveStrings: false,
+    },
+    priceMax: 1000,
+    priceMin: 20000,
   },
   CART: {
     orderList: [],

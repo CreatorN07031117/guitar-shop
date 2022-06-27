@@ -7,9 +7,8 @@ import SuccessCommentAddPopup from './success-comment-add-popup';
 const history = createMemoryHistory();
 history.push('/guitars/1');
 
-
 describe('Component: SuccessCommentAddPopup', () => {
-  it('Компонент отрисовывается корректно', () => {
+  it('Компонент отрисовывается корректно', async () => {
     render(
       <HistoryRouter history={history}>
         <SuccessCommentAddPopup

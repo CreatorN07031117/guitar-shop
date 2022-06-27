@@ -53,6 +53,7 @@ function GuitarPage(): JSX.Element {
     }
   };
 
+
   return (
     <div className={style.wrapper}>
       <Header />
@@ -88,6 +89,11 @@ function GuitarPage(): JSX.Element {
                   onClick={() => {
                     setActiveTab((prevActiveTab) => (prevActiveTab='characteristics'));
                   }}
+                  onKeyDown={(evt) => {
+                    if(evt.key === 'Enter'){
+                      setActiveTab((prevActiveTab) => (prevActiveTab='characteristics'));
+                    }
+                  }}
                   tabIndex={0}
                 >
                     Характеристики
@@ -95,6 +101,12 @@ function GuitarPage(): JSX.Element {
                 <span className={activeTab === 'characteristics'? style.tabsButtonBlackBorder : style.tabsButton}
                   onClick={() => {
                     setActiveTab((prevActiveTab) => (prevActiveTab='description'));
+                  }}
+                  onKeyDown={(evt) => {
+                    if(evt.key === 'Enter'){
+
+                      setActiveTab((prevActiveTab) => (prevActiveTab='description'));
+                    }
                   }}
                   tabIndex={0}
                 >

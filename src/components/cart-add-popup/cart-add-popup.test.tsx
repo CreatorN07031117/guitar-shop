@@ -18,9 +18,9 @@ const store = mockStore({
   },
 });
 
-
 describe('Component: CartAddPopup', () => {
-  it('Компонент отрисовывается корректно', () => {
+
+  it('Компонент отрисовывается корректно', async () => {
 
     render(
       <Provider store={store}>

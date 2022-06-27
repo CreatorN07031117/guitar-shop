@@ -1,13 +1,14 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {AxiosInstance} from 'axios';
-import {AppDispatch, State} from '../types/store-types';
-import {APIRoute} from '../const';
-import {Guitar, Guitars, Comments, NewComment, SortType} from '../types/data-types';
-import {loadGuitars, loadSort, loadOrderMethod} from './catalog-process/catalog-process';
+import {toast} from 'react-toastify';
+import {loadGuitars, loadPriceMax, loadPriceMin} from './catalog-process/catalog-process';
 import {loadComments, loadGuitar} from './product-process/product-process';
 import {redirectToRoute} from './actions';
 import {errorHandle} from '../services/error-handle';
-import {toast} from 'react-toastify';
+import {pushSereverResponse} from '../utils';
+import {APIRoute} from '../const';
+import {AppDispatch, State} from '../types/store-types';
+import {Guitar, Guitars, Comments, NewComment} from '../types/data-types';
 
 
 export const fetchGuitarsActions =
@@ -79,22 +80,57 @@ createAsyncThunk<void, NewComment, {
   },
 );
 
-export const fetchSortGuitars =
-createAsyncThunk<void, SortType, {
+
+export const fetchFilterGuitars =
+createAsyncThunk<void, string, {
   disadvantage: AppDispatch,
   state: State,
   extra: AxiosInstance
 }>(
-  'data/fetchSortGuitars',
-  async ({sort, order}, {dispatch, extra: api}) => {
+  'data/fetchFilterGuitars',
+  async (filterParams, {dispatch, extra: api}) => {
     try {
-      const {data} = await api.get<Guitars>(`${APIRoute.Sort}=${sort}${APIRoute.Order}=${order}`);
-      dispatch(loadGuitars(data));
-      dispatch(loadSort(sort));
-      dispatch(loadOrderMethod(order));
+      await api.get<Guitars>(`${APIRoute.Guitars}${filterParams}&_embed=comments`)
+        .then((response) => {
+          pushSereverResponse(response.status);
+          dispatch(loadGuitars(response.data));
+        });
     } catch (error) {
       errorHandle(error);
     }
   },
 );
 
+export const fetchPriceMax =
+  createAsyncThunk<void, undefined, {
+    disadvantage: AppDispatch,
+    state: State,
+    extra: AxiosInstance
+  }>(
+    'data/fetchPriceMax',
+    async (_arg, {dispatch, extra: api}) => {
+      try {
+        const {data} = await api.get<Guitars>(`${APIRoute.Guitars}?_sort=price&_order=desc&_limit=1`);
+        dispatch(loadPriceMax(data[0].price));
+      } catch (error) {
+        errorHandle(error);
+      }
+    },
+  );
+
+export const fetchPriceMin =
+  createAsyncThunk<void, undefined, {
+    disadvantage: AppDispatch,
+    state: State,
+    extra: AxiosInstance
+  }>(
+    'data/fetchPriceMin',
+    async (_arg, {dispatch, extra: api}) => {
+      try {
+        const {data} = await api.get<Guitars>(`${APIRoute.Guitars}?_sort=price&_order=asc&_limit=1`);
+        dispatch(loadPriceMin(data[0].price));
+      } catch (error) {
+        errorHandle(error);
+      }
+    },
+  );

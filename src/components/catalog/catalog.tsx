@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import {Link, Navigate} from 'react-router-dom';
+import {Link, Navigate, useLocation} from 'react-router-dom';
 import Header from '../header/header';
 import Footer from '../footer/footer';
 import CatalogFilter from './components/catalog-filter/catalog-filter';
@@ -19,13 +19,14 @@ import '../app/app.module.css';
 function Catalog(): JSX.Element {
   const [selectGuitarId, setSelectGuitarId] = useState <null | number> (null);
   const [addToCart, setAddToCart] = useState <boolean> (false);
+  const location = useLocation();
 
   const dispatch = useAppDispatch();
   const {guitars, currentPage, isDataLoaded} = useAppSelector(({CATALOG}) => CATALOG);
 
   const guitarsOnPage = guitars.slice(CARDS_PER_PAGE*(currentPage-1), CARDS_PER_PAGE*currentPage);
 
-  if(isDataLoaded && guitarsOnPage.length === 0){
+  if(isDataLoaded && guitarsOnPage.length === 0 && location.search === ''){
     return (<Navigate to={'/*'}></Navigate>);
   }
 
@@ -51,8 +52,11 @@ function Catalog(): JSX.Element {
             <CatalogSort />
             <div className={style.catalogCards}>
               {
-                guitarsOnPage.map((item) => <GuitarCard key={item.id} guitar={item} onGuitarId={(id) => setSelectGuitarId(id)} />)
+                isDataLoaded?
+                  (guitarsOnPage.map((item) => <GuitarCard key={item.id} guitar={item} onGuitarId={(id) => setSelectGuitarId(id)} />)) :
+                  (<p>Загружаем данные...</p>)
               }
+              {guitarsOnPage.length === 0 && isDataLoaded && (<p>Таких товаров не найдено</p>)}
             </div>
             <Pagination />
           </div>

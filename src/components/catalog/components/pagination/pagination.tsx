@@ -1,4 +1,4 @@
-import {Link, useParams} from 'react-router-dom';
+import {Link, useParams, useLocation} from 'react-router-dom';
 import {getCurrantPage} from '../../../../store/catalog-process/catalog-process';
 import {useAppSelector} from '../../../../hooks/use-app-selector';
 import {useAppDispatch} from '../../../../hooks/use-app-dispatch';
@@ -9,6 +9,7 @@ import '../../../app/app.module.css';
 function Pagination(): JSX.Element {
   const dispatch = useAppDispatch();
   const params = useParams();
+  const location = useLocation();
 
   if(params.id){
     dispatch(getCurrantPage(Number(params.id)));
@@ -31,7 +32,7 @@ function Pagination(): JSX.Element {
       <ul className={style.paginationList}>
         {currentPage > 1 &&
         <li className={style.paginationPrev} id="prev">
-          <Link to={`/${currentPage -1}`} className={style.paginationLink}>Назад</Link>
+          <Link to={`/${currentPage -1}${location.search}`} className={style.paginationLink}>Назад</Link>
         </li>}
         {pageNumbers.map((item) => (
           <li
@@ -42,13 +43,13 @@ function Pagination(): JSX.Element {
               handleClick(item);
             }}
           >
-            <Link to={`/${item}`} className={style.paginationLink}>{item}</Link>
+            <Link to={item === 1 && location.search === '' ? '/' : `/${item}${location.search}`} className={style.paginationLink}>{item}</Link>
           </li>
         ),
         )}
         {currentPage < pages &&
         <li className={style.paginationNext} id="next">
-          <Link to={`/${currentPage +1}`} className={style.paginationLink}>Далее</Link>
+          <Link to={`/${currentPage +1}${location.search}`} className={style.paginationLink}>Далее</Link>
         </li>}
       </ul>
     </div>
