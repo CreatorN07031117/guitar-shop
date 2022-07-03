@@ -1,6 +1,6 @@
 import {toast} from 'react-toastify';
 import {RATING_STARS, TextRating, FiltersParam, SortParam, HTTPCode} from './const';
-import {Comment } from './types/data-types';
+import {Comment, Guitar} from './types/data-types';
 import {Filter, Sort} from './types/store-types';
 
 export function getRetinaImg (img: string) {
@@ -23,6 +23,10 @@ export function sortCommentsByData (a:Comment, b:Comment) {
   const A = Number(new Date(a.createAt));
   const B = Number(new Date(b.createAt));
   return (B - A);
+}
+
+export function sortByPrice (a: Guitar, b: Guitar) {
+  return (b.price - a.price);
 }
 
 export function generateUid() {

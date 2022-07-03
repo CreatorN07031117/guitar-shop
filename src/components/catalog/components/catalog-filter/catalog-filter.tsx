@@ -47,10 +47,7 @@ function CatalogFilter(): JSX.Element {
     };
 
     if(paramsUrl.priceGte){
-      let minPrice = Number(paramsUrl.priceGte);
-      if(minPrice >  Number(paramsUrl.priceLte)){
-        minPrice = Number(paramsUrl.priceLte);
-      }
+      const minPrice = Number(paramsUrl.priceGte);
 
       filtersFromUrl.priceGte = minPrice;
       setPriceRange((prevPriceRange) => ({...prevPriceRange, minPrice: minPrice}));
@@ -124,6 +121,9 @@ function CatalogFilter(): JSX.Element {
     if(id === 'maxPrice' && Number(value) > priceMax){
       price = String(priceMax);
     }
+    if(Number(value) !== 0 && value[0] === '0'){
+      price = value.slice(1);
+    }
 
     const newFilters = {...filters, [name]: price};
     setPriceRange((prewPriceRange) => ({...prewPriceRange, [id]: price}));
@@ -144,7 +144,6 @@ function CatalogFilter(): JSX.Element {
 
   const clearFiltersHandle = () => {
     dispatch(loadFilters({
-      isFiltered: false,
       priceGte: 0,
       priceLte: 0,
       acoustic: false,
@@ -164,7 +163,7 @@ function CatalogFilter(): JSX.Element {
     if(filters.acoustic || filters.electric || filters.ukulele){
       switch (id) {
         case '4-strings':
-          return !(filters.ukulele || filters.acoustic);
+          return !(filters.ukulele || filters.electric);
           break;
         case '6-strings':
           return !(filters.electric || filters.acoustic);
@@ -173,7 +172,7 @@ function CatalogFilter(): JSX.Element {
           return !(filters.electric || filters.acoustic);
           break;
         default:
-          return !filters.electric;
+          return !filters.acoustic;
           break;
       }
     }
@@ -183,10 +182,10 @@ function CatalogFilter(): JSX.Element {
     if(filters.fourStrings || filters.sixStrings || filters.sevenStrings || filters.twelveStrings){
       switch (id) {
         case 'acoustic':
-          return !(filters.fourStrings || filters.sixStrings || filters.sevenStrings);
+          return !(filters.twelveStrings || filters.sixStrings || filters.sevenStrings);
           break;
         case 'electric':
-          return !(filters.sixStrings || filters.sevenStrings || filters.twelveStrings);
+          return !(filters.sixStrings || filters.sevenStrings || filters.fourStrings);
           break;
         default:
           return !filters.fourStrings ;

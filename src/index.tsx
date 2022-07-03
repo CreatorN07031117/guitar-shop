@@ -5,12 +5,11 @@ import {Provider} from 'react-redux';
 import {store} from './store/store';
 import HistoryRouter from './components/history-router';
 import browserHistory from './services/browser-history';
-import {fetchGuitarsActions, fetchPriceMin, fetchPriceMax} from './store/api-actions';
+import {fetchGuitarsActions} from './store/api-actions';
 import App from './components/app/app';
 import 'react-toastify/dist/ReactToastify.css';
 
-store.dispatch(fetchPriceMin());
-store.dispatch(fetchPriceMax());
+
 store.dispatch(fetchGuitarsActions());
 
 ReactDOM.render(
