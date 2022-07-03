@@ -1,4 +1,4 @@
-import {useState, useEffect, useRef, ChangeEvent, MouseEvent, FocusEvent, useCallback} from 'react';
+import {useState, useEffect, useRef, ChangeEvent, MouseEvent, useCallback} from 'react';
 import {Link, useLocation} from 'react-router-dom';
 import axios from 'axios';
 import {APIRoute} from '../../../../const';
@@ -17,11 +17,6 @@ function Search(): JSX.Element {
   );
 
   const listRef = useRef<HTMLUListElement | null>(null);
-
-  const [activeId, setActiveId] = useState ({
-    id: 0,
-  });
-
   const searchRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
@@ -36,38 +31,28 @@ function Search(): JSX.Element {
     setSearchPhrace((prevSearchPhrace) => ({...prevSearchPhrace, search: '', result: []}));
   },[location.pathname]);
 
-  const handleClickOnArrow = useCallback((evt) => {
-    if (evt.keyCode === 40 || evt.keyCode === 38) {
-      const activeElementID = activeId.id;
-      if (evt.keyCode === 40){
-        setActiveId((prevState) => ({...prevState, id:  (activeElementID - 1)}));
-      }
-      if (evt.keyCode === 38){
-        setActiveId((prevState) => ({...prevState, id:  (activeElementID + 1)}));
-      }
+  const handleClickOverBlock = useCallback((evt) => {
+    if(evt.target.className.slice(0, 6) !== 'search'){
+      setSearchPhrace((prevSearchPhrace) => ({...prevSearchPhrace, search: ''}));
     }
-  }, [activeId.id]);
+  },[]);
 
   useEffect(() => {
-    document.addEventListener('keydown', handleClickOnArrow);
-  }, [handleClickOnArrow]);
+    document.addEventListener('click', handleClickOverBlock);
+  },[handleClickOverBlock]);
 
   const handleSearchChange = (evt: ChangeEvent<HTMLInputElement>) => {
     const {value} = evt.target;
     setSearchPhrace((prevSearchPhrace) => ({...prevSearchPhrace, search: value}));
-
   };
 
   const handleCloseClick = (evt: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) => {
     setSearchPhrace((prevSearchPhrace) => ({...prevSearchPhrace, search: ''}));
-  };
-
-  const handleBlur = (evt: FocusEvent<HTMLInputElement>) => {
-    setTimeout( () => setSearchPhrace((prevSearchPhrace) => ({...prevSearchPhrace, search: ''})), 500);
+    listRef.current?.focus();
   };
 
   return (
-    <div className={style.formSearch} >
+    <div className={style.formSearch}>
       <form className={style.formSearchForm} id="form-search">
         <button className={style.formSearchSubmit} type="submit">
           <svg className={style.formSearchIcon} width="14" height="15" aria-hidden="true">
@@ -84,22 +69,16 @@ function Search(): JSX.Element {
           data-testid="search"
           ref={searchRef}
           onChange={handleSearchChange}
-          role="combobox"
-          aria-expanded
-          aria-activedescendant={`#${activeId.id}`}
-          aria-controls="search-list"
-          aria-owns="search-list"
-          onBlur={handleBlur}
         />
         <label className={style.visuallyHidden} htmlFor="search">Поиск</label>
       </form>
       {searchPhrace.search !== '' &&
         (
-          <ul className={style.formSearchSelectList} id="search-list" role="listbox" ref={listRef} unselectable="on" tabIndex={0}>
+          <ul className={style.formSearchSelectList} ref={listRef} tabIndex={0} >
             {searchPhrace.result.length === 0?
               (<li className={style.formSearchSelectItem} tabIndex={0}>Ничего не нашлось</li>) :
-              searchPhrace.result.map((item, id) => (
-                <li key={item.id} className={style.formSearchSelectItem} id={`${id}`} role="option" aria-selected={id===activeId.id}  tabIndex={-1}>
+              searchPhrace.result.map((item) => (
+                <li key={item.id} className={style.formSearchSelectItem} tabIndex={-1}>
                   <Link to={`/guitars/${item.id}`}>{item.name}</Link>
                 </li>
               ))}
