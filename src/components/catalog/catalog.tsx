@@ -1,5 +1,6 @@
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import {Link, Navigate, useLocation} from 'react-router-dom';
+import {store} from '../../store/store';
 import Header from '../header/header';
 import Footer from '../footer/footer';
 import CatalogFilter from './components/catalog-filter/catalog-filter';
@@ -11,6 +12,7 @@ import CartAddSuccess from '../cart-add-success/cart-add-success';
 import {getPages, setPages} from '../../store/catalog-process/catalog-process';
 import {useAppSelector} from '../../hooks/use-app-selector';
 import {useAppDispatch} from '../../hooks/use-app-dispatch';
+import {fetchGuitarsActions} from '../../store/api-actions';
 import {CARDS_PER_PAGE, AppRoute} from '../../const';
 import style from './catalog.module.css';
 import '../app/app.module.css';
@@ -22,6 +24,13 @@ function Catalog(): JSX.Element {
   const location = useLocation();
 
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if(location.pathname === '/'){
+      store.dispatch(fetchGuitarsActions());
+    }
+  },[dispatch, location.pathname]);
+
   const {guitars, currentPage, isDataLoaded} = useAppSelector(({CATALOG}) => CATALOG);
 
   const guitarsOnPage = guitars.slice(CARDS_PER_PAGE*(currentPage-1), CARDS_PER_PAGE*currentPage);

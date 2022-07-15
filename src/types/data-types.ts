@@ -34,3 +34,22 @@ export type NewComment = {
     comment: string,
     rating: number,
 }
+
+export type OrderItem = {
+    guitar: Guitar,
+    count: number
+}
+
+export type NewOrder = {
+  guitarsIds: number [],
+  coupon: string | null
+}
+
+export type Coupon = {
+  coupon: string | null
+}
+
+export type CouponType = {
+  isValid: null | boolean,
+  persent: number
+}

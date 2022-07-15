@@ -18,13 +18,17 @@
           transition: opacity 0.6s cubic-bezier(0.55, 0, 0.1, 1), visibility 0.6s cubic-bezier(0.55, 0, 0.1, 1), -webkit-transform 0.6s cubic-bezier(0.55, 0, 0.1, 1);
           transition: opacity 0.6s cubic-bezier(0.55, 0, 0.1, 1), transform 0.6s cubic-bezier(0.55, 0, 0.1, 1), visibility 0.6s cubic-bezier(0.55, 0, 0.1, 1);
           transition: opacity 0.6s cubic-bezier(0.55, 0, 0.1, 1), transform 0.6s cubic-bezier(0.55, 0, 0.1, 1), visibility 0.6s cubic-bezier(0.55, 0, 0.1, 1), -webkit-transform 0.6s cubic-bezier(0.55, 0, 0.1, 1);
-  -webkit-transform: scale(1);
+          -webkit-transform: scale(1);
           transform: scale(1);
   pointer-events: auto;
 
   -webkit-overflow-scrolling: touch;
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+.modal::-webkit-scrollbar {
+  display: none;
 }
 
 .modalWrapper {
@@ -56,40 +60,95 @@
 
   overflow: hidden;
 
-  display: flex;
-  flex-wrap: wrap;
-
   width: 430px;
   padding: 40px;
-  padding-top: 117px;
-  padding-bottom: 31px;
 
   border-radius: 4px;
-  background: url("../../../public/img/sprite/bg_modal.png") no-repeat top 0 left 0;
   background-color: #fefafa;
-  background-size: 255px 95px;
 }
 
-.modalIcon {
-  width: 26px;
-  height: 20px;
-  margin-right: 7px;
-  margin-left: 22px;
-}
-
-.modalMessage {
-  position: relative;
-
-  width: 255px;
+.modalHeader {
   margin-top: 0;
-  margin-bottom: 0;
+  margin-bottom: 17px;
 
+  padding: 0;
+
+  font-family: "Open Sans", "Arial", sans-serif;
   font-size: 18px;
-  font-weight: bold;
-  line-height: 20px;
-
-  text-align: center;
+  font-weight: 700;
   letter-spacing: 0.02em;
+  line-height: 1.2;
+
+  color: #c90606;
+}
+
+.modalInfo {
+  display: flex;
+}
+
+.modalImg {
+  display: block;
+
+  width: 55px;
+  height: 137px;
+
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+
+.modalInfoWrapper {
+  padding-top: 18px;
+  padding-left: 37px;
+}
+
+.modalProductName {
+  margin-top: 0;
+  margin-bottom: 10px;
+
+  padding: 0;
+
+  font-family: "Open Sans", "Arial", sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+
+  color: inherit;
+}
+
+.modalProductParams {
+  margin-top: 11px;
+  margin-bottom: 5px;
+  
+
+  font-size: 14px;
+  line-height: 15px;
+
+  letter-spacing: 0.05em;
+}
+
+.productParams {
+  margin-top: 0;
+  margin-bottom: 5px;
+
+  font-size: 14px;
+  line-height: 15px;
+
+  letter-spacing: 0.05em;
+}
+
+.modalPriceWrapper {
+  margin-top: 13px;
+  margin-bottom: 0;
+}
+
+.modalPrice {
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 15px;
+
+  letter-spacing: 0.05em;
 }
 
 .modalButtonContainer {
@@ -100,7 +159,7 @@
   padding-top: 20px;
 }
 
-.goToCartBtn {
+.modalButton {
   display: block;
 
   min-width: 170px;
@@ -129,19 +188,12 @@
   --button-vertical-padding: 12px;
 }
 
-.goToCartBtn:hover {
+.modalButton:hover {
   color: #131212;
   background-color: #fefafa;
 }
 
-.goToCartBtn a {
-  color: #fefafa;
-}
-.goToCartBtn a:hover {
-  color: #131212;
-}
-
-.continueShoppingBtn {
+.modalButtonRight {
   display: block;
 
   min-width: 170px;
@@ -155,6 +207,7 @@
   font-size: 12px;
   font-weight: 700;
   line-height: 19px;
+
 
   color: #201f1f;
   border: 1px solid #131212;
@@ -171,18 +224,10 @@
   --button-vertical-padding: 12px;
 }
 
-.continueShoppingBtn:hover {
+.modalButtonRight:hover {
   color: #fefafa;
   background-color: #131212;
 }
-
-.continueShoppingBtn a {
-  color: #131212;
-}
-.continueShoppingBtn a:hover {
-  color: #fefafa;
-}
-
 
 .modalCloseBtn {
   top: 23px;
@@ -237,11 +282,11 @@
           transform: rotate(-45deg);
 }
 
-.modalCloseBtninteractiveArea {
+.interactiveArea {
   position: relative;
 }
 
-.modalCloseBtninteractiveArea::before {
+.interactiveArea::before {
   top: 50%;
   left: 50%;
   position: absolute;
@@ -252,10 +297,4 @@
   content: "";
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
-}
-
-@media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi), (min-resolution: 1.5dppx) {
-  .modal--success .modal__content {
-    background-image: url("../../../public/img/sprite/bg_modal@2x.png");
-  }
 }

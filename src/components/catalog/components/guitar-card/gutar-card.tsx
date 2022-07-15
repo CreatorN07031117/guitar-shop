@@ -15,9 +15,8 @@ type GuitarCardProps = {
 function GuitarCard({guitar, onGuitarId}:GuitarCardProps): JSX.Element {
 
   const {orderList} = useAppSelector(({CART}) => CART);
-
   const retinaPreviewImg = getRetinaImg(guitar.previewImg);
-  const inCart = orderList.includes(guitar.id);
+  const inCart = orderList.find((item) => (item.guitar.id === guitar.id));
 
   const rating = getRatingStars(guitar.rating);
 
@@ -44,7 +43,7 @@ function GuitarCard({guitar, onGuitarId}:GuitarCardProps): JSX.Element {
       <div className={style.productCardButtons}>
         <Link to={`/guitars/${guitar.id}`} className={style.getMoreBtn}>Подробнее</Link>
         {inCart?
-          <span className={style.inCartYetBtn}>В Корзине</span> :
+          <Link to={'/cart'} className={style.inCartYetBtn}>В Корзине</Link> :
           <span
             className={style.addInCartBtn}
             data-testid="addToCart"

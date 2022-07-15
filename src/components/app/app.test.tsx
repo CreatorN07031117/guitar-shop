@@ -45,7 +45,10 @@ const store = mockStore({
   },
   CART: {
     orderList: [],
-    coupon: '',
+    coupon: {
+      isValid: null,
+      persent: 0,
+    },
   },
 });
 
@@ -91,5 +94,13 @@ describe('Application Routing', () => {
 
     expect(screen.getAllByText('Каталог')[0]).toBeInTheDocument();
     expect(screen.getByText('Название гитары')).toBeInTheDocument();
+  });
+
+  it('Должен отрисовать "Cart" когда пользователь переходит на  "/cart"', () => {
+    history.push('/cart');
+
+    render(fakeApp);
+
+    expect(screen.getAllByText('Корзина')[0]).toBeInTheDocument();
   });
 });

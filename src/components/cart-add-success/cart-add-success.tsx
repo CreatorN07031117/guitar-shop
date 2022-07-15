@@ -1,5 +1,8 @@
 import {useCallback, useEffect} from 'react';
+import {useLocation} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import FocusTrap from 'focus-trap-react';
+import {AppRoute} from '../../const';
 import style from './cart-add-success.module.css';
 import '../app/app.module.css';
 
@@ -9,6 +12,8 @@ type CartAddSuccessProps = {
 }
 
 function CartAddSuccess({onAddSuccess}:CartAddSuccessProps): JSX.Element {
+
+  const location = useLocation();
 
   useEffect(() => {
     document.body.style.overflow = 'hidden';
@@ -52,24 +57,22 @@ function CartAddSuccess({onAddSuccess}:CartAddSuccessProps): JSX.Element {
                 </svg>
                 <p className={style.modalMessage}>Товар успешно добавлен в корзину</p>
                 <div className={style.modalButtonContainer}>
-                  <button className={style.goToCartBtn}>Перейти в корзину</button>
+                  <button className={style.goToCartBtn}>
+                    <Link to={AppRoute.Cart}>Перейти в корзину</Link>
+                  </button>
                   <button
                     id='continue'
                     className={style.continueShoppingBtn}
-                    onClick={() => {
-                      onAddSuccess(false);
-                    }}
+                    onClick={() => {onAddSuccess(false);}}
                   >
-                Продолжить покупки
+                    {location.pathname.includes('guitars')? (<Link to={AppRoute.Index}>Продолжить покупки</Link>) : 'Продолжить покупки'}
                   </button>
                 </div>
                 <button
                   className={style.modalCloseBtn}
                   type="button"
                   aria-label="Закрыть"
-                  onClick={() => {
-                    onAddSuccess(false);
-                  }}
+                  onClick={() => {onAddSuccess(false);}}
                 >
                   <span className={style.buttonCrossIcon}></span>
                   <span className={style.modalCloseBtninteractiveArea}></span>
