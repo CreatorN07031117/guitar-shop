@@ -48,6 +48,9 @@ function Cart(): JSX.Element {
   const handleSubmitCoupon = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     const couponText = new FormData(couponRef.current as unknown as HTMLFormElement).get('coupon');
+    if(couponText === ''){
+      return;
+    }
     dispatch(postCoupon({coupon: couponText as string}));
   };
 
