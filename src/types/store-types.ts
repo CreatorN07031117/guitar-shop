@@ -1,5 +1,5 @@
 import {store} from '../store/store';
-import {Guitars, Guitar, Comments} from './data-types';
+import {Guitars, Guitar, Comments, OrderItem, CouponType} from './data-types';
 
 
 export type State = ReturnType<typeof store.getState>;
@@ -18,8 +18,8 @@ export type CatalogProcess = {
 };
 
 export type CartProcess = {
-  orderList: number [];
-  coupon: string;
+  orderList:  OrderItem [];
+  coupon: CouponType;
 };
 
 export type ProductProcess = {

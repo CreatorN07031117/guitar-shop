@@ -10,6 +10,10 @@ function Header(): JSX.Element {
   const location = useLocation();
   const {orderList} = useAppSelector(({CART}) => CART);
 
+  let quantityItems = 0;
+
+  orderList.map((item) => quantityItems = quantityItems + item.count);
+
   return (
     <header className={style.header} id="header">
       <div className={style.headerWrapper}>
@@ -28,11 +32,11 @@ function Header(): JSX.Element {
           </ul>
         </nav>
         <Search />
-        <Link className={style.headerCartLink} to="#" aria-label="Корзина">
+        <Link className={style.headerCartLink} to={AppRoute.Cart} aria-label="Корзина">
           <svg className={style.headerCartIcon} width="14" height="14" aria-hidden="true">
             <use xlinkHref="#icon-basket"></use>
           </svg><span className={style.visuallyHidden}>Перейти в корзину</span>
-          {orderList.length>0 && <span className={style.headerCartCount}>{orderList.length}</span>}
+          {orderList.length>0 && <span className={style.headerCartCount}>{quantityItems}</span>}
         </Link>
       </div>
     </header>

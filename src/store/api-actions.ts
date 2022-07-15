@@ -8,7 +8,8 @@ import {errorHandle} from '../services/error-handle';
 import {pushSereverResponse, sortByPrice} from '../utils';
 import {APIRoute} from '../const';
 import {AppDispatch, State} from '../types/store-types';
-import {Guitar, Guitars, Comments, NewComment} from '../types/data-types';
+import {Guitar, Guitars, Comments, NewComment, NewOrder, Coupon} from '../types/data-types';
+import {changeOrderList, skipCoupon, setCoupon, getCoupon} from './cart-process/cart-process';
 
 
 export const fetchGuitarsActions =
@@ -103,6 +104,56 @@ createAsyncThunk<void, string, {
           dispatch(loadPriceMin(minPrice[0].price));
         });
     } catch (error) {
+      errorHandle(error);
+    }
+  },
+);
+
+export const postNewOrder =
+createAsyncThunk<void, NewOrder, {
+  disadvantage: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  'data/postNewOrder',
+  async ({guitarsIds, coupon}, {dispatch, extra: api}) => {
+    try {await api.post(`${APIRoute.Order}`, {guitarsIds, coupon})
+      .then((response) => {
+        if(response.status === 201){
+          toast.success('Заказ отправлен');
+          dispatch(changeOrderList([]));
+          dispatch(skipCoupon(''));
+        }
+      });
+    } catch (error) {
+      errorHandle(error);
+    }
+  },
+);
+
+export const postCoupon =
+createAsyncThunk<void, Coupon, {
+  disadvantage: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  'data/setCoupon',
+  async ({coupon}, {dispatch, extra: api}) => {
+    try {await api.post(`${APIRoute.Coupon}`, {coupon})
+      .then((response) => {
+        dispatch(setCoupon({
+          isValid: true,
+          persent: response.data,
+        }));
+
+        dispatch(getCoupon());
+      });
+    } catch (error) {
+      dispatch(setCoupon({
+        isValid: false,
+        persent: 0,
+      }));
+      dispatch(getCoupon());
       errorHandle(error);
     }
   },

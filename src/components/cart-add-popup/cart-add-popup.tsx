@@ -1,7 +1,8 @@
 import {useCallback, useEffect} from 'react';
 import FocusTrap from 'focus-trap-react';
 import {useAppDispatch} from '../../hooks/use-app-dispatch';
-import {setOrderList, getOrderList} from '../../store/cart-process/cart-process';
+import {useAppSelector} from '../../hooks/use-app-selector';
+import {setOrderList, getOrderList, changeOrderList} from '../../store/cart-process/cart-process';
 import {GuitarType} from '../../const';
 import {getRetinaImg} from '../../utils';
 import {Guitar} from '../../types/data-types';
@@ -19,6 +20,8 @@ function CartAddPopup({guitar, onGuitarId, onAddSuccess}:CartAddPopupProps): JSX
   const dispatch = useAppDispatch();
   const retinaImg = getRetinaImg(guitar.previewImg);
 
+  const {orderList} = useAppSelector(({CART}) => CART);
+
   const shortDescription = (type:string, stringsCount:number) => {
     if(type === 'electric'){
       return `${GuitarType.Electric}. ${stringsCount} струнная`;
@@ -31,8 +34,18 @@ function CartAddPopup({guitar, onGuitarId, onAddSuccess}:CartAddPopupProps): JSX
     }
   };
 
-  const handleClick = (item: number) => {
-    dispatch(setOrderList(item));
+  const handleClick = (item: Guitar) => {
+    const order = orderList.slice().filter((orderItem) => (orderItem.guitar.id===item.id));
+
+    if(order.length === 1){
+      const updateOrderList=[...orderList];
+      const orderItem = order[0];
+      updateOrderList[orderList.indexOf(orderItem)] = {guitar: guitar, count: order[0].count + 1};
+      dispatch(changeOrderList(updateOrderList));
+    } else{
+      dispatch(setOrderList({guitar: item, count: 1}));
+    }
+
     dispatch(getOrderList());
   };
 
@@ -60,7 +73,7 @@ function CartAddPopup({guitar, onGuitarId, onAddSuccess}:CartAddPopupProps): JSX
     evt.preventDefault();
     onGuitarId(null);
     onAddSuccess(true);
-    handleClick(guitar.id);
+    handleClick(guitar);
   };
 
   return (

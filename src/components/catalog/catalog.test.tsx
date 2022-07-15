@@ -36,7 +36,10 @@ const store = mockStore({
   },
   CART: {
     orderList: [],
-    coupon: '',
+    coupon: {
+      isValid: null,
+      persent: 0,
+    },
   },
 });
 

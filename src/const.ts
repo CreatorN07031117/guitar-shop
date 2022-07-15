@@ -1,9 +1,14 @@
 export const CARDS_PER_PAGE = 9;
 
+export const MIN_COUNT = 1;
+
+export const MAX_COUNT = 99;
+
 export const enum AppRoute {
   Index = '/',
   Catalog = '/catalog',
   Guitar = '/guitars/:id',
+  Cart = '/cart',
   NotFound = '*'
 }
 
@@ -24,6 +29,8 @@ export const enum APIRoute {
   Guitar = '/guitars/',
   Comments = '/comments',
   Search = '/guitars?name_like=',
+  Order = '/orders',
+  Coupon = '/coupons'
 }
 
 export const enum HTTPCode {
