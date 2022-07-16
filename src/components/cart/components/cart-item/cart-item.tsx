@@ -53,6 +53,14 @@ function CartItem({guitar, count, isChangeQuantity, isDeleteItem}: CartItemProps
     const {value} = evt.target;
 
     let newCount = value;
+    if(Number(value) > 99){
+      newCount = '99';
+    }
+
+    if(Number(value) < 0){
+      newCount = value.slice(1);
+    }
+
     if(Number(value) !== 0 && value[0] === '0'){
       newCount = value.slice(1);
     }
