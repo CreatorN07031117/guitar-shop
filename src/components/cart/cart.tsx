@@ -79,7 +79,7 @@ function Cart(): JSX.Element {
                 <CartItem
                   key={item.guitar.name}
                   guitar={item.guitar}
-                  count={item.count}
+                  count={String(item.count)}
                   isChangeQuantity={(count: number) => {
                     const updateOrderList=[...orderList];
                     updateOrderList[id] = {guitar: item.guitar, count: count};

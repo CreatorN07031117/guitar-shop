@@ -32,7 +32,7 @@ describe('Component: CartItem', () => {
         <HistoryRouter history={history}>
           <CartItem
             guitar={mockGuitar}
-            count={1}
+            count={'1'}
             isChangeQuantity={jest.fn()}
             isDeleteItem={jest.fn()}
           />

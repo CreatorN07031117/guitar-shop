@@ -9,7 +9,7 @@ import '../../../app/app.module.css';
 
 type CartItemProps = {
   guitar: Guitar;
-  count: number;
+  count: string;
   isChangeQuantity: (count: number) => void;
   isDeleteItem: (id: number) => void;
 }
@@ -17,7 +17,7 @@ type CartItemProps = {
 function CartItem({guitar, count, isChangeQuantity, isDeleteItem}: CartItemProps): JSX.Element {
 
   const [quantity, setCount] = useState({
-    count: count,
+    count: String(count),
   });
 
   const retinaImg = getRetinaImg(guitar.previewImg);
@@ -34,19 +34,19 @@ function CartItem({guitar, count, isChangeQuantity, isDeleteItem}: CartItemProps
     }
   };
 
-  const ammount = quantity.count * guitar.price;
+  const ammount = Number(quantity.count) * guitar.price;
 
   const decreaseQuantity = () => {
-    if(quantity.count - 1 === 0){
+    if(Number(quantity.count) - 1 === 0){
       return isDeleteItem(guitar.id);
     }
-    setCount((prevQuantity) => ({...prevQuantity, count: (quantity.count - 1)}));
-    isChangeQuantity((quantity.count - 1));
+    setCount((prevQuantity) => ({...prevQuantity, count: String(Number(quantity.count) - 1)}));
+    isChangeQuantity((Number(quantity.count) - 1));
   };
 
   const increaseQuantity = () => {
-    setCount((prevQuantity) => ({...prevQuantity, count: (quantity.count + 1)}));
-    isChangeQuantity((quantity.count + 1));
+    setCount((prevQuantity) => ({...prevQuantity, count: String(Number(quantity.count) + 1)}));
+    isChangeQuantity((Number(quantity.count) + 1));
   };
 
   const changeQuantityHandle = (evt: ChangeEvent<HTMLInputElement>) => {
@@ -61,26 +61,24 @@ function CartItem({guitar, count, isChangeQuantity, isDeleteItem}: CartItemProps
       newCount = value.slice(1);
     }
 
-    setCount((prevQuantity) => ({...prevQuantity, count: Number(newCount)}));
+    setCount((prevQuantity) => ({...prevQuantity, count: newCount}));
     isChangeQuantity((Number(newCount)));
   };
 
   const blurQuantityHandle = (evt: FocusEvent<HTMLInputElement>) => {
     const {value} = evt.target;
 
-    setCount((prevQuantity) => ({...prevQuantity, count: Number(value)}));
-    isChangeQuantity((Number(value)));
-
     if(Number(value)===0){
-      setCount((prevQuantity) => ({...prevQuantity, count: MIN_COUNT}));
+      setCount((prevQuantity) => ({...prevQuantity, count: String(MIN_COUNT)}));
       isChangeQuantity(MIN_COUNT);
       isDeleteItem(guitar.id);
-    }
-
-    if(Number(value) !== 0 && value[0] === '0'){
-      const newCount = Number(value.slice(1));
-      setCount((prevQuantity) => ({...prevQuantity, count: newCount}));
+    } else if (Number(value) !== 0 && value[0] === '0'){
+      const newCount = Number(value);
+      setCount((prevQuantity) => ({...prevQuantity, count: value.replace(/^0+/, '')}));
       isChangeQuantity((newCount));
+    } else {
+      setCount((prevQuantity) => ({...prevQuantity, count: value}));
+      isChangeQuantity((Number(value)));
     }
   };
 
@@ -109,7 +107,7 @@ function CartItem({guitar, count, isChangeQuantity, isDeleteItem}: CartItemProps
           className={style.quantityButton}
           aria-label="Уменьшить количество"
           onClick={decreaseQuantity}
-          disabled={quantity.count===0}
+          disabled={Number(quantity.count)===0}
         >
           <svg width="8" height="8" aria-hidden="true">
             <use xlinkHref="#icon-minus"></use>
@@ -130,7 +128,7 @@ function CartItem({guitar, count, isChangeQuantity, isDeleteItem}: CartItemProps
           className={style.quantityButton}
           aria-label="Увеличить количество"
           onClick={increaseQuantity}
-          disabled={quantity.count===MAX_COUNT}
+          disabled={Number(quantity.count)===MAX_COUNT}
         >
           <svg width="8" height="8" aria-hidden="true">
             <use xlinkHref="#icon-plus"></use>
