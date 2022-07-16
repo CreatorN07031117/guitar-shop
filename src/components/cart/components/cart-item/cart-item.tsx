@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useState, FocusEvent} from 'react';
 import {ChangeEvent} from 'react';
 import {Guitar} from '../../../../types/data-types';
 import {getRetinaImg} from '../../../../utils';
@@ -61,12 +61,27 @@ function CartItem({guitar, count, isChangeQuantity, isDeleteItem}: CartItemProps
       newCount = value.slice(1);
     }
 
-    if(Number(value) !== 0 && value[0] === '0'){
-      newCount = value.slice(1);
-    }
-
     setCount((prevQuantity) => ({...prevQuantity, count: Number(newCount)}));
     isChangeQuantity((Number(newCount)));
+  };
+
+  const blurQuantityHandle = (evt: FocusEvent<HTMLInputElement>) => {
+    const {value} = evt.target;
+
+    setCount((prevQuantity) => ({...prevQuantity, count: Number(value)}));
+    isChangeQuantity((Number(value)));
+
+    if(Number(value)===0){
+      setCount((prevQuantity) => ({...prevQuantity, count: MIN_COUNT}));
+      isChangeQuantity(MIN_COUNT);
+      isDeleteItem(guitar.id);
+    }
+
+    if(Number(value) !== 0 && value[0] === '0'){
+      const newCount = Number(value.slice(1));
+      setCount((prevQuantity) => ({...prevQuantity, count: newCount}));
+      isChangeQuantity((newCount));
+    }
   };
 
   return (
@@ -109,13 +124,7 @@ function CartItem({guitar, count, isChangeQuantity, isDeleteItem}: CartItemProps
           max="99"
           value={quantity.count}
           onChange={(evt) => changeQuantityHandle(evt)}
-          onBlur={() => {
-            if(quantity.count===0){
-              setCount((prevQuantity) => ({...prevQuantity, count: MIN_COUNT}));
-              isChangeQuantity(MIN_COUNT);
-              isDeleteItem(guitar.id);
-            }
-          }}
+          onBlur={(evt) => blurQuantityHandle(evt)}
         />
         <button
           className={style.quantityButton}
