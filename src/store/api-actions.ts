@@ -122,7 +122,10 @@ createAsyncThunk<void, NewOrder, {
         if(response.status === 201){
           toast.success('Заказ отправлен');
           dispatch(changeOrderList([]));
-          dispatch(skipCoupon(''));
+          dispatch(skipCoupon({
+            isValid: null,
+            persent: 0,
+          }));
         }
       });
     } catch (error) {
