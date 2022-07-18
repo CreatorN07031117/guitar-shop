@@ -1,7 +1,8 @@
 import {useCallback, useEffect} from 'react';
 import {useLocation} from 'react-router-dom';
-import {Link} from 'react-router-dom';
 import FocusTrap from 'focus-trap-react';
+import {useAppDispatch} from '../../hooks/use-app-dispatch';
+import {redirectToRoute} from '../../store/actions';
 import {AppRoute} from '../../const';
 import style from './cart-add-success.module.css';
 import '../app/app.module.css';
@@ -14,6 +15,7 @@ type CartAddSuccessProps = {
 function CartAddSuccess({onAddSuccess}:CartAddSuccessProps): JSX.Element {
 
   const location = useLocation();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     document.body.style.overflow = 'hidden';
@@ -57,15 +59,25 @@ function CartAddSuccess({onAddSuccess}:CartAddSuccessProps): JSX.Element {
                 </svg>
                 <p className={style.modalMessage}>Товар успешно добавлен в корзину</p>
                 <div className={style.modalButtonContainer}>
-                  <button className={style.goToCartBtn}>
-                    <Link to={AppRoute.Cart}>Перейти в корзину</Link>
+                  <button
+                    className={style.goToCartBtn}
+                    onClick={() => {
+                      dispatch(redirectToRoute(AppRoute.Cart));
+                    }}
+                  >
+                    Перейти в корзину
                   </button>
                   <button
                     id='continue'
                     className={style.continueShoppingBtn}
-                    onClick={() => {onAddSuccess(false);}}
+                    onClick={() => {
+                      onAddSuccess(false);
+                      if(location.pathname.includes('guitars')){
+                        dispatch(redirectToRoute(AppRoute.Index));
+                      }
+                    }}
                   >
-                    {location.pathname.includes('guitars')? (<Link to={AppRoute.Index}>Продолжить покупки</Link>) : 'Продолжить покупки'}
+                    Продолжить покупки
                   </button>
                 </div>
                 <button

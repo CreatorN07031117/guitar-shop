@@ -16,6 +16,9 @@ import '../app/app.module.css';
 
 function Cart(): JSX.Element {
   const [selectGuitarId, setSelectGuitarId] = useState <null | number> (null);
+  const [promo, setPromo] = useState ({
+    text: '',
+  });
 
   const couponRef = useRef(null);
 
@@ -39,6 +42,7 @@ function Cart(): JSX.Element {
   if(coupon.persent > 0 && totalAmmount > 0) {
     discount = -totalAmmount * coupon.persent / 100;
   }
+
   const payment = totalAmmount + discount;
 
   const handleSubmitNewOrder = (newOrder: NewOrder) => {
@@ -107,6 +111,19 @@ function Cart(): JSX.Element {
                       placeholder="Введите промокод"
                       id="coupon"
                       name="coupon"
+                      value={promo.text}
+                      onChange={(evt) => {
+                        const {value} = evt.target;
+                        if(value[0] === ' ' && value[value.length - 1] === ' '){
+                          setPromo((prevPromo) => ({...prevPromo, text: value.slice(1, value.length - 1)}));
+                        } else if(value[0] === ' '){
+                          setPromo((prevPromo) => ({...prevPromo, text: value.slice(1)}));
+                        } else if(value[value.length - 1] === ' '){
+                          setPromo((prevPromo) => ({...prevPromo, text: value.slice(0, value.length - 1)}));
+                        } else {
+                          setPromo((prevPromo) => ({...prevPromo, text: value}));
+                        }
+                      }}
                     />
                     {coupon.isValid !== null?
                       (
