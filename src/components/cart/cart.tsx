@@ -47,15 +47,15 @@ function Cart(): JSX.Element {
 
   const handleSubmitNewOrder = (newOrder: NewOrder) => {
     dispatch(postNewOrder(newOrder));
+    setPromo((prevPromo) => ({...prevPromo, text: ''}));
   };
 
   const handleSubmitCoupon = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    const couponText = new FormData(couponRef.current as unknown as HTMLFormElement).get('coupon');
-    if(couponText === ''){
+    if(promo.text === ''){
       return;
     }
-    dispatch(postCoupon({coupon: couponText as string}));
+    dispatch(postCoupon({coupon: promo.text as string}));
   };
 
 
